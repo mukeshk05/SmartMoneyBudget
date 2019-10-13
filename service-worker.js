@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/SmartMoneyBudget/precache-manifest.cb4255db8f6e52afdc35e6ed71366a7a.js"
+  "/SmartMoneyBudget/precache-manifest.26427eb0ae36a7410f37dd0c24366769.js"
 );
 
 self.addEventListener('message', (event) => {

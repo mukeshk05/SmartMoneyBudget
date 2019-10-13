@@ -1,0 +1,70 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://mukeshk05.github.io/SmartMOney/client/",
+  "dependencies": {
+    "antd": "^3.13.5",
+    "antd-theme-webpack-plugin": "^1.2.0",
+    "apexcharts": "^3.8.6",
+    "apollo-boost": "^0.1.23",
+    "apollo-cache-inmemory": "^1.6.3",
+    "apollo-client": "^2.6.4",
+    "apollo-upload-client": "^11.0.0",
+    "gh-pages": "^2.1.1",
+    "graphql": "^14.0.2",
+    "graphql-tag": "^2.10.0",
+    "nodemon": "^1.19.2",
+    "pdf2json": "^1.1.8",
+    "prettier": "^1.18.2",
+    "prop-types": "^15.7.2",
+    "react": "latest",
+    "react-apexcharts": "^1.3.3",
+    "react-apollo": "^2.3.3",
+    "react-color": "^2.17.0",
+    "react-dom": "latest",
+    "react-emotion": "^10.0.0",
+    "react-multistep": "^3.6.13",
+    "react-redux": "^7.1.1",
+    "react-resizable": "^1.8.0",
+    "react-responsive": "^6.1.1",
+    "react-router": "5.0.1",
+    "react-router-dom": "latest",
+    "react-scripts": "^3.1.2",
+    "react-stepzilla": "^6.0.2",
+    "react-sticky": "^6.0.3",
+    "redux": "^4.0.4",
+    "redux-mock-store": "^1.5.3",
+    "styled-components": "latest",
+    "yarn": "^1.17.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy":"npm run build",
+    "deploy":"gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@rescripts/cli": "0.0.10",
+    "@rescripts/rescript-env": "0.0.5",
+    "@rescripts/rescript-use-babel-config": "0.0.5",
+    "babel-plugin-import": "^1.11.0",
+    "firebase-tools": "^6.5.3",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0"
+  },
+  "rescripts": [
+    ".rescriptsrc.js"
+  ]
+}

@@ -4,7 +4,7 @@ import HeaderRes from "../header/Header";
 import { useDispatch} from "react-redux";
 import CURRENT_COMPONENT from "../../reducers/types";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   NavLink,
   Route
 } from "react-router-dom";

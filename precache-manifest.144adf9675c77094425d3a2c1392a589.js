@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0cc48c070c1a8afbff1d3cb72e0165a3",
+    "revision": "0dc96982f3ea2bc40f6c8712c278e77d",
     "url": "/SmartMoneyBudget/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/SmartMoneyBudget/static/css/2.02091e05.chunk.css"
   },
   {
-    "revision": "9067410d667d0e2b4581",
+    "revision": "ad8def7ca61ebb97d9da",
     "url": "/SmartMoneyBudget/static/css/main.d9214d86.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/SmartMoneyBudget/static/js/2.bed2d93c.chunk.js"
   },
   {
-    "revision": "9067410d667d0e2b4581",
-    "url": "/SmartMoneyBudget/static/js/main.913aaa2d.chunk.js"
+    "revision": "ad8def7ca61ebb97d9da",
+    "url": "/SmartMoneyBudget/static/js/main.7b04976b.chunk.js"
   },
   {
     "revision": "4b88ce09273c822b654b",

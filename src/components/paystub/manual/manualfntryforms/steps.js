@@ -1,25 +1,22 @@
 import React from 'react'
-import { StepOne } from './StepOne'
-import { StepTwo } from './StepTwo'
-import { StepThree } from './StepThree'
-import { StepFour } from './StepFour'
-import {FixedExpance} from "./FixedExpance";
-import {Bills} from "./Bills";
-import {VariableExpance} from "./VariableExpance";
-import {Savings} from "./Savings";
-import {ExtraRetirementSavings} from "./ExtraRetirementSavings";
+import { Benefits } from './Benefits'
+import { PreTaxDeduction } from './PreTaxDeduction'
+import { Taxes } from './Taxes'
+import { PostTaxDeductions } from './PostTaxDeductions'
+import {FixedExpance} from "../../../budget/budgetplanner/FixedExpance";
+import {Bills} from "../../../budget/budgetplanner/Bills";
+import {VariableExpance} from "../../../budget/budgetplanner/VariableExpance";
+import {Savings} from "../../../budget/budgetplanner/Savings";
+import {ExtraRetirementSavings} from "../../../budget/budgetplanner/ExtraRetirementSavings";
+import {Salary} from "./Salary";
 
 const steps = 
     [
-      {name: 'Benefits', component: <StepOne/>},
-      {name: 'Pre Tax Deduction', component: <StepTwo/>},
-      {name: 'Taxes', component: <StepThree/>},
-      {name: 'Post Tax Deductions', component: <StepFour/>},
-      {name: 'Fixed Expenses', component: <FixedExpance/>},
-      {name: 'Bills', component: <Bills/>},
-      {name: 'Variable Expenses', component: <VariableExpance/>},
-      {name: 'Savings', component: <Savings/>},
-      {name: 'Extra Retirement Savings', component: <ExtraRetirementSavings/>}
+      {name: 'Salary', component: <Salary/>},
+      {name: 'Benefits', component: <Benefits/>},
+      {name: 'Pre Tax Deduction', component: <PreTaxDeduction/>},
+      {name: 'Taxes', component: <Taxes/>},
+      {name: 'Post Tax Deductions', component: <PostTaxDeductions/>}
     ];
 
 export { steps }

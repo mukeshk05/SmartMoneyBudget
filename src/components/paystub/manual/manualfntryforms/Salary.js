@@ -7,31 +7,25 @@ import "../../../../styles/index.css";
 
 const { Option } = Select;
 
-export class StepFour extends React.Component {
+export class Salary extends React.Component {
 
   constructor () {
     super();
     this.state = {
       data : [{
         key: '14',
-        topic: 'Basic Life Insurance',
+        topic: 'Salary',
       }, {
         key: '25',
-        topic: ' Supplemental Life Insurance',
+        topic: 'Bonuses / Overtime',
       }, {
         key: '33',
-        topic: 'Supplemental Spouse Life Insurance',
+        topic: 'Centre link benefits',
       },{
         key: '43',
-        topic: 'Employee AD&D',
-      }, {
-        key: '53',
-        topic: 'Spouse AD&D',
-      },{
-        key: '54',
-        topic: 'Short Term Disability',
+        topic: 'Child support received',
       }],
-      count: 7,
+      count: 4,
     };
     this.handleFirstNameChanged = this.handleFirstNameChanged.bind(this);
     this.handleLastNameChanged = this.handleLastNameChanged.bind(this);
@@ -72,10 +66,10 @@ export class StepFour extends React.Component {
         data: [...data, newData],
         count: count + 1,
       });
-      /*  this.setState(prevState => ({
-          data: { ...prevState.data, values },
-          count: count+1,
-        }));*/
+    /*  this.setState(prevState => ({
+        data: { ...prevState.data, values },
+        count: count+1,
+      }));*/
 
       //console.log('Pre Data',{state});
       form.resetFields();
@@ -116,7 +110,7 @@ export class StepFour extends React.Component {
       key: 'primary',
       width:"200px",
       height:"20px",
-      render: husband => <tr><td><Select
+      render: primary => <tr><td><Select
           showSearch
           style={{ width: 200 }}
           placeholder="Select a type"
@@ -137,7 +131,7 @@ export class StepFour extends React.Component {
       key: 'spouse',
       width:"200px",
       height:"20px",
-      render: wife => <tr><td><Select
+      render: spouse => <tr><td><Select
           showSearch
           style={{ width: 200 }}
           placeholder="Select a type"
@@ -156,12 +150,12 @@ export class StepFour extends React.Component {
 
 
     return (
-        <div className="ant-layout">
+        <div className="ant-layout" >
           <Row>
             <Col span={5}>
               <div>
                 <Button type="primary" onClick={this.showModal}>
-                  Add New Post Tax Deductions
+                  Add New Income
                 </Button>
                 <AddAttributeForm
                     wrappedComponentRef={this.saveFormRef}
@@ -179,7 +173,7 @@ export class StepFour extends React.Component {
               </div>
             </Col>
           </Row>
-          <Row>
+          <Row >
             <Col span={1}>
 
             </Col>

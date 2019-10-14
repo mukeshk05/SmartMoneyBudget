@@ -1,8 +1,8 @@
 'use strict';
 import React from 'react'
 import {Table, Input, Select, Row, Col, Button, Statistic,} from 'antd'
-import AddAttributeForm from "./AddAttributeForm";
-import "../../../../styles/index.css";
+import AddAttributeForm from "../../paystub/manual/manualfntryforms/AddAttributeForm";
+import "../../../styles/index.css";
 
 const { Option } = Select;
 

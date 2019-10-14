@@ -12,6 +12,7 @@ import {
 import SubMenu from "antd/es/menu/SubMenu";
 import ManualPayEntry from "./manual/ManualPayEntry";
 import ScanPDF from "./scanpdf/ScanPDF";
+import BudgetFooter from "../footer/Footer";
 const { Content, Sider, Footer } = Layout;
 
 const PayStubSideBar = props => {
@@ -97,14 +98,7 @@ const PayStubSideBar = props => {
                         </Layout>
                     </Router>
                 </Content>
-                <Footer style={{ textAlign: "center" }}>
-                    ©2019 Created by{" "}
-                    <span>
-            {" "}
-                        <Icon type="dollar" />
-            mart Money
-          </span>
-                </Footer>
+                <BudgetFooter/>
             </Layout>
         );
     }

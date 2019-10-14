@@ -10,6 +10,7 @@ import {
     Route
 } from "react-router-dom";
 import Cash from "./Cash";
+import BudgetFooter from "../footer/Footer";
 const { Content, Sider, Footer } = Layout;
 
 const AccountsSideBar = props => {
@@ -102,14 +103,7 @@ const AccountsSideBar = props => {
                     </Layout>
                     </Router>
                 </Content>
-                <Footer style={{ textAlign: "center" }}>
-                    ©2019 Created by{" "}
-                    <span>
-            {" "}
-                        <Icon type="dollar" />
-            mart Money
-          </span>
-                </Footer>
+            <BudgetFooter/>
             </Layout>
         );
     }

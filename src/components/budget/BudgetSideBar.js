@@ -14,6 +14,8 @@ import Saving from "./Saving";
 import Income from "./Income";
 import Tracket from "./Tracker";
 import SubMenu from "antd/es/menu/SubMenu";
+import BudgetFooter from "../footer/Footer";
+import BudgetPlannerEntry from "./budgetplanner/BudgetPlannerEntry";
 const { Content, Sider, Footer } = Layout;
 
 const BudgetSideBar = props => {
@@ -59,12 +61,28 @@ const BudgetSideBar = props => {
                     {<Icon type={collapsed ? "menu-unfold" : "menu-fold"} />}
                   </Button>
                   <Menu
-                    defaultSelectedKeys={["budgetspending"]}
+                    defaultSelectedKeys={["budgetplannerentry"]}
                     mode="inline"
                     theme="dark"
                     inlineCollapsed={collapsed}
                     style={{ padding: "0px 0px" }}
                   >
+
+                    <Menu.Item key="budgetplannerentry">
+                      <NavLink to="/budget/budgetplannerentry">
+                        <Icon type="fund" spin="true" />
+                        <span>Budget Planner</span>
+                      </NavLink>
+                    </Menu.Item>
+
+
+
+                    <Menu.Item key="tracker">
+                      <NavLink to="/budget/trackers">
+                      <Icon type="transaction" spin="true" />
+                      <span>Tracker</span>
+                      </NavLink>
+                    </Menu.Item>
 
                     <SubMenu
                         key="cashflow"
@@ -96,12 +114,7 @@ const BudgetSideBar = props => {
                       </Menu.Item>
                     </SubMenu>
 
-                    <Menu.Item key="tracker">
-                      <NavLink to="/budget/trackers">
-                      <Icon type="transaction" spin="true" />
-                      <span>Tracker</span>
-                      </NavLink>
-                    </Menu.Item>
+
                     <Menu.Item key="2">
                       <Icon type="fund" spin="true" />
                       <span>Total Income</span>
@@ -141,6 +154,7 @@ const BudgetSideBar = props => {
                 </div>
               </Sider>
               <Content className="content" style={{ margin: "0px 0px 0" }}>
+                <Route path="/budget/budgetplannerentry" component={BudgetPlannerEntry} />
                 <Route path="/budget/budgetspending" component={DonutChart} />
                 <Route path="/budget/trackers" component={Tracket} />
                 <Route path="/budget/cashflow" component={CashFlow}/>
@@ -150,14 +164,7 @@ const BudgetSideBar = props => {
             </Layout>
           </Router>
         </Content>
-        <Footer style={{ textAlign: "center" }}>
-          ©2019 Created by{" "}
-          <span>
-            {" "}
-            <Icon type="dollar" />
-            mart Money
-          </span>
-        </Footer>
+        <BudgetFooter/>
       </Layout>
     );
   }

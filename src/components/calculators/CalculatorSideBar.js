@@ -3,6 +3,7 @@ import { Layout, Icon, Menu, Button } from "antd";
 import HeaderRes from "../header/Header";
 import {useDispatch} from "react-redux";
 import CURRENT_COMPONENT from "../../reducers/types";
+import BudgetFooter from "../footer/Footer";
 const { Content, Sider, Footer } = Layout;
 
 const CalculatorSideBar = props => {
@@ -67,14 +68,7 @@ const CalculatorSideBar = props => {
                         <Content className="content" style={{ margin: "0px 0px 0" }} />
                     </Layout>
                 </Content>
-                <Footer style={{ textAlign: "center" }}>
-                    ©2019 Created by{" "}
-                    <span>
-            {" "}
-                        <Icon type="dollar" />
-            mart Money
-          </span>
-                </Footer>
+                <BudgetFooter/>
             </Layout>
         );
     }

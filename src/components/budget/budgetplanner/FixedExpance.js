@@ -1,43 +1,35 @@
 'use strict';
 import React from 'react'
-import {Table,Input, Select, Row, Col, Button, Statistic,} from 'antd'
-import AddAttributeForm from "./AddAttributeForm";
-import "../../../../styles/index.css";
+import {Table ,Input, Select, Row, Col, Button, Statistic,} from 'antd'
+
+import AddAttributeForm from "../../paystub/manual/manualfntryforms/AddAttributeForm";
+import "../../../styles/index.css";
 
 const { Option } = Select;
 
-export class VariableExpance extends React.Component {
+export class FixedExpance extends React.Component {
 
     constructor () {
         super();
         this.state = {
             data : [{
                 key: '14',
-                topic: 'Food',
+                topic: 'Mortgage (Principle+Interest)',
             }, {
                 key: '25',
-                topic: 'Extra Mortgage Payment',
+                topic: ' Property Tax',
             }, {
                 key: '33',
-                topic: 'Shopping',
+                topic: 'Car Loan',
             },{
                 key: '43',
-                topic: 'Health & Fitness',
+                topic: 'Student Loans',
             }, {
                 key: '53',
-                topic: 'Entertainment',
+                topic: 'Home Owners Association Fee',
             },{
                 key: '54',
-                topic: 'Car Gasoline & Tolls',
-            }, {
-                key: '55',
-                topic: 'Insurance y',
-            },{
-                key: '56',
-                topic: 'Insurance z',
-            }, {
-                key: '57',
-                topic: 'Personal Care',
+                topic: 'Private Mortgage Insurance',
             }],
             count: 7,
         };
@@ -169,7 +161,7 @@ export class VariableExpance extends React.Component {
                     <Col span={5}>
                         <div>
                             <Button type="primary" onClick={this.showModal}>
-                            Add New Variable Expenses
+                                Add New Fixed Expenses
                             </Button>
                             <AddAttributeForm
                                 wrappedComponentRef={this.saveFormRef}

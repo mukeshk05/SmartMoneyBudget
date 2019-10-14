@@ -1,35 +1,37 @@
 'use strict';
 import React from 'react'
-import {Table ,Input, Select, Row, Col, Button, Statistic,} from 'antd'
-
-import AddAttributeForm from "./AddAttributeForm";
-import "../../../../styles/index.css";
+import {Table, Input, Select, Row, Col, Button, Statistic,} from 'antd'
+import AddAttributeForm from "../../paystub/manual/manualfntryforms/AddAttributeForm";
+import "../../../styles/index.css";
 
 const { Option } = Select;
 
-export class FixedExpance extends React.Component {
+export class Savings extends React.Component {
 
     constructor () {
         super();
         this.state = {
             data : [{
                 key: '14',
-                topic: 'Mortgage (Principle+Interest)',
+                topic: 'Extra Student Loan Payment Savings',
             }, {
                 key: '25',
-                topic: ' Property Tax',
+                topic: 'Emergency Fund Savings',
             }, {
                 key: '33',
-                topic: 'Car Loan',
+                topic: 'House Maintenance Savings',
             },{
                 key: '43',
-                topic: 'Student Loans',
+                topic: 'Car Service & Parts Savings',
             }, {
                 key: '53',
-                topic: 'Home Owners Association Fee',
+                topic: 'Travel Savings',
             },{
                 key: '54',
-                topic: 'Private Mortgage Insurance',
+                topic: 'Baby Savings',
+            }, {
+                key: '55',
+                topic: 'Other Savings',
             }],
             count: 7,
         };
@@ -161,7 +163,7 @@ export class FixedExpance extends React.Component {
                     <Col span={5}>
                         <div>
                             <Button type="primary" onClick={this.showModal}>
-                                Add New Fixed Expenses
+                              Add New Savings
                             </Button>
                             <AddAttributeForm
                                 wrappedComponentRef={this.saveFormRef}

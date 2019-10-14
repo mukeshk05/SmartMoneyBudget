@@ -6,6 +6,7 @@ import AdviceSideBar from "./advice/AdviceSideBar";
 import GoalsSideBar from "./goals/GoalsSideBar";
 import CalculatorSideBar from "./calculators/CalculatorSideBar";
 import AccountsSideBar from "./accounts/AccountsSideBar";
+import BudgetPlannerEntry from "./budget/budgetplanner/BudgetPlannerEntry";
 
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
               <Route path="/paystub/manualentry" component={PayStubSideBar} />
               <Route path="/paystub/autoscanpdf" component={PayStubSideBar}/>
               <Route path="/accounts/cash" component={AccountsSideBar}/>
+              <Route path="/budget/budgetplannerentry" component={BudgetSideBar} />
           </Switch>
       </div>
     );

@@ -1,35 +1,32 @@
 'use strict';
 import React from 'react'
-import {Table, Input, Select, Row, Col, Button, Statistic,} from 'antd'
+import {Table,  Input, Select, Row, Col, Button, Statistic,} from 'antd'
 
 import AddAttributeForm from "./AddAttributeForm";
 import "../../../../styles/index.css";
 
 const { Option } = Select;
 
-export class StepTwo extends React.Component {
+export class Taxes extends React.Component {
 
   constructor () {
     super();
     this.state = {
       data : [{
         key: '14',
-        topic: 'Employee Paid 401k',
+        topic: 'Federal Income Tax',
       }, {
         key: '25',
-        topic: 'Employee Paid 403b',
+        topic: 'Social Security',
       }, {
         key: '33',
-        topic: 'Health Savings Account',
+        topic: 'Tax x',
       },{
         key: '43',
-        topic: 'Medical',
+        topic: 'Tax z',
       }, {
         key: '53',
-        topic: 'Dental',
-      }, {
-        key: '63',
-        topic: 'Eye Care',
+        topic: 'Federal Medicare',
       }],
       count: 7,
     };
@@ -161,7 +158,7 @@ export class StepTwo extends React.Component {
             <Col span={5}>
               <div>
                 <Button type="primary" onClick={this.showModal}>
-                Add New Tax Deduction
+                  Add New Taxes
                 </Button>
                 <AddAttributeForm
                     wrappedComponentRef={this.saveFormRef}

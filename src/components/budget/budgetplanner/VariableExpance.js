@@ -1,37 +1,43 @@
 'use strict';
 import React from 'react'
-import {Table, Input, Select, Row, Col, Button, Statistic,} from 'antd'
-import AddAttributeForm from "./AddAttributeForm";
-import "../../../../styles/index.css";
+import {Table,Input, Select, Row, Col, Button, Statistic,} from 'antd'
+import AddAttributeForm from "../../paystub/manual/manualfntryforms/AddAttributeForm";
+import "../../../styles/index.css";
 
 const { Option } = Select;
 
-export class Savings extends React.Component {
+export class VariableExpance extends React.Component {
 
     constructor () {
         super();
         this.state = {
             data : [{
                 key: '14',
-                topic: 'Extra Student Loan Payment Savings',
+                topic: 'Food',
             }, {
                 key: '25',
-                topic: 'Emergency Fund Savings',
+                topic: 'Extra Mortgage Payment',
             }, {
                 key: '33',
-                topic: 'House Maintenance Savings',
+                topic: 'Shopping',
             },{
                 key: '43',
-                topic: 'Car Service & Parts Savings',
+                topic: 'Health & Fitness',
             }, {
                 key: '53',
-                topic: 'Travel Savings',
+                topic: 'Entertainment',
             },{
                 key: '54',
-                topic: 'Baby Savings',
+                topic: 'Car Gasoline & Tolls',
             }, {
                 key: '55',
-                topic: 'Other Savings',
+                topic: 'Insurance y',
+            },{
+                key: '56',
+                topic: 'Insurance z',
+            }, {
+                key: '57',
+                topic: 'Personal Care',
             }],
             count: 7,
         };
@@ -163,7 +169,7 @@ export class Savings extends React.Component {
                     <Col span={5}>
                         <div>
                             <Button type="primary" onClick={this.showModal}>
-                              Add New Savings
+                            Add New Variable Expenses
                             </Button>
                             <AddAttributeForm
                                 wrappedComponentRef={this.saveFormRef}

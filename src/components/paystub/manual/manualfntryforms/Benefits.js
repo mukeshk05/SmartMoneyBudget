@@ -7,7 +7,7 @@ import "../../../../styles/index.css";
 
 const { Option } = Select;
 
-export class StepOne extends React.Component {
+export class Benefits extends React.Component {
 
   constructor () {
     super();

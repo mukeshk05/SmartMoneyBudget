@@ -98,9 +98,9 @@ export class ExtraRetirementSavings extends React.Component {
             height:"20px",
             render: text => <div style={{}}>{text}</div>,
         }, {
-            title: 'Husband',
-            dataIndex: 'husband',
-            key: 'husband',
+            title: 'primary',
+            dataIndex: 'primary',
+            key: 'primary',
             width:"200px",
             height:"20px",
             render: husband => <tr><td><Select
@@ -119,9 +119,9 @@ export class ExtraRetirementSavings extends React.Component {
             </Select></td><td><Input /></td></tr>
         }, {
 
-            title: 'Wife',
-            dataIndex: 'wife',
-            key: 'wife',
+            title: 'spouse',
+            dataIndex: 'spouse',
+            key: 'spouse',
             width:"200px",
             height:"20px",
             render: wife => <tr><td><Select
@@ -148,7 +148,7 @@ export class ExtraRetirementSavings extends React.Component {
                     <Col span={5}>
                         <div>
                             <Button type="primary" onClick={this.showModal}>
-                                New Collection
+                            Add New Extra Retirement Savings
                             </Button>
                             <AddAttributeForm
                                 wrappedComponentRef={this.saveFormRef}
@@ -166,7 +166,7 @@ export class ExtraRetirementSavings extends React.Component {
                         </div>
                     </Col>
                 </Row>
-                <Row gutter={16}>
+                <Row>
                     <Col span={1}>
 
                     </Col>

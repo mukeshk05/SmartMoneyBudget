@@ -13,7 +13,7 @@ import SubMenu from "antd/es/menu/SubMenu";
 import ManualPayEntry from "./manual/ManualPayEntry";
 import ScanPDF from "./scanpdf/ScanPDF";
 import BudgetFooter from "../footer/Footer";
-const { Content, Sider, Footer } = Layout;
+const { Content, Sider} = Layout;
 
 const PayStubSideBar = props => {
     const [collapsed, onCollapse] = useState(false);

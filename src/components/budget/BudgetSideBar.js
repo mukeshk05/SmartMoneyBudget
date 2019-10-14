@@ -61,21 +61,19 @@ const BudgetSideBar = props => {
                     {<Icon type={collapsed ? "menu-unfold" : "menu-fold"} />}
                   </Button>
                   <Menu
-                    defaultSelectedKeys={["budgetplannerentry"]}
+                    defaultSelectedKeys={["budgetEntry"]}
                     mode="inline"
                     theme="dark"
                     inlineCollapsed={collapsed}
                     style={{ padding: "0px 0px" }}
                   >
 
-                    <Menu.Item key="budgetplannerentry">
-                      <NavLink to="/budget/budgetplannerentry">
+                    <Menu.Item key="budgetEntry">
+                      <NavLink to="/budget/budgetEntry">
                         <Icon type="fund" spin="true" />
                         <span>Budget Planner</span>
                       </NavLink>
                     </Menu.Item>
-
-
 
                     <Menu.Item key="tracker">
                       <NavLink to="/budget/trackers">
@@ -154,7 +152,7 @@ const BudgetSideBar = props => {
                 </div>
               </Sider>
               <Content className="content" style={{ margin: "0px 0px 0" }}>
-                <Route path="/budget/budgetplannerentry" component={BudgetPlannerEntry} />
+                <Route path="/budget/budgetEntry" component={BudgetPlannerEntry} />
                 <Route path="/budget/budgetspending" component={DonutChart} />
                 <Route path="/budget/trackers" component={Tracket} />
                 <Route path="/budget/cashflow" component={CashFlow}/>

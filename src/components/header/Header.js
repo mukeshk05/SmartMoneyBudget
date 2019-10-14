@@ -32,7 +32,7 @@ const HeaderRes = props => {
           <NavLink to="/paystub/manualentry"> Pay Stub</NavLink>
         </Menu.Item>
         <Menu.Item key="budget" >
-          <NavLink to="/budget/budgetspending">Budget</NavLink>
+          <NavLink to="/budget/budgetEntry">Budget</NavLink>
         </Menu.Item>
         <Menu.Item key="advice" >
           <NavLink to="/advice"> Advice</NavLink>

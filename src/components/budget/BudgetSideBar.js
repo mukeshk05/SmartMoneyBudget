@@ -5,7 +5,7 @@ import { useDispatch} from "react-redux";
 import CURRENT_COMPONENT from "../../reducers/types";
 import {
   HashRouter as Router,
-  NavLink,
+  NavLink, Redirect,
   Route
 } from "react-router-dom";
 import DonutChart from "../SideBar/DonutChart";
@@ -152,7 +152,8 @@ const BudgetSideBar = props => {
                 </div>
               </Sider>
               <Content className="content" style={{ margin: "0px 0px 0" }}>
-                <Route path="/budget/budgetEntry" component={BudgetPlannerEntry} />
+                <Redirect from="/" exact to="/budget/budgetEntry" />
+                <Route exact path="/budget/budgetEntry" component={BudgetPlannerEntry} />
                 <Route path="/budget/budgetspending" component={DonutChart} />
                 <Route path="/budget/trackers" component={Tracket} />
                 <Route path="/budget/cashflow" component={CashFlow}/>

@@ -1,9 +1,9 @@
 import React from 'react';
-import {FixedExpance} from "./FixedExpance";
-import {Bills} from "./Bills";
-import {VariableExpance} from "./VariableExpance";
-import {Savings} from "./Savings";
-import {ExtraRetirementSavings} from "./ExtraRetirementSavings";
+import FixedExpance from "./fixedexpenses/FixedExpance";
+import Bills from "./bill/Bills";
+import VariableExpance from "./variableexpance/VariableExpance";
+import Savings from "./savings/Savings";
+import ExtraRetirementSavings from "./extraretirementsavings/ExtraRetirementSavings";
 
 
 const BudgetPlannerSteps =

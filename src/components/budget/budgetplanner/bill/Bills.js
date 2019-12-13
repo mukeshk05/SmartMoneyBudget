@@ -4,11 +4,11 @@ import "../../../../styles/index.css";
 import {compose, graphql, Mutation, Query, withApollo} from "react-apollo";
 import AddAttributeForm from "../../../paystub/manual/manualfntryforms/AddAttributeForm";
 import {CREATE_BILLS} from "../../../../graphql/mutation/bills/BillsMutation";
-import {USER_BILLS_QUERY} from "../../../../graphql/queries/bills/BillsQuery";
+import {USER_BILLS_QUERY, USER_MONTEHLY_BILLS} from "../../../../graphql/queries/bills/BillsQuery";
 import BillsEditableTable from "./BillsEditableTable";
+import {durationType} from "../../../common/Duration";
 
 const { Option } = Select;
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
 
 class Bills extends React.Component {
     constructor(props) {
@@ -64,11 +64,13 @@ class Bills extends React.Component {
                                             this.props.createBillsMutation({
                                                 variables: {
                                                     bills_type: values.title,
+                                                    transactionDate:(this.props.currentDate),
                                                     user_id: "Sachin"
                                                 },
                                                 refetchQueries: [
                                                     {
-                                                        query: USER_BILLS_QUERY
+                                                        query: USER_MONTEHLY_BILLS,
+                                                        variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                                                     }
                                                 ]
                                             });
@@ -81,7 +83,7 @@ class Bills extends React.Component {
                         </div>
                     </Col>
                 </Row>
-                <Query query={USER_BILLS_QUERY} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
+                <Query query={USER_MONTEHLY_BILLS} variables={{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
                     {({ loading, error, data }) => {
                         if (loading)
                             return (
@@ -158,6 +160,7 @@ class Bills extends React.Component {
                             }
                             return (
                                 <BillsEditableTable
+                                    startDate={this.props.startDate} endDate={this.props.endDate}
                                     salaryData={array1}
                                     primaryTotalSalary={primaryTotalSalary}
                                     spouseTotalSalary={spouseTotalSalary}
@@ -172,6 +175,5 @@ class Bills extends React.Component {
     }
 }
 export default compose(
-    graphql(CREATE_BILLS, { name: "createBillsMutation" }),
-    graphql(USER_BILLS_QUERY)
+    graphql(CREATE_BILLS, { name: "createBillsMutation" })
 )(withApollo(Bills));

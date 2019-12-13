@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 export const CREATE_BILLS = gql`
-    mutation createBillsAmount($user_id: String!, $bills_type: String!) {
+    mutation createBillsAmount($user_id: String!, $bills_type: String!,$transactionDate:DateTime!) {
         createBillsAmount(
             data: {
                 user_id: $user_id
@@ -11,6 +11,7 @@ export const CREATE_BILLS = gql`
                 bill_amount: 0
                 spouse_amount: 0
                 spouse_duration:0
+                transactionDate:$transactionDate
             }
         ) {
             id

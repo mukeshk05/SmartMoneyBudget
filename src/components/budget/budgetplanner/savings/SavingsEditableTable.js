@@ -13,17 +13,11 @@ import "../../css/Editabletable.css";
 import { compose, Mutation, withApollo, graphql } from "react-apollo";
 import EditableFormRow from "../../../common/EditableFormRow";
 import EditableCell from "../../../common/EditableTableRow";
-import {
-    DELETE_FIXED_EXPENSES,
-    UPDATE_FIXED_EXPENSES
-} from "../../../../graphql/mutation/fixedexpenses/FixedExpensesMutation";
-import {USER_FIXED_EXPENSES_QUERY} from "../../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
-import {DELETE_BILL, UPDATE_BILL} from "../../../../graphql/mutation/bills/BillsMutation";
-import {USER_BILLS_QUERY} from "../../../../graphql/queries/bills/BillsQuery";
 import {DELETE_SAVING, UPDATE_SAVING, UPDATE_SAVINGL} from "../../../../graphql/mutation/savings/SavingsMutation";
-import {USER_SAVNGS} from "../../../../graphql/queries/savings/SavingsQuery";
+import {USER_MONTEHLY_SAVING} from "../../../../graphql/queries/savings/SavingsQuery";
+import {durationType} from "../../../common/Duration";
+
 const { Option } = Select;
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
 
 class SavingsEditableTable extends React.Component {
     constructor(props) {
@@ -31,18 +25,20 @@ class SavingsEditableTable extends React.Component {
         this.state = {
             filteredInfo: null,
             sortedInfo: null,
-            salaryData: [],
-            primaryTotalSalary: 0,
-            spouseTotalSalary: 0,
-            count: 2
+            salaryData: []
         };
     }
 
-    componentDidMount() {
+   componentDidMount() {
         this.props.onRef(this);
         this.setState({ salaryData: this.props.salaryData });
     }
 
+    componentWillReceiveProps(newProps) {
+        if(this.state.salaryData.length!==newProps.salaryData.length){
+            this.setState({salaryData:newProps.salaryData});
+        }
+    }
 
     handleResize = index => (e, { size }) => {
         this.setState(({ columns }) => {
@@ -69,15 +65,17 @@ class SavingsEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_BILLS_QUERY
+                    query: USER_MONTEHLY_SAVING,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
-        const salaryData = [...this.state.salaryData];
-        this.setState({ salaryData: salaryData.filter(item => item.key !== key) });
+        //const salaryData = [...this.state.salaryData];
+        //this.setState({ salaryData: salaryData.filter(item => item.key !== key) });
     };
 
     handleSave = row => {
+
         const newData = [...this.state.salaryData];
         const index = newData.findIndex(item => row.key === item.key);
         const item = newData[index];
@@ -85,12 +83,14 @@ class SavingsEditableTable extends React.Component {
             ...item,
             ...row
         });
+
         let primaryDuration = durationType.findIndex(
             item => row.primaryduration.props.defaultValue === item
         );
         let spouseDuration = durationType.findIndex(
             item => row.spouseduration.props.defaultValue === item
         );
+
         this.props.updateSavingMutation({
             variables: {
                 user_id: row.user_id,
@@ -101,13 +101,18 @@ class SavingsEditableTable extends React.Component {
                 spouse_amount: parseFloat(row.spouseamount),
                 spouse_duration: spouseDuration
             },
+
             refetchQueries: [
                 {
-                    query: USER_SAVNGS
+                    query: USER_MONTEHLY_SAVING,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate},
+                    fetchPolicy: 'network-only'
+
                 }
             ]
         });
         this.setState({ salaryData: newData });
+
     };
 
     handlePrimaryDurationChange = (value, slId) => {
@@ -121,7 +126,8 @@ class SavingsEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_SAVNGS
+                    query: USER_MONTEHLY_SAVING,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -138,15 +144,14 @@ class SavingsEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_BILLS_QUERY
+                    query: USER_MONTEHLY_SAVING,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
     };
 
-    componentWillReceiveProps(newProps) {
-        this.setState({salaryData:newProps.salaryData});
-    }
+
 
     render() {
         let { sortedInfo, filteredInfo } = this.state;
@@ -293,6 +298,5 @@ class SavingsEditableTable extends React.Component {
 
 export default compose(
     graphql(UPDATE_SAVING, { name: "updateSavingMutation" }),
-    graphql(DELETE_SAVING, { name: "deleteSavingMutation" }),
-    graphql(USER_SAVNGS)
+    graphql(DELETE_SAVING, { name: "deleteSavingMutation" })
 )(withApollo(SavingsEditableTable));

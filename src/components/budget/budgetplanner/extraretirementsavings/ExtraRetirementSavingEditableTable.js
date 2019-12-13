@@ -14,19 +14,16 @@ import { compose, Mutation, withApollo, graphql } from "react-apollo";
 import EditableFormRow from "../../../common/EditableFormRow";
 import EditableCell from "../../../common/EditableTableRow";
 import {
-    DELETE_FIXED_EXPENSES,
-    UPDATE_FIXED_EXPENSES
-} from "../../../../graphql/mutation/fixedexpenses/FixedExpensesMutation";
-import {USER_FIXED_EXPENSES_QUERY} from "../../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
-import {DELETE_BILL, UPDATE_BILL} from "../../../../graphql/mutation/bills/BillsMutation";
-import {USER_BILLS_QUERY} from "../../../../graphql/queries/bills/BillsQuery";
-import {
     DELETE_EXTRA_RET_SAVING,
     UPDATE_EXTRA_RET_SAVING
 } from "../../../../graphql/mutation/extraretirementsavings/ExtraRetirementSavingsMutation";
-import {USER_EXTRA_RETIREMENT_SAVING} from "../../../../graphql/queries/extraretirementsavings/ExtraRetirementSavingsQuery";
+import {
+    USER_EXTRA_RETIREMENT_SAVING,
+    USER_MONTEHLY_EXTRA_RETIREMENT_SAVING
+} from "../../../../graphql/queries/extraretirementsavings/ExtraRetirementSavingsQuery";
+import {durationType} from "../../../common/Duration";
+
 const { Option } = Select;
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
 
 class ExtraRetirementSavingEditableTable extends React.Component {
     constructor(props) {
@@ -72,12 +69,12 @@ class ExtraRetirementSavingEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_EXTRA_RETIREMENT_SAVING
+                    query: USER_MONTEHLY_EXTRA_RETIREMENT_SAVING,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
-        const salaryData = [...this.state.salaryData];
-        this.setState({ salaryData: salaryData.filter(item => item.key !== key) });
+
     };
 
     handleSave = row => {
@@ -106,7 +103,8 @@ class ExtraRetirementSavingEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_EXTRA_RETIREMENT_SAVING
+                    query: USER_MONTEHLY_EXTRA_RETIREMENT_SAVING,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -124,7 +122,8 @@ class ExtraRetirementSavingEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_EXTRA_RETIREMENT_SAVING
+                    query: USER_MONTEHLY_EXTRA_RETIREMENT_SAVING,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -141,7 +140,8 @@ class ExtraRetirementSavingEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_EXTRA_RETIREMENT_SAVING
+                    query: USER_MONTEHLY_EXTRA_RETIREMENT_SAVING,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -296,6 +296,5 @@ class ExtraRetirementSavingEditableTable extends React.Component {
 
 export default compose(
     graphql(UPDATE_EXTRA_RET_SAVING, { name: "updateExtraSavingMutation" }),
-    graphql(DELETE_EXTRA_RET_SAVING, { name: "deleteExtraSavingMutation" }),
-    graphql(USER_EXTRA_RETIREMENT_SAVING)
+    graphql(DELETE_EXTRA_RET_SAVING, { name: "deleteExtraSavingMutation" })
 )(withApollo(ExtraRetirementSavingEditableTable));

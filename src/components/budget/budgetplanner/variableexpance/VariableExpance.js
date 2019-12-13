@@ -3,12 +3,14 @@ import { Button, Col, Icon, Row, Select } from "antd";
 import "../../../../styles/index.css";
 import {compose, graphql, Mutation, Query, withApollo} from "react-apollo";
 import AddAttributeForm from "../../../paystub/manual/manualfntryforms/AddAttributeForm";
-import {USER_VARIABLE_EXPENSES} from "../../../../graphql/queries/variableexpenses/VariableExpensesQuery";
+import {
+    USER_MONTEHLY_VARIABLE_EXPENSES
+} from "../../../../graphql/queries/variableexpenses/VariableExpensesQuery";
 import {CREATE_VARIABLE_EXPENSES} from "../../../../graphql/mutation/variableexpenses/VariableExpensesMutation";
 import VariableExpancesEditableTable from "./VariableExpancesEditableTable";
+import {durationType} from'../../../common/Duration';
 
 const { Option } = Select;
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
 
 class VariableExpance extends React.Component {
     constructor(props) {
@@ -68,7 +70,8 @@ class VariableExpance extends React.Component {
                                                 },
                                                 refetchQueries: [
                                                     {
-                                                        query: USER_VARIABLE_EXPENSES
+                                                        query: USER_MONTEHLY_VARIABLE_EXPENSES,
+                                                        variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                                                     }
                                                 ]
                                             });
@@ -81,7 +84,7 @@ class VariableExpance extends React.Component {
                         </div>
                     </Col>
                 </Row>
-                <Query query={USER_VARIABLE_EXPENSES} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
+                <Query query={USER_MONTEHLY_VARIABLE_EXPENSES} variables={{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
                     {({ loading, error, data }) => {
                         if (loading)
                             return (
@@ -158,6 +161,7 @@ class VariableExpance extends React.Component {
                             }
                             return (
                                 <VariableExpancesEditableTable
+                                    startDate={this.props.startDate} endDate={this.props.endDate}
                                     salaryData={array1}
                                     primaryTotalSalary={primaryTotalSalary}
                                     spouseTotalSalary={spouseTotalSalary}
@@ -172,6 +176,5 @@ class VariableExpance extends React.Component {
     }
 }
 export default compose(
-    graphql(CREATE_VARIABLE_EXPENSES, { name: "createVariableExpenseMutation" }),
-    graphql(USER_VARIABLE_EXPENSES)
+    graphql(CREATE_VARIABLE_EXPENSES, { name: "createVariableExpenseMutation" })
 )(withApollo(VariableExpance));

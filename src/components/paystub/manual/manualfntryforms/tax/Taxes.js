@@ -3,13 +3,12 @@ import { Button, Col, Icon, Row, Select } from "antd";
 import "../../../../../styles/index.css";
 import {compose, graphql, Mutation, Query, withApollo} from "react-apollo";
 import AddAttributeForm from "../AddAttributeForm";
-import {USER_PRETAXDEDUCTION} from "../../../../../graphql/queries/pretax/PreTaxQuery";
 import TaxesEditableTable from "./TaxesEditableTable";
 import {CREATE_TAX} from "../../../../../graphql/mutation/tax/TaxMutation";
-import {USER_TAXES} from "../../../../../graphql/queries/tax/TaxQuery";
+import {USER_MONTEHLY_TAXES, USER_TAXES} from "../../../../../graphql/queries/tax/TaxQuery";
+import {durationType} from "../../../../common/Duration";
 
 const { Option } = Select;
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
 
 class Taxes extends React.Component {
   constructor(props) {
@@ -65,11 +64,13 @@ class Taxes extends React.Component {
                           this.props.createTaxMutation({
                             variables: {
                               tax_type: values.title,
+                              transactionDate:(this.props.currentDate),
                               user_id: "Sachin"
                             },
                             refetchQueries: [
                               {
-                                query: USER_TAXES
+                                query: USER_MONTEHLY_TAXES,
+                                variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                               }
                             ]
                           });
@@ -82,7 +83,7 @@ class Taxes extends React.Component {
               </div>
             </Col>
           </Row>
-          <Query query={USER_TAXES} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
+          <Query query={USER_MONTEHLY_TAXES} variables={{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
             {({ loading, error, data }) => {
               if (loading)
                 return (
@@ -159,6 +160,7 @@ class Taxes extends React.Component {
                 }
                 return (
                     <TaxesEditableTable
+                        startDate={this.props.startDate} endDate={this.props.endDate}
                         salaryData={array1}
                         primaryTotalSalary={primaryTotalSalary}
                         spouseTotalSalary={spouseTotalSalary}
@@ -173,6 +175,5 @@ class Taxes extends React.Component {
   }
 }
 export default compose(
-    graphql(CREATE_TAX, { name: "createTaxMutation" }),
-    graphql(USER_TAXES)
+    graphql(CREATE_TAX, { name: "createTaxMutation" })
 )(withApollo(Taxes));

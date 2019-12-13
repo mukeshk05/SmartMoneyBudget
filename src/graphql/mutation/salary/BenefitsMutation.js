@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 export const CREATE_BENEFITS = gql`
-    mutation createBenefits($user_id: String!, $benfeit_type: String!) {
+    mutation createBenefits($user_id: String!, $benfeit_type: String!,$transactionDate:DateTime!) {
         createBenefits(
             data: {
                 user_id: $user_id
@@ -11,6 +11,7 @@ export const CREATE_BENEFITS = gql`
                 salary_amount: 0
                 spouse_amount: 0
                 spouse_duration:0
+                transactionDate:$transactionDate
             }
         ) {
             id

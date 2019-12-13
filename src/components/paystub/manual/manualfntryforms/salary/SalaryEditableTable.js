@@ -3,10 +3,11 @@ import { Table, Popconfirm, Statistic, Select, Row, Col } from "antd";
 import "../css/Editabletable.css";
 import { compose, Mutation, withApollo, graphql } from "react-apollo";
 import {DELETE_SALARY, UPDATE_SALARY} from "../../../../../graphql/mutation/salary/SalaryMutation";
-import {USER_SALARY} from "../../../../../graphql/queries/salary/SalaryQuery";
+import {USER_MONTEHLY_SALARY, USER_SALARY} from "../../../../../graphql/queries/salary/SalaryQuery";
 import EditableFormRow from "../../../../common/EditableFormRow";
 import EditableCell from "../../../../common/EditableTableRow";
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
+import {USER_MONTEHLY_SAVING} from "../../../../../graphql/queries/savings/SavingsQuery";
+import {durationType} from "../../../../common/Duration";
 
 class SalaryEditableTable extends React.Component {
   constructor(props) {
@@ -51,13 +52,12 @@ class SalaryEditableTable extends React.Component {
       },
       refetchQueries: [
         {
-          query: USER_SALARY
+          query: USER_MONTEHLY_SALARY,
+          variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
         }
       ]
     });
-    const salaryData = [...this.state.salaryData];
-    this.setState({ salaryData: salaryData.filter(item => item.key !== key) });
-  };
+   };
 
   handleSave = row => {
     const newData = [...this.state.salaryData];
@@ -85,7 +85,8 @@ class SalaryEditableTable extends React.Component {
       },
       refetchQueries: [
         {
-          query: USER_SALARY
+          query: USER_MONTEHLY_SALARY,
+          variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
         }
       ]
     });
@@ -103,7 +104,8 @@ class SalaryEditableTable extends React.Component {
       },
       refetchQueries: [
         {
-          query: USER_SALARY
+          query: USER_MONTEHLY_SAVING,
+          variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
         }
       ]
     });
@@ -120,7 +122,8 @@ class SalaryEditableTable extends React.Component {
       },
       refetchQueries: [
         {
-          query: USER_SALARY
+          query: USER_MONTEHLY_SAVING,
+          variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
         }
       ]
     });
@@ -275,6 +278,5 @@ class SalaryEditableTable extends React.Component {
 
 export default compose(
   graphql(UPDATE_SALARY, { name: "updateSalaryMutation" }),
-  graphql(DELETE_SALARY, { name: "deleteSalaryMutation" }),
-  graphql(USER_SALARY)
+  graphql(DELETE_SALARY, { name: "deleteSalaryMutation" })
 )(withApollo(SalaryEditableTable));

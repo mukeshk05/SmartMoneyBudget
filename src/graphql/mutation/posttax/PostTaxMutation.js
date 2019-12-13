@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 export const CREATE_POSTTAXDEUCTION = gql`
-    mutation createPostTaxAmount($user_id: String!, $post_tax_type: String!) {
+    mutation createPostTaxAmount($user_id: String!, $post_tax_type: String!,$transactionDate:DateTime!) {
         createPostTaxAmount(
             data: {
                 user_id: $user_id
@@ -11,6 +11,7 @@ export const CREATE_POSTTAXDEUCTION = gql`
                 post_tax_amount: 0
                 spouse_amount: 0
                 spouse_duration:0
+                transactionDate:$transactionDate
             }
         ) {
             id

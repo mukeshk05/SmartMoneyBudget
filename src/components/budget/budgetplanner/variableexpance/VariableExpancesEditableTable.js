@@ -22,9 +22,13 @@ import {
     DELETE_VARIABLE_EXPENSES,
     UPDATE_VARIABLE_EXPENSES
 } from "../../../../graphql/mutation/variableexpenses/VariableExpensesMutation";
-import {USER_VARIABLE_EXPENSES} from "../../../../graphql/queries/variableexpenses/VariableExpensesQuery";
+import {
+    USER_MONTEHLY_VARIABLE_EXPENSES,
+    USER_VARIABLE_EXPENSES
+} from "../../../../graphql/queries/variableexpenses/VariableExpensesQuery";
+import {durationType} from "../../../common/Duration";
+
 const { Option } = Select;
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
 
 class VariableExpancesEditableTable extends React.Component {
     constructor(props) {
@@ -70,12 +74,12 @@ class VariableExpancesEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_VARIABLE_EXPENSES
+                    query: USER_MONTEHLY_VARIABLE_EXPENSES,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
-        const salaryData = [...this.state.salaryData];
-        this.setState({ salaryData: salaryData.filter(item => item.key !== key) });
+
     };
 
     handleSave = row => {
@@ -104,7 +108,8 @@ class VariableExpancesEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_VARIABLE_EXPENSES
+                    query: USER_MONTEHLY_VARIABLE_EXPENSES,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -122,7 +127,8 @@ class VariableExpancesEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_VARIABLE_EXPENSES
+                    query: USER_MONTEHLY_VARIABLE_EXPENSES,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -139,7 +145,8 @@ class VariableExpancesEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_FIXED_EXPENSES_QUERY
+                    query: USER_MONTEHLY_VARIABLE_EXPENSES,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -294,6 +301,5 @@ class VariableExpancesEditableTable extends React.Component {
 
 export default compose(
     graphql(UPDATE_VARIABLE_EXPENSES, { name: "updateVariableExpansesMutation" }),
-    graphql(DELETE_VARIABLE_EXPENSES, { name: "deleteVariableExpansesMutation" }),
-    graphql(USER_VARIABLE_EXPENSES)
+    graphql(DELETE_VARIABLE_EXPENSES, { name: "deleteVariableExpansesMutation" })
 )(withApollo(VariableExpancesEditableTable));

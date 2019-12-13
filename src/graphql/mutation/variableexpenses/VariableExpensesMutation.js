@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 export const CREATE_VARIABLE_EXPENSES = gql`
-    mutation createVariableExpenses($user_id: String!, $variable_expense_type: String!) {
+    mutation createVariableExpenses($user_id: String!, $variable_expense_type: String!,$transactionDate:DateTime!) {
         createVariableExpenses(
             data: {
                 user_id: $user_id
@@ -11,6 +11,7 @@ export const CREATE_VARIABLE_EXPENSES = gql`
                 variable_expense_amount: 0
                 spouse_amount: 0
                 spouse_duration:0
+                transactionDate:$transactionDate
             }
         ) {
             id

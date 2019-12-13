@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 export const CREATE_SALARY = gql`
-    mutation createSalary($user_id: String!, $salary_type_name: String!) {
+    mutation createSalary($user_id: String!, $salary_type_name: String!,$transactionDate:DateTime!) {
         createSalary(
             data: {
                 user_id: $user_id
@@ -11,6 +11,7 @@ export const CREATE_SALARY = gql`
                 salary_amount: 0
                 spouse_salary: 0
                 spouse_duration:0
+                transactionDate:$transactionDate
             }
         ) {
             id

@@ -8,7 +8,7 @@
 .react-resizable-handle {
     position: absolute;
     width: 10px;
-    height: 100%;
+    height: 80%;
     bottom: 0;
     right: -5px;
     cursor: col-resize;
@@ -28,6 +28,7 @@
     border: 1px solid #d9d9d9;
     border-radius: 4px;
     padding: 4px 11px;
+    height: auto;
 }
 
 .gutter-example .ant-row > div {
@@ -37,4 +38,41 @@
 .gutter-box {
     background: #00a0e9;
     padding: 5px 0;
+}
+
+.incomeFont{
+    font-weight: bold;
+    color: #00a0e9;
+}
+.flex-row {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.flex-col {
+    margin: 1px;
+    padding: 10px;
+    display: flex;
+    justify-content: stretch;
+    align-content: stretch;
+    align-items: stretch;
+    flex:16;
+    flex-direction: column;
+    color: #00a0e9;
+    box-sizing:border-box;
+    width: 200px;
+}
+
+@media (max-width:767px) {
+    .flex-col {
+        flex-basis: 100%;
+    }
+}
+
+@media (max-width:360px) {
+    .flex-col {
+        flex-basis: 100%;
+    }
 }

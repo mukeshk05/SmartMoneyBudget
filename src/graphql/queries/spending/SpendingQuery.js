@@ -1,24 +1,21 @@
 import gql from "graphql-tag";
-export const USER_VARIABLE_EXPENSES = gql`
-    query getAllVariableExpenses {
-        variableExpenseses {
+
+export const USER_MONTEHLY_SPENDING=gql`
+    query getAllSpending($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+        billsAmounts(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
             duration
-            variable_expense_amount
-            variable_expense_type {
+            bill_amount
+            bill_type {
                 id
-                variable_expense_type
+                bills_type
                 status
             }
-            spouse_amount
+            spouse_salary
             spouse_duration
-        }
-    }
-`;
-
-export const USER_MONTEHLY_VARIABLE_EXPENSES=gql`
-    query getAllVariableExpenses($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+            transactionDate
+        },
         variableExpenseses(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
@@ -31,6 +28,8 @@ export const USER_MONTEHLY_VARIABLE_EXPENSES=gql`
             }
             spouse_amount
             spouse_duration
+            transactionDate
         }
+
     }
 `;

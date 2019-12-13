@@ -41,7 +41,17 @@
 .ant-table-content {
     background-color: white;
     color: rgb(127, 127, 127);
+    height: auto;
+
 }
+
+.ant-income-table-content {
+    background-color: white;
+    color: rgb(127, 127, 127);
+    height: 370px;
+
+}
+
 thead[class*="ant-table-thead"] th{
     background-color: #1890ff !important;
     height: 0;

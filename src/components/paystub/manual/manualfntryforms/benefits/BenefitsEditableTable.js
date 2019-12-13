@@ -10,14 +10,14 @@ import {
     Col
 } from "antd";
 import "../css/Editabletable.css";
-import { gql } from "apollo-boost";
 import { compose, Mutation, withApollo, graphql } from "react-apollo";
 import EditableFormRow from "../../../../common/EditableFormRow";
 import EditableCell from "../../../../common/EditableTableRow";
-import {USER_BENEFITS} from "../../../../../graphql/queries/salary/BenefitsQuery";
+import {USER_BENEFITS, USER_MONTEHLY_BENEFITS} from "../../../../../graphql/queries/salary/BenefitsQuery";
 import {DELETE_BENEFIT, UPDATE_BENEFITS} from "../../../../../graphql/mutation/salary/BenefitsMutation";
+import {durationType} from "../../../../common/Duration";
+
 const { Option } = Select;
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
 
 class BenefitsEditableTable extends React.Component {
     constructor(props) {
@@ -63,12 +63,13 @@ class BenefitsEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_BENEFITS
+                    query: USER_MONTEHLY_BENEFITS,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
-        const salaryData = [...this.state.salaryData];
-        this.setState({ salaryData: salaryData.filter(item => item.key !== key) });
+        //const salaryData = [...this.state.salaryData];
+        //this.setState({ salaryData: salaryData.filter(item => item.key !== key) });
     };
 
     handleSave = row => {
@@ -97,7 +98,8 @@ class BenefitsEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_BENEFITS
+                    query: USER_MONTEHLY_BENEFITS,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -115,7 +117,8 @@ class BenefitsEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_BENEFITS
+                    query: USER_MONTEHLY_BENEFITS,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -132,7 +135,8 @@ class BenefitsEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_BENEFITS
+                    query: USER_MONTEHLY_BENEFITS,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -287,6 +291,5 @@ class BenefitsEditableTable extends React.Component {
 
 export default compose(
     graphql(UPDATE_BENEFITS, { name: "updateBenefitMutation" }),
-    graphql(DELETE_BENEFIT, { name: "deleteBenefitMutation" }),
-    graphql(USER_BENEFITS)
+    graphql(DELETE_BENEFIT, { name: "deleteBenefitMutation" })
 )(withApollo(BenefitsEditableTable));

@@ -3,8 +3,9 @@ import React from 'react'
 import { Modal, Form, Input, Select,} from 'antd'
 import gql from "graphql-tag";
 import {Mutation} from "react-apollo";
+import {durationType} from "../../../common/Duration";
+
 const { Option } = Select;
-const durationType = ['Monthly', 'Weekly','By Weekly','Yearly'];
 
 
 

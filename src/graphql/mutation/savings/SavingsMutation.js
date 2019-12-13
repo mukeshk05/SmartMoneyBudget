@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 export const CREATE_SAVING = gql`
-    mutation createSaving($user_id: String!, $saving_type: String!) {
+    mutation createSaving($user_id: String!, $saving_type: String!,$transactionDate:DateTime!) {
         createSaving(
             data: {
                 user_id: $user_id
@@ -11,6 +11,7 @@ export const CREATE_SAVING = gql`
                 saving_amount: 0
                 spouse_amount: 0
                 spouse_duration:0
+                transactionDate:$transactionDate
             }
         ) {
             id

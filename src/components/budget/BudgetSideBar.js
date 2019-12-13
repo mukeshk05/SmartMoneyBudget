@@ -11,7 +11,7 @@ import {
 import DonutChart from "../SideBar/DonutChart";
 import CashFlow from "./CashFlow";
 import Saving from "./Saving";
-import Income from "./Income";
+import Income from "./income/Income";
 import Tracket from "./Tracker";
 import SubMenu from "antd/es/menu/SubMenu";
 import BudgetFooter from "../footer/Footer";
@@ -151,7 +151,7 @@ const BudgetSideBar = props => {
                   </Menu>
                 </div>
               </Sider>
-              <Content className="content" style={{ margin: "0px 0px 0" }}>
+              <Content className="content" style={{ margin: "0px 0px 0" ,height:"auto" }}>
                 <Redirect from="/" exact to="/budget/budgetEntry" />
                 <Route exact path="/budget/budgetEntry" component={BudgetPlannerEntry} />
                 <Route path="/budget/budgetspending" component={DonutChart} />

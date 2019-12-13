@@ -1,8 +1,20 @@
 import React from "react";
-import { steps } from "./manualfntryforms/steps";
 import "../../budget/css/skeleton.css";
 import StepZilla from "react-stepzilla";
 import "../../../styles/index.css";
+import {Col, DatePicker, Row} from "antd";
+import moment from "moment";
+import Salary from "./manualfntryforms/salary/Salary";
+import Benefits from "./manualfntryforms/benefits/Benefits";
+import PreTaxDeduction from "./manualfntryforms/pretax/PreTaxDeduction";
+import Taxes from "./manualfntryforms/tax/Taxes";
+import PostTaxDeductions from "./manualfntryforms/posttax/PostTaxDeductions";
+const { MonthPicker} = DatePicker;
+const monthFormat = 'YYYY/MMMM';
+const selectedDate = new moment();
+const startDate = moment([selectedDate._d.getFullYear(), selectedDate._d.getMonth() , 1]).format("YYYY-MM-DD");
+const daysInMonth = moment(startDate).daysInMonth();
+const endDate = moment(startDate).add(daysInMonth - 1, 'days').format("YYYY-MM-DD");
 
 class ManualPayEntry extends React.Component {
   state = {
@@ -11,39 +23,52 @@ class ManualPayEntry extends React.Component {
 
   constructor(props) {
     super(props);
-    this.handleStepZillaStepChange = this.handleStepZillaStepChange.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-  }
+    this.state = {
+      current: 0,
+      startDate:startDate,
+      endDate:endDate,
+      currentDate:selectedDate
+    };
+   }
 
-  handleFormSubmit(value) {
-    if (this.state.readyForSubmit) {
-      console.log("Submitting the form");
-      this.props.onFormSubmit(value); // this is the the method that actually triggers the call to the api
-    }
-  }
 
-  handleStepZillaStepChange(step) {
-    //if (step === SUBMIT_STEP_NUMBER)
-    {
+  onChange=(date, dateString, abc)=>{
+    const startDate = moment([date._d.getFullYear(), date._d.getMonth() , 1]).format("YYYY-MM-DD");
+    const daysInMonth = moment(startDate).daysInMonth();
+    const endDate = moment(startDate).add(daysInMonth - 1, 'days').format("YYYY-MM-DD");
+    const transactionDate=moment(endDate).subtract(1,"day").format("YYYY-MM-DD");
+    this.setState({startDate:startDate});
+    this.setState({endDate:endDate});
+    this.setState({currentDate:transactionDate})
+  };
 
-      // check if we are on the step that should submit
-      console.log(step);
-      //this.setState({ readyForSubmit: true });
-    }
-  }
+
+
 
   render() {
-    const { current } = this.state;
     return (
-      <div className="step-progress">
-        <StepZilla
-          steps={steps}
-          nextButtonCls="multiStepButton"
-          backButtonCls="multiStepButton"
-          onStepChange={this.handleStepZillaStepChange}
-        />
-      </div>
+
+        <div className='step-progress'>
+          <Row>
+            <Col span={5}>
+              <div className="App">
+                <MonthPicker defaultValue={moment(selectedDate, monthFormat)} format={monthFormat}  placeholder="Select Month"  onChange={(date, dateString) => this.onChange(date, dateString, 1)}/>
+              </div>
+            </Col>
+          </Row>
+
+          <StepZilla  steps={[
+            {name: 'Salary', component: <Salary currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>},
+            {name: 'Benefits', component: <Benefits currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>},
+            {name: 'Pre Tax Deduction', component: <PreTaxDeduction currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>},
+            {name: 'Taxes', component: <Taxes currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>},
+            {name: 'Post Tax Deductions', component: <PostTaxDeductions currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>}
+          ]}
+                      nextButtonCls="multiStepButton"
+                      backButtonCls="multiStepButton" />
+        </div>
     );
+
   }
 }
 

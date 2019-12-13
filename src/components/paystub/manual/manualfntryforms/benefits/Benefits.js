@@ -1,15 +1,14 @@
 import React from "react";
 import { Button, Col, Icon, Row, Select } from "antd";
 import "../../../../../styles/index.css";
-import gql from "graphql-tag";
 import {compose, graphql, Mutation, Query, withApollo} from "react-apollo";
 import BenefitsEditableTable from "./BenefitsEditableTable";
 import AddAttributeForm from "../AddAttributeForm";
-import {USER_BENEFITS} from "../../../../../graphql/queries/salary/BenefitsQuery";
+import { USER_MONTEHLY_BENEFITS} from "../../../../../graphql/queries/salary/BenefitsQuery";
 import {CREATE_BENEFITS} from "../../../../../graphql/mutation/salary/BenefitsMutation";
+import {durationType} from "../../../../common/Duration";
 
 const { Option } = Select;
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
 
 class Benefits extends React.Component {
   constructor(props) {
@@ -65,11 +64,14 @@ class Benefits extends React.Component {
                           this.props.createBenifitsMutation({
                             variables: {
                               benfeit_type: values.title,
-                              user_id: "Sachin"
+                              user_id: "Sachin",
+                              transactionDate:(this.props.currentDate),
                             },
                             refetchQueries: [
                               {
-                                query: USER_BENEFITS
+                                query: USER_MONTEHLY_BENEFITS,
+                                variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+
                               }
                             ]
                           });
@@ -82,7 +84,7 @@ class Benefits extends React.Component {
               </div>
             </Col>
           </Row>
-          <Query query={USER_BENEFITS} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
+          <Query query={USER_MONTEHLY_BENEFITS} variables={{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
             {({ loading, error, data }) => {
               if (loading)
                 return (
@@ -159,6 +161,7 @@ class Benefits extends React.Component {
                 }
                 return (
                     <BenefitsEditableTable
+                        startDate={this.props.startDate} endDate={this.props.endDate}
                         salaryData={array1}
                         primaryTotalSalary={primaryTotalSalary}
                         spouseTotalSalary={spouseTotalSalary}
@@ -173,6 +176,5 @@ class Benefits extends React.Component {
   }
 }
 export default compose(
-    graphql(CREATE_BENEFITS, { name: "createBenifitsMutation" }),
-    graphql(USER_BENEFITS)
+    graphql(CREATE_BENEFITS, { name: "createBenifitsMutation" })
 )(withApollo(Benefits));

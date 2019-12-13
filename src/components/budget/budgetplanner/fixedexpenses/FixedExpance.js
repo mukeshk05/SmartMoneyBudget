@@ -2,13 +2,16 @@ import React from "react";
 import { Button, Col, Icon, Row, Select } from "antd";
 import "../../../../styles/index.css";
 import {compose, graphql, Mutation, Query, withApollo} from "react-apollo";
-import {USER_FIXED_EXPENSES_QUERY} from "../../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
+import {
+    USER_FIXED_EXPENSES_QUERY,
+    USER_MONTEHLY_FIXED_EXPENSESG
+} from "../../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
 import {CREATE_FIXED_EXPENSES} from "../../../../graphql/mutation/fixedexpenses/FixedExpensesMutation";
 import FixedExpancesEditableTable from "./FixedExpancesEditableTable";
 import AddAttributeForm from "../../../paystub/manual/manualfntryforms/AddAttributeForm";
+import {durationType} from "../../../common/Duration";
 
 const { Option } = Select;
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
 
 class FixedExpance extends React.Component {
     constructor(props) {
@@ -64,11 +67,13 @@ class FixedExpance extends React.Component {
                                             this.props.createFixedExpenseMutation({
                                                 variables: {
                                                     fixed_expense_type: values.title,
+                                                    transactionDate:(this.props.currentDate),
                                                     user_id: "Sachin"
                                                 },
                                                 refetchQueries: [
                                                     {
-                                                        query: USER_FIXED_EXPENSES_QUERY
+                                                        query: USER_MONTEHLY_FIXED_EXPENSESG,
+                                                        variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                                                     }
                                                 ]
                                             });
@@ -81,7 +86,7 @@ class FixedExpance extends React.Component {
                         </div>
                     </Col>
                 </Row>
-                <Query query={USER_FIXED_EXPENSES_QUERY} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
+                <Query query={USER_MONTEHLY_FIXED_EXPENSESG} variables={{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
                     {({ loading, error, data }) => {
                         if (loading)
                             return (
@@ -158,6 +163,7 @@ class FixedExpance extends React.Component {
                             }
                             return (
                                 <FixedExpancesEditableTable
+                                    startDate={this.props.startDate} endDate={this.props.endDate}
                                     salaryData={array1}
                                     primaryTotalSalary={primaryTotalSalary}
                                     spouseTotalSalary={spouseTotalSalary}
@@ -172,6 +178,5 @@ class FixedExpance extends React.Component {
     }
 }
 export default compose(
-    graphql(CREATE_FIXED_EXPENSES, { name: "createFixedExpenseMutation" }),
-    graphql(USER_FIXED_EXPENSES_QUERY)
+    graphql(CREATE_FIXED_EXPENSES, { name: "createFixedExpenseMutation" })
 )(withApollo(FixedExpance));

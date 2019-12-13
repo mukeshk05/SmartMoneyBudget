@@ -5,19 +5,20 @@ import {compose, graphql, Mutation, Query, withApollo} from "react-apollo";
 import AddAttributeForm from "../../../paystub/manual/manualfntryforms/AddAttributeForm";
 import SavingsEditableTable from "./SavingsEditableTable";
 import {CREATE_SAVING} from "../../../../graphql/mutation/savings/SavingsMutation";
-import {USER_SAVNGS} from "../../../../graphql/queries/savings/SavingsQuery";
+import {USER_MONTEHLY_SAVING, USER_SAVNGS} from "../../../../graphql/queries/savings/SavingsQuery";
+import {durationType} from "../../../common/Duration";
 
 const { Option } = Select;
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
 
 class Savings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            intialData: [],
-            salary_type: ""
+            intialData: []
         };
     }
+
+
 
     showModal = () => {
         this.setState({ visible: true });
@@ -64,11 +65,13 @@ class Savings extends React.Component {
                                             this.props.createSavingsMutation({
                                                 variables: {
                                                     saving_type: values.title,
+                                                    transactionDate:(this.props.currentDate),
                                                     user_id: "Sachin"
                                                 },
                                                 refetchQueries: [
                                                     {
-                                                        query: USER_SAVNGS
+                                                        query: USER_MONTEHLY_SAVING,
+                                                        variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                                                     }
                                                 ]
                                             });
@@ -81,7 +84,7 @@ class Savings extends React.Component {
                         </div>
                     </Col>
                 </Row>
-                <Query query={USER_SAVNGS} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
+                <Query query={USER_MONTEHLY_SAVING }  variables={{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}} fetchPolicy={"network-only"}>
                     {({ loading, error, data }) => {
                         if (loading)
                             return (
@@ -158,6 +161,7 @@ class Savings extends React.Component {
                             }
                             return (
                                 <SavingsEditableTable
+                                    startDate={this.props.startDate} endDate={this.props.endDate}
                                     salaryData={array1}
                                     primaryTotalSalary={primaryTotalSalary}
                                     spouseTotalSalary={spouseTotalSalary}
@@ -172,6 +176,5 @@ class Savings extends React.Component {
     }
 }
 export default compose(
-    graphql(CREATE_SAVING, { name: "createSavingsMutation" }),
-    graphql(USER_SAVNGS)
+    graphql(CREATE_SAVING, { name: "createSavingsMutation" })
 )(withApollo(Savings));

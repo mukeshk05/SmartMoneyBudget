@@ -10,19 +10,14 @@ import {
     Col
 } from "antd";
 import "../css/Editabletable.css";
-import { gql } from "apollo-boost";
 import { compose, Mutation, withApollo, graphql } from "react-apollo";
 import EditableFormRow from "../../../../common/EditableFormRow";
 import EditableCell from "../../../../common/EditableTableRow";
-import {USER_BENEFITS} from "../../../../../graphql/queries/salary/BenefitsQuery";
-import {DELETE_BENEFIT, UPDATE_BENEFITS} from "../../../../../graphql/mutation/salary/BenefitsMutation";
-import {UPDATE_SALARY} from "../../../../../graphql/mutation/salary/SalaryMutation";
-import {DELETE_PRETAXDEUCTIO, UPDATE_PRETAXDEUCTIO} from "../../../../../graphql/mutation/pretax/PreTaxMutation";
-import {USER_PRETAXDEDUCTION} from "../../../../../graphql/queries/pretax/PreTaxQuery";
 import {DELETE_TAX, UPDATE_TAX} from "../../../../../graphql/mutation/tax/TaxMutation";
-import {USER_TAXES} from "../../../../../graphql/queries/tax/TaxQuery";
+import {USER_MONTEHLY_TAXES, USER_TAXES} from "../../../../../graphql/queries/tax/TaxQuery";
+import {durationType} from "../../../../common/Duration";
+
 const { Option } = Select;
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
 
 class TaxesEditableTable extends React.Component {
     constructor(props) {
@@ -68,12 +63,11 @@ class TaxesEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_TAXES
+                    query: USER_MONTEHLY_TAXES,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
-        const salaryData = [...this.state.salaryData];
-        this.setState({ salaryData: salaryData.filter(item => item.key !== key) });
     };
 
     handleSave = row => {
@@ -102,7 +96,8 @@ class TaxesEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_TAXES
+                    query: USER_MONTEHLY_TAXES,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -120,7 +115,8 @@ class TaxesEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_TAXES
+                    query: USER_MONTEHLY_TAXES,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -137,7 +133,8 @@ class TaxesEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_TAXES
+                    query: USER_MONTEHLY_TAXES,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -292,6 +289,5 @@ class TaxesEditableTable extends React.Component {
 
 export default compose(
     graphql(UPDATE_TAX, { name: "updateTaxMutation" }),
-    graphql(DELETE_TAX, { name: "deleteTaxMutation" }),
-    graphql(USER_TAXES)
+    graphql(DELETE_TAX, { name: "deleteTaxMutation" })
 )(withApollo(TaxesEditableTable));

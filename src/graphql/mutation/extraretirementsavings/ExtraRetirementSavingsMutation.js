@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 export const CREATE_EXTRA_RET_SAVING = gql`
-    mutation createExtraRetirementSavings($user_id: String!, $extra_retirement_saving_type: String!) {
+    mutation createExtraRetirementSavings($user_id: String!, $extra_retirement_saving_type: String!,$transactionDate:DateTime!) {
         createExtraRetirementSavings(
             data: {
                 user_id: $user_id
@@ -11,6 +11,7 @@ export const CREATE_EXTRA_RET_SAVING = gql`
                 extra_retirement_saving_amount: 0
                 spouse_amount: 0
                 spouse_duration:0
+                transactionDate:$transactionDate
             }
         ) {
             id

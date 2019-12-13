@@ -1,25 +1,21 @@
 import gql from "graphql-tag";
-export const USER_BENEFITS = gql`
-    query getAllBenefits {
-        benefitses {
+
+export const USER_MONTEHLY_INCOME=gql`
+    query getAllIncome($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+        salaries(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
             duration
             salary_amount
-            benefit_type {
+            salary_category_id {
                 id
-                benefit_type
+                salary_type_name
                 status
             }
-            spouse_amount
+            spouse_salary
             spouse_duration
-        }
-    }
-`;
-
-
-export const USER_MONTEHLY_BENEFITS=gql`
-    query getAllBenefits($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+            transactionDate
+        },
         benefitses(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
@@ -32,6 +28,8 @@ export const USER_MONTEHLY_BENEFITS=gql`
             }
             spouse_amount
             spouse_duration
+            transactionDate
         }
+        
     }
 `;

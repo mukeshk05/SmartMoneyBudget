@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 export const CREATE_FIXED_EXPENSES = gql`
-    mutation createFixedExpenses($user_id: String!, $fixed_expense_type: String!) {
+    mutation createFixedExpenses($user_id: String!, $fixed_expense_type: String!,$transactionDate:DateTime!) {
         createFixedExpenses(
             data: {
                 user_id: $user_id
@@ -11,6 +11,7 @@ export const CREATE_FIXED_EXPENSES = gql`
                 fixed_expense_amount: 0
                 spouse_amount: 0
                 spouse_duration:0
+                transactionDate:$transactionDate
             }
         ) {
             id

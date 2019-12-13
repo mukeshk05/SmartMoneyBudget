@@ -5,10 +5,10 @@ import "../../../../../styles/index.css";
 import { compose, graphql, Mutation, Query, withApollo } from "react-apollo";
 import SalaryEditableTable from "./SalaryEditableTable";
 import {CREATE_SALARY} from "../../../../../graphql/mutation/salary/SalaryMutation";
-import {USER_SALARY} from "../../../../../graphql/queries/salary/SalaryQuery";
-
+import {USER_MONTEHLY_SALARY, USER_SALARY} from "../../../../../graphql/queries/salary/SalaryQuery";
+import { durationType} from '../../../../common/Duration';
 const { Option } = Select;
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
+
 
 class Salary extends React.Component {
   constructor(props) {
@@ -64,12 +64,13 @@ class Salary extends React.Component {
                       this.props.createSalaryMutation({
                         variables: {
                           salary_type_name: values.title,
+                          transactionDate:(this.props.currentDate),
                           user_id: "Sachin"
                         },
                         refetchQueries: [
                           {
-                            query: USER_SALARY,
-                            fetchPolicy: "cache-and-network"
+                            query: USER_MONTEHLY_SALARY,
+                            variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                           }
                         ]
                       });
@@ -83,7 +84,8 @@ class Salary extends React.Component {
           </Col>
         </Row>
         <Query
-          query={USER_SALARY}
+          query={USER_MONTEHLY_SALARY}
+          variables={{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}}
           notifyOnNetworkStatusChange={true}
           fetchPolicy={"cache-and-network"}
         >
@@ -163,6 +165,7 @@ class Salary extends React.Component {
               }
               return (
                 <SalaryEditableTable
+                  startDate={this.props.startDate} endDate={this.props.endDate}
                   salaryData={array1}
                   primaryTotalSalary={primaryTotalSalary}
                   spouseTotalSalary={spouseTotalSalary}
@@ -177,6 +180,5 @@ class Salary extends React.Component {
   }
 }
 export default compose(
-    graphql(CREATE_SALARY, { name: "createSalaryMutation" }),
-    graphql(USER_SALARY)
+    graphql(CREATE_SALARY, { name: "createSalaryMutation" })
 )(withApollo(Salary));

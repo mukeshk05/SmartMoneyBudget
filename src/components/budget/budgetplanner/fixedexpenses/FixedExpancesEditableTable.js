@@ -17,9 +17,13 @@ import {
     DELETE_FIXED_EXPENSES,
     UPDATE_FIXED_EXPENSES
 } from "../../../../graphql/mutation/fixedexpenses/FixedExpensesMutation";
-import {USER_FIXED_EXPENSES_QUERY} from "../../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
+import {
+    USER_FIXED_EXPENSES_QUERY,
+    USER_MONTEHLY_FIXED_EXPENSESG
+} from "../../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
+import {durationType} from "../../../common/Duration";
+
 const { Option } = Select;
-const durationType = ["Monthly", "Weekly", "By Weekly", "Yearly"];
 
 class FixedExpancesEditableTable extends React.Component {
     constructor(props) {
@@ -65,12 +69,12 @@ class FixedExpancesEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_FIXED_EXPENSES_QUERY
+                    query: USER_MONTEHLY_FIXED_EXPENSESG,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
-        const salaryData = [...this.state.salaryData];
-        this.setState({ salaryData: salaryData.filter(item => item.key !== key) });
+
     };
 
     handleSave = row => {
@@ -99,7 +103,8 @@ class FixedExpancesEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_FIXED_EXPENSES_QUERY
+                    query: USER_MONTEHLY_FIXED_EXPENSESG,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -117,7 +122,8 @@ class FixedExpancesEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_FIXED_EXPENSES_QUERY
+                    query: USER_MONTEHLY_FIXED_EXPENSESG,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -134,7 +140,8 @@ class FixedExpancesEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_FIXED_EXPENSES_QUERY
+                    query: USER_MONTEHLY_FIXED_EXPENSESG,
+                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -289,6 +296,5 @@ class FixedExpancesEditableTable extends React.Component {
 
 export default compose(
     graphql(UPDATE_FIXED_EXPENSES, { name: "updateFixedExpansesMutation" }),
-    graphql(DELETE_FIXED_EXPENSES, { name: "deleteFixedExpansesMutation" }),
-    graphql(USER_FIXED_EXPENSES_QUERY)
+    graphql(DELETE_FIXED_EXPENSES, { name: "deleteFixedExpansesMutation" })
 )(withApollo(FixedExpancesEditableTable));

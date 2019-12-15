@@ -5,12 +5,12 @@ import { compose, graphql, Mutation, Query, withApollo } from "react-apollo";
 import { yearEndDate, yearStartDate, durationType,mapView} from "../../common/Duration";
 import moment from "moment";
 import _ from "lodash";
-import {USER_MONTEHLY_SPENDING} from "../../../graphql/queries/spending/SpendingQuery";
 import {CREATE_SAVING} from "../../../graphql/mutation/savings/SavingsMutation";
-import SpendingEditableTable from "./SpendingEditableTable";
+import {USER_ALL_MONTHELY_SAVINGS} from "../../../graphql/queries/savings/SavingsQuery";
+import SavingsEditableTable from "../budgetplanner/savings/SavingsEditableTable";
 const { Option } = Select;
 
-class Spending extends React.Component {
+class Saving extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -73,7 +73,7 @@ class Spending extends React.Component {
 
                 {
                     <Query
-                        query={USER_MONTEHLY_SPENDING}
+                        query={USER_ALL_MONTHELY_SAVINGS}
                         variables={{
                             tranaction_start_date: this.state.endDate,
                             transaction_end_date: this.state.startDate
@@ -92,35 +92,32 @@ class Spending extends React.Component {
                             let graphData1 = [];
 
                             if (data != null) {
-                                const bills = data.billsAmounts;
-                                const variableExpenseses = data.variableExpenseses;
-                                const fixedExpenseses=data.fixedExpenseses;
+                                const savings = data.savings;
+                                const extraRetirementSavingses = data.extraRetirementSavingses;
                                 let primaryTotalSalary = 0;
                                 let spouseTotalSalary = 0;
-                                for (let i in fixedExpenseses) {
+                                for (let i in savings) {
                                     graphData1.push({
-                                        topic: fixedExpenseses[i].fixed_expense_type.fixed_expense_type,
-                                        month: moment(fixedExpenseses[i].transactionDate).format("MMMM"),
-                                        primaryFixedExpenseses: Math.round((((fixedExpenseses[i].fixed_expense_amount)*mapView[fixedExpenseses[i].duration][fixedExpenseses[i].duration])/mapView[durationView][durationView])),
-                                        spouseFixedExpenseses: Math.round((((fixedExpenseses[i].spouse_amount)*mapView[fixedExpenseses[i].spouse_duration][fixedExpenseses[i].spouse_duration])/mapView[durationView][durationView])),
-                                        primaryBills:0,
-                                        spouseBills:0,
-                                        primaryVariableExpenseses:0,
-                                        spouseVriableExpenseses:0,
-                                        salary_benefit:Math.round((((fixedExpenseses[i].fixed_expense_amount)*mapView[fixedExpenseses[i].duration][fixedExpenseses[i].duration])/mapView[durationView][durationView]))+Math.round((((fixedExpenseses[i].spouse_amount)*mapView[fixedExpenseses[i].spouse_duration][fixedExpenseses[i].spouse_duration])/mapView[durationView][durationView])),
+                                        topic: savings[i].saving_type.saving_type,
+                                        month: moment(savings[i].transactionDate).format("MMMM"),
+                                        primarySavings: Math.round((((savings[i].saving_amount)*mapView[savings[i].duration][savings[i].duration])/mapView[durationView][durationView])),
+                                        spouseSavings: Math.round((((savings[i].spouse_amount)*mapView[savings[i].spouse_duration][savings[i].spouse_duration])/mapView[durationView][durationView])),
+                                        primaryExtraRetirementSavingses:0,
+                                        spouseExtraRetirementSavingses:0,
+                                        salary_benefit:Math.round((((savings[i].saving_amount)*mapView[savings[i].duration][savings[i].duration])/mapView[durationView][durationView]))+Math.round((((savings[i].spouse_amount)*mapView[savings[i].spouse_duration][savings[i].spouse_duration])/mapView[durationView][durationView])),
                                     });
 
                                     array1.push({
-                                        key: fixedExpenseses[i].id,
-                                        topic: fixedExpenseses[i].fixed_expense_type.fixed_expense_type,
-                                        type: "fixedExpenseses",
-                                        fixed_expense_type_id: fixedExpenseses[i].fixed_expense_type.id,
-                                        user_id: fixedExpenseses[i].user_id,
+                                        key: savings[i].id,
+                                        topic: savings[i].saving_type.saving_type,
+                                        type: "savings",
+                                        fixed_expense_type_id: savings[i].saving_type.id,
+                                        user_id: savings[i].user_id,
                                         primaryduration: (
                                             <Select
-                                                defaultValue={durationType[fixedExpenseses[i].duration]}
+                                                defaultValue={durationType[savings[i].duration]}
                                                 onChange={e =>
-                                                    this.handlePrimaryDurationChange(e, fixedExpenseses[i],"fixedExpenseses")
+                                                    this.handlePrimaryDurationChange(e, savings[i],"savings")
                                                 }
                                                 showSearch
                                                 style={{ width: 100 }}
@@ -139,14 +136,14 @@ class Spending extends React.Component {
                                                 ))}
                                             </Select>
                                         ),
-                                        primaryamount: fixedExpenseses[i].fixed_expense_amount,
-                                        primaryDurationAmount:Math.round((((fixedExpenseses[i].fixed_expense_amount)*mapView[fixedExpenseses[i].duration][fixedExpenseses[i].duration])/mapView[durationView][durationView])),
+                                        primaryamount: savings[i].saving_amount,
+                                        primaryDurationAmount:Math.round((((savings[i].saving_amount)*mapView[savings[i].duration][savings[i].duration])/mapView[durationView][durationView])),
 
                                         spouseduration: (
                                             <Select
-                                                defaultValue={durationType[fixedExpenseses[i].spouse_duration]}
+                                                defaultValue={durationType[savings[i].spouse_duration]}
                                                 onChange={e =>
-                                                    this.handleSpouseDurationChange(e, fixedExpenseses[i],"fixedExpenseses")
+                                                    this.handleSpouseDurationChange(e, savings[i],"savings")
                                                 }
                                                 showSearch
                                                 style={{ width: 100 }}
@@ -165,38 +162,36 @@ class Spending extends React.Component {
                                                 ))}
                                             </Select>
                                         ),
-                                        spouseamount: fixedExpenseses[i].spouse_amount,
-                                        spouseDurationAmount:Math.round((((fixedExpenseses[i].spouse_amount)*mapView[fixedExpenseses[i].spouse_duration][fixedExpenseses[i].spouse_duration])/mapView[durationView][durationView]))
+                                        spouseamount: savings[i].spouse_amount,
+                                        spouseDurationAmount:Math.round((((savings[i].spouse_amount)*mapView[savings[i].spouse_duration][savings[i].spouse_duration])/mapView[durationView][durationView]))
                                     });
                                     primaryTotalSalary =
-                                        primaryTotalSalary + Math.round((((fixedExpenseses[i].fixed_expense_amount)*mapView[fixedExpenseses[i].duration][fixedExpenseses[i].duration])/mapView[durationView][durationView]));
+                                        primaryTotalSalary + Math.round((((savings[i].spouse_amount)*mapView[savings[i].duration][savings[i].duration])/mapView[durationView][durationView]));
                                     spouseTotalSalary =
-                                        spouseTotalSalary + Math.round((((fixedExpenseses[i].spouse_amount)*mapView[fixedExpenseses[i].spouse_duration][fixedExpenseses[i].spouse_duration])/mapView[durationView][durationView]));
+                                        spouseTotalSalary + Math.round((((savings[i].spouse_amount)*mapView[savings[i].spouse_duration][savings[i].spouse_duration])/mapView[durationView][durationView]));
                                 }
-                                for (let i in bills) {
+                                for (let i in extraRetirementSavingses) {
                                     graphData1.push({
-                                        topic: bills[i].bill_type.bills_type,
-                                        month: moment(bills[i].transactionDate).format("MMMM"),
-                                        primaryBills: Math.round((((bills[i].bill_amount)*mapView[bills[i].duration][bills[i].duration])/mapView[durationView][durationView])),
-                                        spouseBills: Math.round((((bills[i].spouse_amount)*mapView[bills[i].spouse_duration][bills[i].spouse_duration])/mapView[durationView][durationView])),
-                                        primaryFixedExpenseses:0,
-                                        spouseFixedExpenseses:0,
-                                        primaryVariableExpenseses:0,
-                                        spouseVriableExpenseses:0,
-                                        salary_benefit:Math.round((((bills[i].bill_amount)*mapView[bills[i].duration][bills[i].duration])/mapView[durationView][durationView]))+Math.round((((bills[i].spouse_amount)*mapView[bills[i].spouse_duration][bills[i].spouse_duration])/mapView[durationView][durationView])),
+                                        topic: extraRetirementSavingses[i].extra_retirement_saving_type.extra_retirement_saving_type,
+                                        month: moment(extraRetirementSavingses[i].transactionDate).format("MMMM"),
+                                        primaryExtraRetirementSavingses: Math.round((((extraRetirementSavingses[i].extra_retirement_saving_amount)*mapView[extraRetirementSavingses[i].duration][extraRetirementSavingses[i].duration])/mapView[durationView][durationView])),
+                                        spouseExtraRetirementSavingses: Math.round((((extraRetirementSavingses[i].spouse_amount)*mapView[extraRetirementSavingses[i].spouse_duration][extraRetirementSavingses[i].spouse_duration])/mapView[durationView][durationView])),
+                                        primarySavings:0,
+                                        spouseSavings:0,
+                                        salary_benefit:Math.round((((extraRetirementSavingses[i].extra_retirement_saving_amount)*mapView[extraRetirementSavingses[i].duration][extraRetirementSavingses[i].duration])/mapView[durationView][durationView]))+Math.round((((extraRetirementSavingses[i].spouse_amount)*mapView[extraRetirementSavingses[i].spouse_duration][extraRetirementSavingses[i].spouse_duration])/mapView[durationView][durationView])),
                                     });
 
                                     array1.push({
-                                        key: bills[i].id,
-                                        topic: bills[i].bill_type.bills_type,
-                                        type: "bills",
-                                        bill_type_id: bills[i].bill_type.id,
-                                        user_id: bills[i].user_id,
+                                        key: extraRetirementSavingses[i].id,
+                                        topic: extraRetirementSavingses[i].extra_retirement_saving_type.extra_retirement_saving_type,
+                                        type: "extraRetirementSavingses",
+                                        bill_type_id: extraRetirementSavingses[i].extra_retirement_saving_type.id,
+                                        user_id: extraRetirementSavingses[i].user_id,
                                         primaryduration: (
                                             <Select
-                                                defaultValue={durationType[bills[i].duration]}
+                                                defaultValue={durationType[extraRetirementSavingses[i].duration]}
                                                 onChange={e =>
-                                                    this.handlePrimaryDurationChange(e, bills[i],"bills")
+                                                    this.handlePrimaryDurationChange(e, extraRetirementSavingses[i],"extraRetirementSavingses")
                                                 }
                                                 showSearch
                                                 style={{ width: 100 }}
@@ -215,14 +210,14 @@ class Spending extends React.Component {
                                                 ))}
                                             </Select>
                                         ),
-                                        primaryamount: bills[i].bill_amount,
-                                        primaryDurationAmount:Math.round((((bills[i].bill_amount)*mapView[bills[i].duration][bills[i].duration])/mapView[durationView][durationView])),
+                                        primaryamount: extraRetirementSavingses[i].extra_retirement_saving_amount,
+                                        primaryDurationAmount:Math.round((((extraRetirementSavingses[i].extra_retirement_saving_amount)*mapView[extraRetirementSavingses[i].duration][extraRetirementSavingses[i].duration])/mapView[durationView][durationView])),
 
                                         spouseduration: (
                                             <Select
-                                                defaultValue={durationType[bills[i].spouse_duration]}
+                                                defaultValue={durationType[extraRetirementSavingses[i].spouse_duration]}
                                                 onChange={e =>
-                                                    this.handleSpouseDurationChange(e, bills[i],"bills")
+                                                    this.handleSpouseDurationChange(e, extraRetirementSavingses[i],"extraRetirementSavingses")
                                                 }
                                                 showSearch
                                                 style={{ width: 100 }}
@@ -241,90 +236,13 @@ class Spending extends React.Component {
                                                 ))}
                                             </Select>
                                         ),
-                                        spouseamount: bills[i].spouse_amount,
-                                        spouseDurationAmount:Math.round((((bills[i].spouse_amount)*mapView[bills[i].spouse_duration][bills[i].spouse_duration])/mapView[durationView][durationView]))
+                                        spouseamount: extraRetirementSavingses[i].spouse_amount,
+                                        spouseDurationAmount:Math.round((((extraRetirementSavingses[i].spouse_amount)*mapView[extraRetirementSavingses[i].spouse_duration][extraRetirementSavingses[i].spouse_duration])/mapView[durationView][durationView]))
                                     });
                                     primaryTotalSalary =
-                                        primaryTotalSalary + Math.round((((bills[i].bill_amount)*mapView[bills[i].duration][bills[i].duration])/mapView[durationView][durationView]));
+                                        primaryTotalSalary + Math.round((((extraRetirementSavingses[i].bill_amount)*mapView[extraRetirementSavingses[i].duration][extraRetirementSavingses[i].duration])/mapView[durationView][durationView]));
                                     spouseTotalSalary =
-                                        spouseTotalSalary + Math.round((((bills[i].spouse_amount)*mapView[bills[i].spouse_duration][bills[i].spouse_duration])/mapView[durationView][durationView]));
-                                }
-                                for (let i in variableExpenseses) {
-                                    graphData1.push({
-                                        topic: variableExpenseses[i].variable_expense_type.variable_expense_type,
-                                        month: moment(variableExpenseses[i].transactionDate).format("MMMM"),
-                                        primaryVariableExpenseses:Math.round((((variableExpenseses[i].variable_expense_amount)*mapView[variableExpenseses[i].duration][variableExpenseses[i].duration])/mapView[durationView][durationView])),
-                                        spouseVriableExpenseses:Math.round(( ((variableExpenseses[i].spouse_amount)*mapView[variableExpenseses[i].spouse_duration][variableExpenseses[i].spouse_duration])/mapView[durationView][durationView])),
-                                        primaryFixedExpenseses:0,
-                                        spouseFixedExpenseses:0,
-                                        primaryBills:0,
-                                        spouseBills:0,
-                                        salary_benefit:Math.round((((variableExpenseses[i].variable_expense_amount)*mapView[variableExpenseses[i].duration][variableExpenseses[i].duration])/mapView[durationView][durationView]))+Math.round(( ((variableExpenseses[i].spouse_amount)*mapView[variableExpenseses[i].spouse_duration][variableExpenseses[i].spouse_duration])/mapView[durationView][durationView]))
-                                    });
-
-                                    array1.push({
-                                        key: variableExpenseses[i].id,
-                                        topic: variableExpenseses[i].variable_expense_type.variable_expense_type,
-                                        variable_expense_type_id: variableExpenseses[i].variable_expense_type.id,
-                                        user_id: variableExpenseses[i].user_id,
-                                        type: "variableExpenseses",
-                                        primaryduration: (
-                                            <Select
-                                                defaultValue={durationType[variableExpenseses[i].duration]}
-                                                onChange={e =>
-                                                    this.handlePrimaryDurationChange(e, variableExpenseses[i],"variableExpenseses")
-                                                }
-                                                showSearch
-                                                style={{ width: 100 }}
-                                                placeholder="Select a type"
-                                                optionFilterProp="children"
-                                                filterOption={(input, option) =>
-                                                    option.props.children
-                                                        .toLowerCase()
-                                                        .indexOf(input.toLowerCase()) >= 0
-                                                }
-                                            >
-                                                {durationType.map(duration => (
-                                                    <Option key={duration} value={duration}>
-                                                        {duration}
-                                                    </Option>
-                                                ))}
-                                            </Select>
-                                        ),
-                                        primaryamount: variableExpenseses[i].variable_expense_amount,
-                                        primaryDurationAmount:Math.round((((variableExpenseses[i].variable_expense_amount)*mapView[variableExpenseses[i].duration][variableExpenseses[i].duration])/mapView[durationView][durationView])),
-                                        spouseduration: (
-                                            <Select
-                                                defaultValue={
-                                                    durationType[variableExpenseses[i].spouse_duration]
-                                                }
-                                                onChange={e =>
-                                                    this.handleSpouseDurationChange(e, variableExpenseses[i],"variableExpenseses")
-                                                }
-                                                showSearch
-                                                style={{ width: 100 }}
-                                                placeholder="Select a type"
-                                                optionFilterProp="children"
-                                                filterOption={(input, option) =>
-                                                    option.props.children
-                                                        .toLowerCase()
-                                                        .indexOf(input.toLowerCase()) >= 0
-                                                }
-                                            >
-                                                {durationType.map(duration => (
-                                                    <Option key={duration} value={duration}>
-                                                        {duration}
-                                                    </Option>
-                                                ))}
-                                            </Select>
-                                        ),
-                                        spouseamount: variableExpenseses[i].spouse_amount,
-                                        spouseDurationAmount:Math.round(( ((variableExpenseses[i].spouse_amount)*mapView[variableExpenseses[i].spouse_duration][variableExpenseses[i].spouse_duration])/mapView[durationView][durationView]))
-                                    });
-                                    primaryTotalSalary =
-                                        primaryTotalSalary + Math.round((((variableExpenseses[i].variable_expense_amount)*mapView[variableExpenseses[i].duration][variableExpenseses[i].duration])/mapView[durationView][durationView]));
-                                    spouseTotalSalary =
-                                        spouseTotalSalary + Math.round(( ((variableExpenseses[i].spouse_amount)*mapView[variableExpenseses[i].spouse_duration][variableExpenseses[i].spouse_duration])/mapView[durationView][durationView]));
+                                        spouseTotalSalary + Math.round((((extraRetirementSavingses[i].spouse_amount)*mapView[extraRetirementSavingses[i].spouse_duration][extraRetirementSavingses[i].spouse_duration])/mapView[durationView][durationView]));
                                 }
                                 const month = [];
                                 let chartData12=[];
@@ -363,7 +281,6 @@ class Spending extends React.Component {
                                 let spouseVriableExpenseses = 0;
 
                                 graphData1.filter(value => {
-                                    console.log(value. primaryFixedExpenseses);
                                     primaryFixedExpenseses = primaryFixedExpenseses + value.primaryFixedExpenseses;
                                     spouseFixedExpenseses = spouseFixedExpenseses + value.spouseFixedExpenseses;
                                     primaryBills = primaryBills + value.primaryBills;
@@ -382,7 +299,7 @@ class Spending extends React.Component {
                                 ];
                                 const  paiChartLabels= ['Primary Fixed Expenses','Spouse Fixed Expenses','Primary Bills','Spouse Bills','Primary Variable Expenses','Spouse Variable Expenses' ];
                                 return (
-                                    <SpendingEditableTable
+                                    <SavingsEditableTable
                                         startDate={this.state.startDate}
                                         endDate={this.state.endDate}
                                         salaryData={array1}
@@ -408,4 +325,4 @@ class Spending extends React.Component {
 }
 export default compose(
     graphql(CREATE_SAVING, { name: "createSavingsMutation" })
-)(withApollo(Spending));
+)(withApollo(Saving));

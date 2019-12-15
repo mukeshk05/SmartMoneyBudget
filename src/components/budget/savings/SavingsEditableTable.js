@@ -34,7 +34,7 @@ import {USER_MONTEHLY_VARIABLE_EXPENSES} from "../../../graphql/queries/variable
 import {USER_MONTEHLY_FIXED_EXPENSESG} from "../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
 const { Option } = Select;
 
-class SpendingEditableTable extends React.Component {
+class SavingsEditableTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -481,4 +481,4 @@ export default compose(
     graphql(DELETE_VARIABLE_EXPENSES,{name:"deleteVariableExpansesMutation"}),
     graphql(DELETE_BILL,{name:"deleteBillMutation"})
 
-)(withApollo(SpendingEditableTable));
+)(withApollo(SavingsEditableTable));

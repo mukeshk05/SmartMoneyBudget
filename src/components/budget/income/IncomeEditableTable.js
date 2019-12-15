@@ -399,7 +399,8 @@ class IncomeEditableTable extends React.Component {
           /></div>
           <div className="flex-col"> <IncomePaiChart
               onRef={ref => (this.child = ref)}
-              paiChartData={this.props.paiChartData}/></div>
+              paiChartData={this.props.paiChartData}
+              incomePaiChartLavels={this.props.incomePaiChartLavels}/></div>
         </div>
       </div>
 

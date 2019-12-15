@@ -26,3 +26,4 @@ export const durationType = [
   "Fortnightly"
 ];
 export const mapView = [{ 0: 1 }, { 1: 4 }, { 2: 12 }, { 3: 54 }, { 4: 26 }];
+

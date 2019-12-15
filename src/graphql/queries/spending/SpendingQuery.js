@@ -12,7 +12,7 @@ export const USER_MONTEHLY_SPENDING=gql`
                 bills_type
                 status
             }
-            spouse_salary
+            spouse_amount
             spouse_duration
             transactionDate
         },
@@ -24,6 +24,20 @@ export const USER_MONTEHLY_SPENDING=gql`
             variable_expense_type {
                 id
                 variable_expense_type
+                status
+            }
+            spouse_amount
+            spouse_duration
+            transactionDate
+        },
+        fixedExpenseses(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+            id
+            user_id
+            duration
+            fixed_expense_amount
+            fixed_expense_type {
+                id
+                fixed_expense_type
                 status
             }
             spouse_amount

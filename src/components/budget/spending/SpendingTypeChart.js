@@ -2,15 +2,17 @@
 import React from "react";
 import Chart from 'react-apexcharts';
 
-class IncomePaiChart extends React.Component {
+class SpendingTypeChart extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            paiChartData:[],
             options: {
-                labels: this.props.incomePaiChartLavels,
+                legend: {
+                    position: 'left'
+                },
+                labels: this.props.spendingTypeChartLavel,
                 responsive: [{
                     breakpoint: 580,
                     options: {
@@ -29,13 +31,13 @@ class IncomePaiChart extends React.Component {
 
     componentDidMount() {
         this.props.onRef(this);
-        this.setState({ chartData: this.props.chartData });
+        this.setState({ chartData: this.props.spendingTypeChartSeries });
     }
 
     render() {
         return (
 
-                <Chart options={this.state.options} series={this.props.paiChartData} type="pie"  height="270"  width="550" />
+            <Chart options={this.state.options} series={this.props.spendingTypeChartSeries} type="pie"  height="270"  width="450" />
 
 
 
@@ -43,4 +45,4 @@ class IncomePaiChart extends React.Component {
     }
 }
 
-export default IncomePaiChart;
+export default SpendingTypeChart;

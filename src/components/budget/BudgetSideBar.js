@@ -10,12 +10,13 @@ import {
 } from "react-router-dom";
 import DonutChart from "../SideBar/DonutChart";
 import CashFlow from "./CashFlow";
-import Saving from "./Saving";
+import Saving from "./savings/Saving";
 import Income from "./income/Income";
 import Tracket from "./Tracker";
 import SubMenu from "antd/es/menu/SubMenu";
 import BudgetFooter from "../footer/Footer";
 import BudgetPlannerEntry from "./budgetplanner/BudgetPlannerEntry";
+import Spending from "./spending/Spending";
 const { Content, Sider, Footer } = Layout;
 
 const BudgetSideBar = props => {
@@ -154,7 +155,7 @@ const BudgetSideBar = props => {
               <Content className="content" style={{ margin: "0px 0px 0" ,height:"auto" }}>
                 <Redirect from="/" exact to="/budget/budgetEntry" />
                 <Route exact path="/budget/budgetEntry" component={BudgetPlannerEntry} />
-                <Route path="/budget/budgetspending" component={DonutChart} />
+                <Route path="/budget/budgetspending" component={Spending} />
                 <Route path="/budget/trackers" component={Tracket} />
                 <Route path="/budget/cashflow" component={CashFlow}/>
                 <Route path="/budget/saving" component={Saving}/>

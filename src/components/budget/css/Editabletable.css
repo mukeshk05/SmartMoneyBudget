@@ -62,7 +62,7 @@
     flex-direction: column;
     color: #00a0e9;
     box-sizing:border-box;
-    width: 200px;
+    width: 100px;
 }
 
 @media (max-width:767px) {

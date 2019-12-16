@@ -2,7 +2,7 @@
 import React from "react";
 import Chart from 'react-apexcharts';
 
-class SpendingPaiChart extends React.Component {
+class SavingPaiChart extends React.Component {
 
     constructor(props) {
         super(props);
@@ -42,4 +42,4 @@ class SpendingPaiChart extends React.Component {
     }
 }
 
-export default SpendingPaiChart;
+export default SavingPaiChart;

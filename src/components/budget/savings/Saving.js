@@ -67,10 +67,6 @@ class Saving extends React.Component {
                     <Radio.Button value="3">Weekly</Radio.Button>
                     <Radio.Button value="4">Fortnightly</Radio.Button>
                 </Radio.Group>
-
-
-
-
                 {
                     <Query
                         query={USER_ALL_MONTHELY_SAVINGS}

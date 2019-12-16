@@ -32,6 +32,7 @@ import SpendingTypeChart from "./SpendingTypeChart";
 import {USER_MONTEHLY_BILLS} from "../../../graphql/queries/bills/BillsQuery";
 import {USER_MONTEHLY_VARIABLE_EXPENSES} from "../../../graphql/queries/variableexpenses/VariableExpensesQuery";
 import {USER_MONTEHLY_FIXED_EXPENSESG} from "../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
+import SavingsChart from "./SavingsChart";
 const { Option } = Select;
 
 class SavingsEditableTable extends React.Component {
@@ -448,17 +449,17 @@ class SavingsEditableTable extends React.Component {
                 </Row>
                 <Divider style={{height:1}}/>
                 <div className="flex-row">
-                    <div className="flex-col"><SpendingChart
+                    <div className="flex-col"><SavingsChart
                         onRef={ref => (this.child = ref)}
                         chartData={this.props.chartData}
                         month={this.props.month}/>
                     </div>
-                    <div className="flex-col"> <SpendingTypeChart
+                    <div className="flex-col"> <SavingTypeChart
                         onRef={ref => (this.child = ref)}
                         spendingTypeChartLavel={this.props.spendingTypeChartLavel}
                         spendingTypeChartSeries={this.props.spendingTypeChartSeries}
                     /></div>
-                    <div className="flex-col"> <SpendingPaiChart
+                    <div className="flex-col"> <SavingPaiChart
                         onRef={ref => (this.child = ref)}
                         paiChartData={this.props.paiChartData}
                         paiChartLabels={this.props.paiChartLabels}/>

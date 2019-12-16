@@ -251,7 +251,10 @@ class SpendingEditableTable extends React.Component {
                 refetchQueries: [
                     {
                         query: USER_MONTEHLY_SPENDING,
-                        variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                        variables: {
+                            tranaction_start_date: this.props.endDate,
+                            transaction_end_date: this.props.startDate
+                        }
                     }
                 ]
             });
@@ -267,7 +270,10 @@ class SpendingEditableTable extends React.Component {
                 refetchQueries: [
                     {
                         query: USER_MONTEHLY_SPENDING,
-                        variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                        variables: {
+                            tranaction_start_date: this.props.endDate,
+                            transaction_end_date: this.props.startDate
+                        }
                     }
                 ]
             });
@@ -283,7 +289,10 @@ class SpendingEditableTable extends React.Component {
                 refetchQueries: [
                     {
                         query: USER_MONTEHLY_SPENDING,
-                        variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                        variables: {
+                            tranaction_start_date: this.props.endDate,
+                            transaction_end_date: this.props.startDate
+                        }
                     }
                 ]
             });

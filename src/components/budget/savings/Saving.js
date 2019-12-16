@@ -7,7 +7,7 @@ import moment from "moment";
 import _ from "lodash";
 import {CREATE_SAVING} from "../../../graphql/mutation/savings/SavingsMutation";
 import {USER_ALL_MONTHELY_SAVINGS} from "../../../graphql/queries/savings/SavingsQuery";
-import SavingsEditableTable from "../budgetplanner/savings/SavingsEditableTable";
+import SavingsEditableTable from "./SavingsEditableTable";
 const { Option } = Select;
 
 class Saving extends React.Component {
@@ -181,7 +181,7 @@ class Saving extends React.Component {
                                         key: extraRetirementSavingses[i].id,
                                         topic: extraRetirementSavingses[i].extra_retirement_saving_type.extra_retirement_saving_type,
                                         type: "extraRetirementSavingses",
-                                        bill_type_id: extraRetirementSavingses[i].extra_retirement_saving_type.id,
+                                        extra_retirement_saving_type_id: extraRetirementSavingses[i].extra_retirement_saving_type.id,
                                         user_id: extraRetirementSavingses[i].user_id,
                                         primaryduration: (
                                             <Select
@@ -236,7 +236,7 @@ class Saving extends React.Component {
                                         spouseDurationAmount:Math.round((((extraRetirementSavingses[i].spouse_amount)*mapView[extraRetirementSavingses[i].spouse_duration][extraRetirementSavingses[i].spouse_duration])/mapView[durationView][durationView]))
                                     });
                                     primaryTotalSalary =
-                                        primaryTotalSalary + Math.round((((extraRetirementSavingses[i].bill_amount)*mapView[extraRetirementSavingses[i].duration][extraRetirementSavingses[i].duration])/mapView[durationView][durationView]));
+                                        primaryTotalSalary + Math.round((((extraRetirementSavingses[i].extra_retirement_saving_amount)*mapView[extraRetirementSavingses[i].duration][extraRetirementSavingses[i].duration])/mapView[durationView][durationView]));
                                     spouseTotalSalary =
                                         spouseTotalSalary + Math.round((((extraRetirementSavingses[i].spouse_amount)*mapView[extraRetirementSavingses[i].spouse_duration][extraRetirementSavingses[i].spouse_duration])/mapView[durationView][durationView]));
                                 }
@@ -268,32 +268,27 @@ class Saving extends React.Component {
                                     labels.push(name);
                                     series.push(item[0].data.reduce((a, b) => a + b, 0));
                                 }).value();
-
-                                let primaryFixedExpenseses = 0;
-                                let spouseFixedExpenseses = 0;
-                                let primaryBills = 0;
-                                let spouseBills = 0;
-                                let primaryVariableExpenseses = 0;
-                                let spouseVriableExpenseses = 0;
+                                let primarySavings = 0;
+                                let spouseSavings = 0;
+                                let primaryExtraRetirementSavingses = 0;
+                                let spouseExtraRetirementSavingses = 0;
 
                                 graphData1.filter(value => {
-                                    primaryFixedExpenseses = primaryFixedExpenseses + value.primaryFixedExpenseses;
-                                    spouseFixedExpenseses = spouseFixedExpenseses + value.spouseFixedExpenseses;
-                                    primaryBills = primaryBills + value.primaryBills;
-                                    spouseBills = spouseBills + value.spouseBills;
-                                    primaryVariableExpenseses = primaryVariableExpenseses + value.primaryVariableExpenseses;
-                                    spouseVriableExpenseses = spouseVriableExpenseses + value.spouseVriableExpenseses;
+                                    primarySavings = primarySavings + value.primarySavings;
+                                    spouseSavings = spouseSavings + value.spouseSavings;
+                                    primaryExtraRetirementSavingses = primaryExtraRetirementSavingses + value.primaryExtraRetirementSavingses;
+                                    spouseExtraRetirementSavingses = spouseExtraRetirementSavingses + value.spouseExtraRetirementSavingses;
+
                                 });
 
                                 let paiChartData = [
-                                    primaryFixedExpenseses,
-                                    spouseFixedExpenseses,
-                                    primaryBills,
-                                    spouseBills,
-                                    primaryVariableExpenseses,
-                                    spouseVriableExpenseses
+                                    primarySavings,
+                                    spouseSavings,
+                                    primaryExtraRetirementSavingses,
+                                    spouseExtraRetirementSavingses
                                 ];
-                                const  paiChartLabels= ['Primary Fixed Expenses','Spouse Fixed Expenses','Primary Bills','Spouse Bills','Primary Variable Expenses','Spouse Variable Expenses' ];
+                                console.log(paiChartData);
+                                const  paiChartLabels= ['Primary Savings','Spouse Savings','Primary Extra Saving','Spouse Extra Saving',];
                                 return (
                                     <SavingsEditableTable
                                         startDate={this.state.startDate}

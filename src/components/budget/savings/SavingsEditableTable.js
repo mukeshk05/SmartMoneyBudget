@@ -25,14 +25,15 @@ import {
     UPDATE_VARIABLE_EXPENSES
 } from "../../../graphql/mutation/variableexpenses/VariableExpensesMutation";
 import {DELETE_BILL, UPDATE_BILL} from "../../../graphql/mutation/bills/BillsMutation";
-import SpendingChart from "./SpendingChart";
-import SpendingPaiChart from "./SpendingPaiChart";
 import {USER_MONTEHLY_SPENDING} from "../../../graphql/queries/spending/SpendingQuery";
-import SpendingTypeChart from "./SpendingTypeChart";
-import {USER_MONTEHLY_BILLS} from "../../../graphql/queries/bills/BillsQuery";
-import {USER_MONTEHLY_VARIABLE_EXPENSES} from "../../../graphql/queries/variableexpenses/VariableExpensesQuery";
-import {USER_MONTEHLY_FIXED_EXPENSESG} from "../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
 import SavingsChart from "./SavingsChart";
+import SavingTypeChart from "./SavingsTypeChart";
+import SavingPaiChart from "./SavingsPaiChart";
+import {DELETE_SAVING, UPDATE_SAVING} from "../../../graphql/mutation/savings/SavingsMutation";
+import {
+    DELETE_EXTRA_RET_SAVING,
+    UPDATE_EXTRA_RET_SAVING
+} from "../../../graphql/mutation/extraretirementsavings/ExtraRetirementSavingsMutation";
 const { Option } = Select;
 
 class SavingsEditableTable extends React.Component {
@@ -435,14 +436,14 @@ class SavingsEditableTable extends React.Component {
                     <Col span={4} />
                     <Col span={6}>
                         <Statistic className="incomeFont"
-                                   title="Primary Spending"
+                                   title="Primary Savings"
                                    value={this.props.primaryTotalSalary}
                         />
                     </Col>
                     <Col span={2} />
                     <Col span={3}>
                         <Statistic className="incomeFont"
-                                   title="Spouse  Spending"
+                                   title="Spouse  Savings"
                                    value={this.props.spouseTotalSalary}
                         />
                     </Col>
@@ -475,11 +476,8 @@ class SavingsEditableTable extends React.Component {
 }
 
 export default compose(
-    graphql(UPDATE_FIXED_EXPENSES, { name: "updateFixedExpansesMutation" }),
-    graphql(UPDATE_VARIABLE_EXPENSES,{name:"updateVariableExpansesMutation"}),
-    graphql(UPDATE_BILL,{name:"updateBillMutation"}),
-    graphql(DELETE_FIXED_EXPENSES, { name: "deleteFixedExpansesMutation" }),
-    graphql(DELETE_VARIABLE_EXPENSES,{name:"deleteVariableExpansesMutation"}),
-    graphql(DELETE_BILL,{name:"deleteBillMutation"})
-
+    graphql(UPDATE_SAVING, { name: "updateSavingMutation" }),
+    graphql(UPDATE_EXTRA_RET_SAVING,{name:"updateExtraSavingMutation"}),
+    graphql(DELETE_SAVING, { name: "deleteSavingMutation" }),
+    graphql(DELETE_EXTRA_RET_SAVING,{name:"deleteExtraSavingMutation"}),
 )(withApollo(SavingsEditableTable));

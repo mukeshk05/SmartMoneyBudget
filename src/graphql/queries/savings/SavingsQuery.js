@@ -50,6 +50,7 @@ query getAllMonthelySavings($tranaction_start_date:DateTime!,$transaction_end_da
         }
         spouse_amount
         spouse_duration
+         transactionDate
     },
     extraRetirementSavingses(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
         id
@@ -63,6 +64,7 @@ query getAllMonthelySavings($tranaction_start_date:DateTime!,$transaction_end_da
         }
         spouse_amount
         spouse_duration
+        transactionDate
     }
     
 }

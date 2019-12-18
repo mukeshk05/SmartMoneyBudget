@@ -6,6 +6,7 @@ import AdviceSideBar from "./advice/AdviceSideBar";
 import GoalsSideBar from "./goals/GoalsSideBar";
 import CalculatorSideBar from "./calculators/CalculatorSideBar";
 import AccountsSideBar from "./accounts/AccountsSideBar";
+import Login from "./login/Login";
 
 
 class App extends Component {
@@ -13,7 +14,7 @@ class App extends Component {
     return (
       <div className="app-container cover">
           <Switch>
-              <Route exact path='/' component={BudgetSideBar}/>
+              <Route exact path='/' component={Login}/>
               <Route exact path='/budget' component={BudgetSideBar}/>
               <Route exact path='/paystub' component={PayStubSideBar}/>
               <Route exact path='/advice' component={AdviceSideBar}/>

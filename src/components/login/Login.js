@@ -1,48 +1,90 @@
-import React from "react";
-import "./login.css";
-class Login extends React.Component {
+import React, { useEffect, useState } from "react";
+import { useDispatch} from "react-redux";
+import CURRENT_COMPONENT from "../../reducers/types";
+import "./login1.css";
+import "./login3.css";
+const Login = props => {
+    const [collapsed, onCollapse] = useState(false);
 
-    constructor(props) {
-        super(props);
+    const dispatch = useDispatch();
+    useEffect(
+        () => {
+            dispatch({
+                type: CURRENT_COMPONENT,
+                payload: { component: "login", sideBarMenuKey: "login" }
+            });
+        },
+        [dispatch]
+    );
 
+    {
 
-    }
-
-
-    render() {
         return (
-            <div className="body">
-            <div  className = "container">
 
-                <div className="login-item">
-                        <form action="" method="post" className="form form-login">
-                            <div className="form-field">
-                                <label className="user" htmlFor="login-username"><span className="hidden">Username</span></label>
-                                <input id="login-username" type="text" className="form-input" placeholder="Username" required>
-                                </input>
-                            </div>
+            <div className="container-login100">
+                <div className="wrap-login100">
+                    <form action="" method="post" className="login100-form validate-form">
+					<span className="login100-form-title p-b-43">
+						Login to continue
+					</span>
 
-                            <div className="form-field">
-                                <label className="lock" htmlFor="login-password"><span className="hidden">Password</span></label>
-                                <input id="login-password" type="password" className="form-input" placeholder="Password" required>
-                                </input>
-                            </div>
 
-                            <div className="form-field">
-                                <input type="submit" value="Log in">
-                                </input>
+                        <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                            <input className="input100" type="text" name="email"/>
+                            <span className="focus-input100"/>
+                            <span className="label-input100">Email</span>
+                        </div>
+
+                        <div className="wrap-input100 validate-input" data-validate="Password is required">
+                            <input className="input100" type="password" name="pass"/>
+                            <span className="focus-input100"/>
+                            <span className="label-input100">Password</span>
+                        </div>
+
+                        <div className="flex-sb-m w-full p-t-3 p-b-32">
+                            <div>
+                                <a href="#" className="txt1">
+                                    Forgot Password?
+                                </a>
                             </div>
-                        </form>
+                        </div>
+
+
+                        <div className="container-login100-form-btn">
+                            <button className="login100-form-btn">
+                                Login
+                            </button>
+                        </div>
+
+                        <div className="text-center p-t-46 p-b-20">
+						<span className="txt2">
+							or sign up using
+						</span>
+                        </div>
+
+
+                        <div className="login100-form-social flex-c-m">
+                            <a href="#" className="login100-form-social-item flex-c-m bg1 m-r-5">
+                                <i className="fa fa-facebook-f" aria-hidden="true"/>
+                            </a>
+
+                            <a href="#" className="login100-form-social-item flex-c-m bg2 m-r-5">
+                                <i className="fa fa-twitter" aria-hidden="true"/>
+                            </a>
+                            <a href="#" className="login100-form-social-item flex-c-m bg3 m-r-5" >
+                                <i className="fa fa-google" aria-hidden="true" />
+                            </a>
+                        </div>
+                    </form>
+
+                    <div className="login100-more">
                     </div>
-                <div className="container1">Hello</div>
-
+                </div>
             </div>
 
-            </div>
 
 
         );
     }
-}
-
-export default Login;
+};
+export  default Login;

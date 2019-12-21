@@ -8,7 +8,6 @@ import {
   NavLink, Redirect,
   Route
 } from "react-router-dom";
-import DonutChart from "../SideBar/DonutChart";
 import CashFlow from "./CashFlow";
 import Saving from "./savings/Saving";
 import Income from "./income/Income";
@@ -21,7 +20,6 @@ const { Content, Sider, Footer } = Layout;
 
 const BudgetSideBar = props => {
   const [collapsed, onCollapse] = useState(false);
-
   const dispatch = useDispatch();
   useEffect(
     () => {
@@ -35,7 +33,7 @@ const BudgetSideBar = props => {
 
   {
     return (
-      <Layout className="app">
+        <Layout className="app">
         <HeaderRes />
         <Content className="content">
           <Router>
@@ -155,7 +153,7 @@ const BudgetSideBar = props => {
               <Content className="content" style={{ margin: "0px 0px 0" ,height:"auto" }}>
                 <Redirect from="/" exact to="/budget/budgetEntry" />
                 <Route exact path="/budget/budgetEntry" component={BudgetPlannerEntry} />
-                <Route path="/budget/budgetspending" component={Spending} />
+                <Route path="/budget/budgetspending" component={Spending}/>
                 <Route path="/budget/trackers" component={Tracket} />
                 <Route path="/budget/cashflow" component={CashFlow}/>
                 <Route path="/budget/saving" component={Saving}/>

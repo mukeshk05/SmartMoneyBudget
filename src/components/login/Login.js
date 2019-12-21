@@ -1,61 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch} from "react-redux";
-import CURRENT_COMPONENT from "../../reducers/types";
+import React, {Component, useEffect, useState} from "react";
 import "./login1.css";
 import "./login3.css";
-import * as firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore"
+import app from "../base";
+import * as firebase from "firebase";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDYO5FfdKiE6zp2Bt1rdYUnhL3xxNt3uBI",
-    authDomain: "react-firebase-auth-272e9.firebaseapp.com",
-    databaseURL: "https://react-firebase-auth-272e9.firebaseio.com",
-    projectId: "react-firebase-auth-272e9",
-    storageBucket: "react-firebase-auth-272e9.appspot.com",
-    messagingSenderId: "922542910301",
-    appId: "1:922542910301:web:7d9383dd9b746ba41816b4",
-    measurementId: "G-7LTMHK4P84"
-};
 
-const Login = props => {
-    const [collapsed, onCollapse] = useState(false);
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch({
-        type: CURRENT_COMPONENT,
-        payload: { component: "login", sideBarMenuKey: "login" }
-      });
-    }, [dispatch]);
+class Login extends Component{
 
-    const handelGoogleLogin=e=>
-    {
-      console.log("google login");
-        firebase.initializeApp(firebaseConfig);
+     handleSignUp = async event => {
+        event.preventDefault();
         const provider = new firebase.auth.GoogleAuthProvider();
+         const { history } = this.props;
+        try {
+            app.auth().signInWithPopup(provider).then(function(result) {
+                history.push('/');
+             }).catch(function(error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                const email = error.email;
+                const credential = error.credential;
+             });
+        } catch (error) {
+            alert(error);
+        }
+    };
 
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            console.log(result)
-            const token = result.credential.accessToken;
-            // The signed-in user info.
-            const user = result.user;
-            // ...
-        }).catch(function(error) {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            const credential = error.credential;
-            // ...
-        });
-    }
-
-    {
+    render() {
 
         return (
 
@@ -109,7 +83,7 @@ const Login = props => {
                             <a href="#" className="login100-form-social-item flex-c-m bg2 m-r-5">
                                 <i className="fa fa-twitter" aria-hidden="true"/>
                             </a>
-                            <a href="#" className="login100-form-social-item flex-c-m bg3 m-r-5" onClick={handelGoogleLogin}>
+                            <a href="#" className="login100-form-social-item flex-c-m bg3 m-r-5" onClick={this.handleSignUp}>
                                 <i className="fa fa-google" aria-hidden="true" />
                             </a>
                         </div>
@@ -124,5 +98,6 @@ const Login = props => {
 
         );
     }
-};
-export  default Login;
+}
+
+export default (Login);

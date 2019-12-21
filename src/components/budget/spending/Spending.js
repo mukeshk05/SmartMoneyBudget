@@ -13,6 +13,7 @@ const { Option } = Select;
 class Spending extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             durationView:0,
             startDate: yearStartDate,

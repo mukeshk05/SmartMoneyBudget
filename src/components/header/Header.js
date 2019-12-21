@@ -64,41 +64,7 @@ const HeaderRes = props => {
 
   );
 
-  const menu1 = (
-      <Menu
-          theme="dark"
-          mode={visible ? "vertical" : "horizontal"}
-          defaultSelectedKeys={"/"}
-          selectedKeys={[sideBarMenuKey]}
-          style={{ lineHeight: "64px" }}
-      >
-        <Menu.Item key="pay1">
-          <Icon type="alipay" spin="true" />
-          <span><NavLink to="/paystub">Pay Stub</NavLink></span>
-        </Menu.Item>
-        <Menu.Item key="budget1">
-          <Icon type="pie-chart" spin="true" />
-          <span><NavLink to="/budget">Budget</NavLink></span>
-        </Menu.Item>
-        <Menu.Item key="3">
-          <Icon type="bulb" spin="true" />
-          <span>Advice</span>
-        </Menu.Item>
-        <Menu.Item key="4">
-          <Icon type="rise" spin="true" />
-          Goals
-          <span />
-        </Menu.Item>
-        <Menu.Item key="5">
-          <Icon type="calculator" spin="true" />
-          <span>Calculators</span>
-        </Menu.Item>
-        <Menu.Item key="6">
-          <Icon type="account-book" spin="true" />
-          <span>Accounts</span>
-        </Menu.Item>
-      </Menu>
-  );
+
   return (
       <Header className="app-header">
         <div className="logo">

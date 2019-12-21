@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Route,Switch } from 'react-router-dom';
 import BudgetSideBar from "./budget/BudgetSideBar";
 import PayStubSideBar from "./paystub/PayStubSideBar";
 import AdviceSideBar from "./advice/AdviceSideBar";
@@ -7,15 +6,48 @@ import GoalsSideBar from "./goals/GoalsSideBar";
 import CalculatorSideBar from "./calculators/CalculatorSideBar";
 import AccountsSideBar from "./accounts/AccountsSideBar";
 import Login from "./login/Login";
+import PrivateRoute from "./PrivateRoute";
+import app from "./base";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 class App extends Component {
+
+    state = { loading: true, authenticated: false, user: null };
+
+
+    componentWillMount() {
+        app.auth().onAuthStateChanged(user => {
+            if (user) {
+
+                this.setState({
+                    authenticated: true,
+                    user: user,
+                    loading: false
+                });
+            } else {
+                this.setState({
+                    authenticated: false,
+                    user: null,
+                    loading: false
+                });
+            }
+        });
+    }
+
   render() {
-    return (
+
+      const { authenticated, loading,user } = this.state;
+
+      if (loading) {
+          return <p>Loading..</p>;
+      }
+
+
+      return (
       <div className="app-container cover">
           <Switch>
-              <Route exact path='/' component={BudgetSideBar}/>
+              <PrivateRoute exact path="/" component={BudgetSideBar}  authenticated={authenticated} user={user} />
               <Route exact path='/login' component={Login}/>
-              <Route exact path='/budget' component={BudgetSideBar}/>
               <Route exact path='/paystub' component={PayStubSideBar}/>
               <Route exact path='/advice' component={AdviceSideBar}/>
               <Route exact path='/goals' component={GoalsSideBar}/>

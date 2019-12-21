@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Drawer, Icon, Layout, Menu } from "antd";
+import {Divider, Drawer, Icon, Layout, Menu, Modal} from "antd";
 import "antd/es/date-picker/style/css";
 import { Default, Mobile } from "../SideBar/resposive";
 import "../../styles/index.css";
@@ -11,12 +11,15 @@ const { Header } = Layout;
 const HeaderRes = props => {
   const [visible, setVisible] = useState(false
   );
-
+  const [drawerVisible, setdrawerVisible] = useState(false
+  );
 
 
   const sideBarMenuKey = useSelector(
       state => state.currentComponetReducer.sideBarMenuItemKey
   );
+
+
 
 
   const menu = (
@@ -46,12 +49,10 @@ const HeaderRes = props => {
         <Menu.Item key="accounts" >
           <NavLink to="/accounts/cash">Accounts</NavLink>
         </Menu.Item>
-        <Menu.Item key="7" hidden={visible}>
-          <Tooltip title="Setting">
+        <Menu.Item key="user" hidden={visible}>
           <span>
-            <Icon type="setting" spin="true" />
+            <Icon type="user" spin={false} onClick={() => setdrawerVisible(true)}/>
           </span>
-          </Tooltip>
         </Menu.Item>
         <Menu.Item key="8"  hidden={visible}>
           <Tooltip title="Help">
@@ -63,7 +64,7 @@ const HeaderRes = props => {
       </Menu>
 
   );
-
+console.log(props.user)
 
   return (
       <Header className="app-header">
@@ -94,6 +95,20 @@ const HeaderRes = props => {
             {menu}
           </Drawer>
         </Mobile>
+        <Drawer
+            drawerStyle={{background:"red"}}
+            bodyStyle={{background:"red"}}
+            headerStyle={{background:"red"}}
+            placement="right"
+            closable={false}
+            onClose={() => setdrawerVisible(false)}
+            visible={drawerVisible}
+            width={300}
+            height={1}
+        >
+          <p>Some contents...</p>
+          <Divider/>
+        </Drawer>
       </Header>
   );
 };

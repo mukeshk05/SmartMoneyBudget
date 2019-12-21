@@ -245,3 +245,5 @@ body {
 .ant-carousel .slick-slide h3 {
   color: #fff;
 }
+
+.custom-dialog {width:10% !important; top:8%; right: 9%}

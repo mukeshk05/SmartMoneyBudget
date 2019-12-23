@@ -37,7 +37,7 @@ class SavingTypeChart extends React.Component {
     render() {
         return (
 
-            <Chart options={this.state.options} series={this.props.spendingTypeChartSeries} type="pie"  height="270"  width="450" />
+            <Chart options={this.state.options} series={this.props.spendingTypeChartSeries} type="pie"  height="309"  width="450" />
 
 
 

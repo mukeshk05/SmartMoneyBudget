@@ -29,6 +29,26 @@ class Login extends Component{
         }
     };
 
+
+    handleFbSignUp = async event => {
+        event.preventDefault();
+        const provider = new firebase.auth.FacebookAuthProvider();
+        const { history } = this.props;
+        try {
+            app.auth().signInWithPopup(provider).then(function(result) {
+                history.push('/');
+            }).catch(function(error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                const email = error.email;
+                const credential = error.credential;
+            });
+        } catch (error) {
+            alert(error);
+        }
+    };
+
+
     render() {
 
         return (
@@ -42,13 +62,13 @@ class Login extends Component{
 
 
                         <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                            <input className="input100" type="text" name="email"/>
+                            <input className="input100" type="text" name="email" style={{background:"#f2f2f2",height:"78px",border:"0px"}}/>
                             <span className="focus-input100"/>
                             <span className="label-input100">Email</span>
                         </div>
 
                         <div className="wrap-input100 validate-input" data-validate="Password is required">
-                            <input className="input100" type="password" name="pass"/>
+                            <input className="input100" type="password" name="pass" style={{background:"#f2f2f2",height:"78px",border:"0px"}}/>
                             <span className="focus-input100"/>
                             <span className="label-input100">Password</span>
                         </div>
@@ -76,7 +96,7 @@ class Login extends Component{
 
 
                         <div className="login100-form-social flex-c-m">
-                            <a href="#" className="login100-form-social-item flex-c-m bg1 m-r-5">
+                            <a href="#" className="login100-form-social-item flex-c-m bg1 m-r-5" onClick={this.handleFbSignUp}>
                                 <i className="fa fa-facebook-f" aria-hidden="true"/>
                             </a>
 

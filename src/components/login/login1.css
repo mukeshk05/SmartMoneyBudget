@@ -1,46 +1,5 @@
 
 
-/*//////////////////////////////////////////////////////////////////
-[ RESTYLE TAG ]*/
-
-
-
-/*---------------------------------------------*/
-input {
-  outline: none;
-  border: none;
-}
-
-textarea {
-  outline: none;
-  border: none;
-}
-
-textarea:focus, input:focus {
-  border-color: transparent !important;
-}
-
-input:focus::-webkit-input-placeholder { color:transparent; }
-input:focus:-moz-placeholder { color:transparent; }
-input:focus::-moz-placeholder { color:transparent; }
-input:focus:-ms-input-placeholder { color:transparent; }
-
-textarea:focus::-webkit-input-placeholder { color:transparent; }
-textarea:focus:-moz-placeholder { color:transparent; }
-textarea:focus::-moz-placeholder { color:transparent; }
-textarea:focus:-ms-input-placeholder { color:transparent; }
-
-input::-webkit-input-placeholder { color: #999999;}
-input:-moz-placeholder { color: #999999;}
-input::-moz-placeholder { color: #999999;}
-input:-ms-input-placeholder { color: #999999;}
-
-textarea::-webkit-input-placeholder { color: #999999;}
-textarea:-moz-placeholder { color: #999999;}
-textarea::-moz-placeholder { color: #999999;}
-textarea:-ms-input-placeholder { color: #999999;}
-
-
 label {
   display: block;
   margin: 0;
@@ -55,7 +14,6 @@ button {
 
 button:hover {
   cursor: pointer;
-  color: #00a0e9;
 }
 
 iframe {
@@ -202,7 +160,6 @@ iframe {
   border: 1px solid #e6e6e6;
   border-radius: 10px;
   margin-bottom: 10px;
-
 }
 
 .label-input100 {
@@ -234,8 +191,6 @@ iframe {
   color: #555555;
   line-height: 1.2;
   padding: 0 26px;
-
-
 }
 
 input.input100 {
@@ -244,7 +199,6 @@ input.input100 {
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
   transition: all 0.4s;
-  background-color: #f2f2f2;
 }
 
 /*---------------------------------------------*/
@@ -278,6 +232,7 @@ input.input100 {
 .input100:focus + .focus-input100 {
   visibility: visible;
   opacity: 1;
+
   -webkit-transform: scale(1);
   -moz-transform: scale(1);
   -ms-transform: scale(1);

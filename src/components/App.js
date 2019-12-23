@@ -9,6 +9,10 @@ import Login from "./login/Login";
 import PrivateRoute from "./PrivateRoute";
 import app from "./base";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { createHashHistory } from 'history';
+import SavingDataForChart from "./dashboard/SavingDataForChart";
+
+const history = createHashHistory();
 
 class App extends Component {
 
@@ -24,6 +28,7 @@ class App extends Component {
                     user: user,
                     loading: false
                 });
+                history.push('/')
             } else {
                 this.setState({
                     authenticated: false,
@@ -46,26 +51,27 @@ class App extends Component {
       return (
       <div className="app-container cover">
           <Switch>
-              <PrivateRoute exact path="/" component={BudgetSideBar}  authenticated={authenticated} user={user} />
+              <PrivateRoute exact path="/" component={SavingDataForChart}  authenticated={authenticated} user={user} />
+              <PrivateRoute exact path="/budget" component={BudgetSideBar}  authenticated={authenticated} user={user} />
               <Route exact path='/login' component={Login}/>
-              <Route exact path='/paystub' component={PayStubSideBar}/>
-              <Route exact path='/advice' component={AdviceSideBar}/>
-              <Route exact path='/goals' component={GoalsSideBar}/>
-              <Route exact path="/calculator" component={CalculatorSideBar}  />
-              <Route exatc path="/accounts" component={AccountsSideBar}/>
-              <Route path="/budget/budgetspending" component={BudgetSideBar} />
-              <Route path="/budget/trackers" component={BudgetSideBar} />
-              <Route path="/budget/cashflow" component={BudgetSideBar}/>
-              <Route path="/budget/saving" component={BudgetSideBar}/>
-              <Route path="/budget/income" component={BudgetSideBar}/>
-              <Route path="/paystub/manualentry" component={PayStubSideBar} />
-              <Route path="/paystub/autoscanpdf" component={PayStubSideBar}/>
-              <Route path="/accounts/cash" component={AccountsSideBar}/>
-              <Route path="/budget/budgetEntry" component={BudgetSideBar} />
+              <PrivateRoute exact path='/paystub' component={PayStubSideBar} authenticated={authenticated} user={user}/>
+              <PrivateRoute exact path='/advice' component={AdviceSideBar} authenticated={authenticated} user={user}/>
+              <PrivateRoute exact path='/goals' component={GoalsSideBar} authenticated={authenticated} user={user}/>
+              <PrivateRoute exact path="/calculator" component={CalculatorSideBar} authenticated={authenticated} user={user}  />
+              <PrivateRoute exatc path="/accounts" component={AccountsSideBar} authenticated={authenticated} user={user}/>
+              <PrivateRoute path="/budget/budgetspending" component={BudgetSideBar} authenticated={authenticated} user={user} />
+              <PrivateRoute path="/budget/trackers" component={BudgetSideBar} authenticated={authenticated} user={user}/>
+              <PrivateRoute path="/budget/cashflow" component={BudgetSideBar} authenticated={authenticated} user={user}/>
+              <PrivateRoute path="/budget/saving" component={BudgetSideBar} authenticated={authenticated} user={user}/>
+              <PrivateRoute path="/budget/income" component={BudgetSideBar} authenticated={authenticated} user={user}/>
+              <PrivateRoute path="/paystub/manualentry" component={PayStubSideBar} authenticated={authenticated} user={user} />
+              <PrivateRoute path="/paystub/autoscanpdf" component={PayStubSideBar} authenticated={authenticated} user={user}/>
+              <PrivateRoute path="/accounts/cash" component={AccountsSideBar} authenticated={authenticated} user={user}/>
+              <PrivateRoute path="/budget/budgetEntry" component={BudgetSideBar} authenticated={authenticated} user={user}/>
           </Switch>
       </div>
     );
   }
 }
 
-export default App;
+export default (App);

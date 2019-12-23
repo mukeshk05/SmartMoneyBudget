@@ -247,3 +247,10 @@ body {
 }
 
 .custom-dialog {width:10% !important; top:8%; right: 9%}
+.profileImage{
+  width: 100px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  display: block}

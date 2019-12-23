@@ -6,6 +6,9 @@ import "firebase/auth";
 import "firebase/firestore"
 import app from "../base";
 import * as firebase from "firebase";
+import {compose, graphql, withApollo} from "react-apollo";
+import {CREATE_SAVING} from "../../graphql/mutation/savings/SavingsMutation";
+import {CREATE_USER} from "../../graphql/mutation/user/UserMutation";
 
 
 
@@ -17,8 +20,14 @@ class Login extends Component{
          const { history } = this.props;
         try {
             app.auth().signInWithPopup(provider).then(function(result) {
+                this.props.createUserMutation({
+                    variables: {
+                        user_id: result.user.email,
+                        screen_user_name:result.user.displayName
+                    }
+                });
                 history.push('/');
-             }).catch(function(error) {
+            }).catch(function(error) {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 const email = error.email;
@@ -120,4 +129,6 @@ class Login extends Component{
     }
 }
 
-export default (Login);
+export default compose(
+    graphql(CREATE_USER, { name: "createUserMutation" })
+)(withApollo(Login));

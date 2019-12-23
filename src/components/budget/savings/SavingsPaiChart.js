@@ -31,7 +31,6 @@ class SavingPaiChart extends React.Component {
     }
 
     componentDidMount() {
-        this.props.onRef(this);
         this.setState({ chartData: this.props.chartData });
     }
 

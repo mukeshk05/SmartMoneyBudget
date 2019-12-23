@@ -34,6 +34,7 @@ import {
     DELETE_EXTRA_RET_SAVING,
     UPDATE_EXTRA_RET_SAVING
 } from "../../../graphql/mutation/extraretirementsavings/ExtraRetirementSavingsMutation";
+import {USER_MONTEHLY_EXTRA_RETIREMENT_SAVING} from "../../../graphql/queries/extraretirementsavings/ExtraRetirementSavingsQuery";
 const { Option } = Select;
 
 class SavingsEditableTable extends React.Component {
@@ -110,20 +111,20 @@ class SavingsEditableTable extends React.Component {
             item => row.spouseduration.props.defaultValue === item
         );
 
-        if (row.type === "bills") {
-            this.props.updateBillMutation({
+        if (row.type === "savings") {
+            this.props.updateSavingMutation({
                 variables: {
                     user_id: row.user_id,
                     duration: primaryDuration,
-                    bill_amount: parseFloat(row.primaryamount),
-                    bill_type: row.bill_type_id,
+                    saving_amount: parseFloat(row.primaryamount),
+                    saving_type: row.saving_type_id,
                     id: row.key,
                     spouse_amount: parseFloat(row.spouseamount),
                     spouse_duration: spouseDuration
                 },
                 refetchQueries: [
                     {
-                        query: USER_MONTEHLY_SPENDING,
+                        query: USER_MONTEHLY_SAVING,
                         variables: {
                             tranaction_start_date: this.props.endDate,
                             transaction_end_date: this.props.startDate
@@ -131,42 +132,20 @@ class SavingsEditableTable extends React.Component {
                     }
                 ]
             });
-        } else if(row.type === "variableExpenseses") {
-            this.props.updateVariableExpansesMutation({
+        } else if(row.type === "extraRetirementSavingses") {
+            this.props.updateExtraSavingMutation({
                 variables: {
                     user_id: row.user_id,
                     duration: primaryDuration,
-                    variable_expense_amount: parseFloat(row.primaryamount),
-                    variable_expense_type: row.variable_expense_type_id,
+                    extra_retirement_saving_amount: parseFloat(row.primaryamount),
+                    extra_retirement_saving_type: row.extra_retirement_saving_type_id,
                     id: row.key,
                     spouse_amount: parseFloat(row.spouseamount),
                     spouse_duration: spouseDuration
                 },
                 refetchQueries: [
                     {
-                        query: USER_MONTEHLY_SPENDING,
-                        variables: {
-                            tranaction_start_date: this.props.endDate,
-                            transaction_end_date: this.props.startDate
-                        }
-                    }
-                ]
-            });
-        }
-        else{
-            this.props.updateFixedExpansesMutation({
-                variables: {
-                    user_id: row.user_id,
-                    duration: primaryDuration,
-                    fixed_expense_amount: parseFloat(row.primaryamount),
-                    fixed_expense_type: row.fixed_expense_type_id,
-                    id: row.key,
-                    spouse_amount: parseFloat(row.spouseamount),
-                    spouse_duration: spouseDuration
-                },
-                refetchQueries: [
-                    {
-                        query: USER_MONTEHLY_SPENDING,
+                        query: USER_MONTEHLY_EXTRA_RETIREMENT_SAVING,
                         variables: {
                             tranaction_start_date: this.props.endDate,
                             transaction_end_date: this.props.startDate
@@ -180,17 +159,17 @@ class SavingsEditableTable extends React.Component {
 
     handlePrimaryDurationChange = (value, slId,type) => {
         let primaryDuration = durationType.findIndex(item => value === item);
-        if (type === "bills"){
-            this.props.updateBillMutation({
+        if (type === "savings"){
+            this.props.updateSavingMutation({
                 variables: {
                     user_id: slId.user_id,
                     duration: primaryDuration,
-                    bill_type: slId.bill_type.id,
+                    saving_type: slId.saving_type.id,
                     id: slId.id
                 },
                 refetchQueries: [
                     {
-                        query: USER_MONTEHLY_SPENDING,
+                        query: USER_MONTEHLY_SAVING,
                         variables: {
                             tranaction_start_date: this.props.endDate,
                             transaction_end_date: this.props.startDate
@@ -199,17 +178,17 @@ class SavingsEditableTable extends React.Component {
                 ]
             });
         }
-       else if(type === "variableExpenseses") {
-            this.props.updateVariableExpansesMutation({
+       else if(type === "extraRetirementSavingses") {
+            this.props.updateExtraSavingMutation({
                 variables: {
                     user_id: slId.user_id,
                     duration: primaryDuration,
-                    variable_expense_type: slId.variable_expense_type.id,
+                    extra_retirement_saving_type: slId.extra_retirement_saving_type.id,
                     id: slId.id
                 },
                 refetchQueries: [
                     {
-                        query: USER_MONTEHLY_SPENDING,
+                        query: USER_MONTEHLY_EXTRA_RETIREMENT_SAVING,
                         variables: {
                             tranaction_start_date: this.props.endDate,
                             transaction_end_date: this.props.startDate
@@ -218,77 +197,50 @@ class SavingsEditableTable extends React.Component {
                 ]
             });
 
-        }else{
-            this.props.updateFixedExpansesMutation({
-                variables: {
-                    user_id: slId.user_id,
-                    duration: primaryDuration,
-                    fixed_expense_type: slId.fixed_expense_type.id,
-                    id: slId.id
-                },
-                refetchQueries: [
-                    {
-                        query: USER_MONTEHLY_SPENDING,
-                        variables: {
-                            tranaction_start_date: this.props.endDate,
-                            transaction_end_date: this.props.startDate
-                        }
-                    }
-                ]
-            });
         }
 
     };
 
     handleSpouseDurationChange = (value, slId,type) => {
         let spouseDuration = durationType.findIndex(item => value === item);
-        if (type === "bills"){
-            this.props.updateBillMutation({
+        if (type === "savings"){
+            this.props.updateSavingMutation({
                 variables: {
                     user_id: slId.user_id,
                     spouse_duration: spouseDuration,
-                    bill_type: slId.bill_type.id,
+                    saving_type: slId.saving_type.id,
                     id: slId.id
                 },
                 refetchQueries: [
                     {
-                        query: USER_MONTEHLY_SPENDING,
-                        variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                        query: USER_MONTEHLY_SAVING,
+                        variables: {
+                            tranaction_start_date: this.props.endDate,
+                            transaction_end_date: this.props.startDate
+                        }
                     }
                 ]
             });
         }
-        else if(type === "variableExpenseses") {
-            this.props.updateVariableExpansesMutation({
+        else if(type === "extraRetirementSavingses") {
+            this.props.updateExtraSavingMutation({
                 variables: {
                     user_id: slId.user_id,
                     spouse_duration: spouseDuration,
-                    variable_expense_type: slId.variable_expense_type.id,
+                    extra_retirement_saving_type: slId.extra_retirement_saving_type.id,
                     id: slId.id
                 },
                 refetchQueries: [
                     {
-                        query: USER_MONTEHLY_SPENDING,
-                        variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                        query: USER_MONTEHLY_EXTRA_RETIREMENT_SAVING,
+                        variables: {
+                            tranaction_start_date: this.props.endDate,
+                            transaction_end_date: this.props.startDate
+                        }
                     }
                 ]
             });
 
-        }else{
-            this.props.updateFixedExpansesMutation({
-                variables: {
-                    user_id: slId.user_id,
-                    spouse_duration: spouseDuration,
-                    fixed_expense_type: slId.fixed_expense_type.id,
-                    id: slId.id
-                },
-                refetchQueries: [
-                    {
-                        query: USER_MONTEHLY_SPENDING,
-                        variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
-                    }
-                ]
-            });
         }
     };
 

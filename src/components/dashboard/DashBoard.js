@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
     Table,
     Input,
@@ -17,76 +17,76 @@ import SavingsChart from "../budget/savings/SavingsChart";
 import SavingTypeChart from "../budget/savings/SavingsTypeChart";
 import SavingPaiChart from "../budget/savings/SavingsPaiChart";
 import HeaderRes from "../header/Header";
+import {useDispatch} from "react-redux";
+import CURRENT_COMPONENT from "../../reducers/types";
 const { Option } = Select;
 const { Content } = Layout;
-class DashBoard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filteredInfo: null,
-      sortedInfo: null,
-      salaryData: [],
-      durationView: 0
-    };
-  }
+const DashBoard = props =>{
 
-  componentDidMount() {
-    this.props.onRef(this);
-  }
+    const [collapsed, onCollapse] = useState(false);
+    const inputRef = useRef();
+    const dispatch = useDispatch();
+    useEffect(
+        () => {
+            dispatch({
+                type: CURRENT_COMPONENT,
+                payload: { component: "dashboard", sideBarMenuKey: "dashboard" }
+            });
+        },
+        [dispatch]
+    );
 
-  render() {
+    {
     return (
       <Layout className="app">
-        <HeaderRes user={this.props.user} />
+        <HeaderRes user={props.user} />
         <Content className="content">
+
             <div style={{ background: "#ECECEC", padding: "30px" }}>
-              <div className="flex-row">
-                <div className="flex-col">
-                  {" "}
-                  <Card title="Monthly Saving " bordered={false} headStyle={{background:"#00a0e9"}}>
-                    <SavingsChart
-                      onRef={ref => (this.child = ref)}
-                      chartData={this.props.chartData}
-                      month={this.props.month}
-                    />
-                  </Card>
+                <div className="flex-row">
+                    <div className="flex-col">
+                        {" "}
+                        <Card title="Monthly Saving " bordered={false} headStyle={{background:"#00a0e9"}}>
+                            <SavingsChart
+                                 chartData={props.chartData}
+                                month={props.month}
+                            />
+                        </Card>
+                    </div>
+                    <div className="flex-col">
+                        {" "}
+                        <Card title="Saving By Category" bordered={false} headStyle={{background:"#00a0e9"}}>
+                            <SavingTypeChart  style={{height:"580"}}
+                                              spendingTypeChartLavel={props.spendingTypeChartLavel}
+                                              spendingTypeChartSeries={
+                                                  props.spendingTypeChartSeries
+                                              }
+                            />
+                        </Card>
+                    </div>
+                    <div className="flex-col">
+                        {" "}
+                        <Card title="Saving By Individual " bordered={false} headStyle={{background:"#00a0e9"}}>
+                            <SavingPaiChart
+                                paiChartData={props.paiChartData}
+                                paiChartLabels={props.paiChartLabels}
+                            />
+                        </Card>
+                    </div>
                 </div>
-                <div className="flex-col">
-                  {" "}
-                  <Card title="Saving By Category" bordered={false} headStyle={{background:"#00a0e9"}}>
-                    <SavingTypeChart  style={{height:"580"}}
-                      onRef={ref => (this.child = ref)}
-                      spendingTypeChartLavel={this.props.spendingTypeChartLavel}
-                      spendingTypeChartSeries={
-                        this.props.spendingTypeChartSeries
-                      }
-                    />
-                  </Card>
-                </div>
-                <div className="flex-col">
-                  {" "}
-                  <Card title="Saving By Individual " bordered={false} headStyle={{background:"#00a0e9"}}>
-                    <SavingPaiChart
-                      onRef={ref => (this.child = ref)}
-                      paiChartData={this.props.paiChartData}
-                      paiChartLabels={this.props.paiChartLabels}
-                    />
-                  </Card>
-                </div>
-              </div>
                 <div className="flex-row">
                     <div className="flex-col">
                         <Card title="Total Saving By Individual " bordered={false} headStyle={{background:"#00a0e9"}}>
                             <Statistic
                                 title="Primary Total Saving"
-                                value={this.props.primaryTotalSaving}
+                                value={props.primaryTotalSaving}
                                 precision={2}
                                 valueStyle={{ color: '#00a0e9' }}
                                 suffix={<Icon type="dollar" theme="twoTone" />}
                             />
                             <Statistic
                                 title="Spouse Total Saving"
-                                value={this.props.spouseTotalSaving}
+                                value={props.spouseTotalSaving}
                                 precision={2}
                                 valueStyle={{ color: '#00a0e9' }}
                                 suffix={<Icon type="dollar" theme="twoTone" />}
@@ -97,7 +97,7 @@ class DashBoard extends React.Component {
                         <Card title="Total Extra Retirement Saving By Individual" bordered={false} headStyle={{background:"#00a0e9"}}>
                             <Statistic
                                 title="Primary Total Extra Retirement Saving"
-                                value={this.props.primaryExtraTotalSaving}
+                                value={props.primaryExtraTotalSaving}
                                 precision={2}
                                 valueStyle={{ color: '#28cf20' }}
                                 suffix={<Icon type="dollar" theme="twoTone" />}
@@ -105,7 +105,7 @@ class DashBoard extends React.Component {
                             />
                             <Statistic
                                 title="Spouse Total Extra Retirement Saving"
-                                value={this.props.spouseExtraTotalSaving}
+                                value={props.spouseExtraTotalSaving}
                                 precision={2}
                                 valueStyle={{ color: '#28cf20' }}
                                 suffix={<Icon type="dollar"  theme="twoTone"/>}
@@ -118,7 +118,6 @@ class DashBoard extends React.Component {
                     </div>
                 </div>
             </div>
-
         </Content>
         <BudgetFooter />
       </Layout>

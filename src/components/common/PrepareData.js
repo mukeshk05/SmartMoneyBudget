@@ -29,7 +29,7 @@ export const savingChartData = (data,durationView) => {
 
 
     primaryTotalSaving =
-        primaryTotalSaving + Math.round((((savings[i].spouse_amount)*mapView[savings[i].duration][savings[i].duration])/mapView[durationView][durationView]));
+        primaryTotalSaving + Math.round((((savings[i].saving_amount)*mapView[savings[i].duration][savings[i].duration])/mapView[durationView][durationView]));
     spouseTotalSaving =
         spouseTotalSaving + Math.round((((savings[i].spouse_amount)*mapView[savings[i].spouse_duration][savings[i].spouse_duration])/mapView[durationView][durationView]));
   }

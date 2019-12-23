@@ -107,7 +107,7 @@ class Saving extends React.Component {
                                         key: savings[i].id,
                                         topic: savings[i].saving_type.saving_type,
                                         type: "savings",
-                                        fixed_expense_type_id: savings[i].saving_type.id,
+                                        saving_type_id: savings[i].saving_type.id,
                                         user_id: savings[i].user_id,
                                         primaryduration: (
                                             <Select
@@ -162,7 +162,7 @@ class Saving extends React.Component {
                                         spouseDurationAmount:Math.round((((savings[i].spouse_amount)*mapView[savings[i].spouse_duration][savings[i].spouse_duration])/mapView[durationView][durationView]))
                                     });
                                     primaryTotalSalary =
-                                        primaryTotalSalary + Math.round((((savings[i].spouse_amount)*mapView[savings[i].duration][savings[i].duration])/mapView[durationView][durationView]));
+                                        primaryTotalSalary + Math.round((((savings[i].saving_amount)*mapView[savings[i].duration][savings[i].duration])/mapView[durationView][durationView]));
                                     spouseTotalSalary =
                                         spouseTotalSalary + Math.round((((savings[i].spouse_amount)*mapView[savings[i].spouse_duration][savings[i].spouse_duration])/mapView[durationView][durationView]));
                                 }

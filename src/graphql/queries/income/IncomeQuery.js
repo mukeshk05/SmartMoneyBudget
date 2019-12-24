@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const USER_MONTEHLY_INCOME=gql`
-    query getAllIncome($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
-        salaries(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+    query getAllIncome($user_id:String!,$tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+        salaries(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
             duration
@@ -16,7 +16,7 @@ export const USER_MONTEHLY_INCOME=gql`
             spouse_duration
             transactionDate
         },
-        benefitses(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+        benefitses(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
             duration

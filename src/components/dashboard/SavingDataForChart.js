@@ -46,6 +46,7 @@ class SavingDataForChart extends React.Component {
                 <Query
                   query={USER_ALL_MONTHELY_SAVINGS}
                   variables={{
+                    user_id: this.props.user.email,
                     tranaction_start_date: this.state.endDate,
                     transaction_end_date: this.state.startDate
                   }}

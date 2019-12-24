@@ -18,8 +18,8 @@ export const USER_VARIABLE_EXPENSES = gql`
 `;
 
 export const USER_MONTEHLY_VARIABLE_EXPENSES=gql`
-    query getAllVariableExpenses($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
-        variableExpenseses(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+    query getAllVariableExpenses($user_id:String!,$tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+        variableExpenseses(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
             duration

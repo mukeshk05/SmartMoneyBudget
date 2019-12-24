@@ -13,6 +13,7 @@ import SubMenu from "antd/es/menu/SubMenu";
 import ManualPayEntry from "./manual/ManualPayEntry";
 import ScanPDF from "./scanpdf/ScanPDF";
 import BudgetFooter from "../footer/Footer";
+import BudgetPlannerEntry from "../budget/budgetplanner/BudgetPlannerEntry";
 const { Content, Sider} = Layout;
 
 const PayStubSideBar = props => {
@@ -92,9 +93,11 @@ const PayStubSideBar = props => {
                             </Sider>
                             <Content className="content" style={{ margin: "0px 0px 0" }}>
                                 <Route path="/paystub/autoscanpdf" component={ScanPDF}/>
-                                <Route path="/paystub/manualentry" component={ManualPayEntry} />
-
-                            </Content>
+                                <Route
+                                    path="/paystub/manualentry"
+                                    component={() => <ManualPayEntry user={props.user} />}
+                                />
+                             </Content>
                         </Layout>
                     </Router>
                 </Content>

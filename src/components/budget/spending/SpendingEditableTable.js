@@ -82,6 +82,7 @@ class SpendingEditableTable extends React.Component {
                 {
                     query: USER_MONTEHLY_SAVING,
                     variables: {
+                        user_id: this.props.user.email,
                         tranaction_start_date: this.props.startDate,
                         transaction_end_date: this.props.endDate
                     }
@@ -123,6 +124,7 @@ class SpendingEditableTable extends React.Component {
                     {
                         query: USER_MONTEHLY_SPENDING,
                         variables: {
+                            user_id: this.props.user.email,
                             tranaction_start_date: this.props.endDate,
                             transaction_end_date: this.props.startDate
                         }
@@ -144,6 +146,7 @@ class SpendingEditableTable extends React.Component {
                     {
                         query: USER_MONTEHLY_SPENDING,
                         variables: {
+                            user_id: this.props.user.email,
                             tranaction_start_date: this.props.endDate,
                             transaction_end_date: this.props.startDate
                         }
@@ -166,6 +169,7 @@ class SpendingEditableTable extends React.Component {
                     {
                         query: USER_MONTEHLY_SPENDING,
                         variables: {
+                            user_id: this.props.user.email,
                             tranaction_start_date: this.props.endDate,
                             transaction_end_date: this.props.startDate
                         }
@@ -190,6 +194,7 @@ class SpendingEditableTable extends React.Component {
                     {
                         query: USER_MONTEHLY_SPENDING,
                         variables: {
+                            user_id: this.props.user.email,
                             tranaction_start_date: this.props.endDate,
                             transaction_end_date: this.props.startDate
                         }
@@ -209,6 +214,7 @@ class SpendingEditableTable extends React.Component {
                     {
                         query: USER_MONTEHLY_SPENDING,
                         variables: {
+                            user_id: this.props.user.email,
                             tranaction_start_date: this.props.endDate,
                             transaction_end_date: this.props.startDate
                         }
@@ -228,6 +234,7 @@ class SpendingEditableTable extends React.Component {
                     {
                         query: USER_MONTEHLY_SPENDING,
                         variables: {
+                            user_id: this.props.user.email,
                             tranaction_start_date: this.props.endDate,
                             transaction_end_date: this.props.startDate
                         }
@@ -252,6 +259,7 @@ class SpendingEditableTable extends React.Component {
                     {
                         query: USER_MONTEHLY_SPENDING,
                         variables: {
+                            user_id: this.props.user.email,
                             tranaction_start_date: this.props.endDate,
                             transaction_end_date: this.props.startDate
                         }
@@ -271,6 +279,7 @@ class SpendingEditableTable extends React.Component {
                     {
                         query: USER_MONTEHLY_SPENDING,
                         variables: {
+                            user_id: this.props.user.email,
                             tranaction_start_date: this.props.endDate,
                             transaction_end_date: this.props.startDate
                         }
@@ -290,6 +299,7 @@ class SpendingEditableTable extends React.Component {
                     {
                         query: USER_MONTEHLY_SPENDING,
                         variables: {
+                            user_id: this.props.user.email,
                             tranaction_start_date: this.props.endDate,
                             transaction_end_date: this.props.startDate
                         }

@@ -66,7 +66,7 @@ class SavingsEditableTable extends React.Component {
             refetchQueries: [
                 {
                     query: USER_MONTEHLY_SAVING,
-                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -105,7 +105,7 @@ class SavingsEditableTable extends React.Component {
             refetchQueries: [
                 {
                     query: USER_MONTEHLY_SAVING,
-                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate},
+                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate},
                     fetchPolicy: 'network-only'
 
                 }
@@ -127,7 +127,7 @@ class SavingsEditableTable extends React.Component {
             refetchQueries: [
                 {
                     query: USER_MONTEHLY_SAVING,
-                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -145,7 +145,7 @@ class SavingsEditableTable extends React.Component {
             refetchQueries: [
                 {
                     query: USER_MONTEHLY_SAVING,
-                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });

@@ -19,8 +19,8 @@ export const USER_BENEFITS = gql`
 
 
 export const USER_MONTEHLY_BENEFITS=gql`
-    query getAllBenefits($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
-        benefitses(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+    query getAllBenefits($user_id:String!,$tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+        benefitses(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
             duration

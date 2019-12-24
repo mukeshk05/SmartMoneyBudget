@@ -18,8 +18,8 @@ export const USER_FIXED_EXPENSES_QUERY = gql`
 `;
 
 export const USER_MONTEHLY_FIXED_EXPENSESG=gql`
-    query getAllfixedExpenseses($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
-        fixedExpenseses(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+    query getAllfixedExpenseses($user_id:String!,$tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+        fixedExpenseses(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
             duration

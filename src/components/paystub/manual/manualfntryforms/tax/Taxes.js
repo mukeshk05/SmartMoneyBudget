@@ -65,12 +65,12 @@ class Taxes extends React.Component {
                             variables: {
                               tax_type: values.title,
                               transactionDate:(this.props.currentDate),
-                              user_id: "Sachin"
+                              user_id: this.props.user.email
                             },
                             refetchQueries: [
                               {
                                 query: USER_MONTEHLY_TAXES,
-                                variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                                variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                               }
                             ]
                           });
@@ -83,7 +83,7 @@ class Taxes extends React.Component {
               </div>
             </Col>
           </Row>
-          <Query query={USER_MONTEHLY_TAXES} variables={{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
+          <Query query={USER_MONTEHLY_TAXES} variables={{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
             {({ loading, error, data }) => {
               if (loading)
                 return (
@@ -165,6 +165,7 @@ class Taxes extends React.Component {
                         primaryTotalSalary={primaryTotalSalary}
                         spouseTotalSalary={spouseTotalSalary}
                         onRef={ref => (this.child = ref)}
+                        user={this.props.user}
                     />
                 );
               }

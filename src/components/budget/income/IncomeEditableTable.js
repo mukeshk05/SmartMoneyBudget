@@ -77,6 +77,7 @@ class IncomeEditableTable extends React.Component {
         {
           query: USER_MONTEHLY_SAVING,
           variables: {
+            user_id: this.props.user.email,
             tranaction_start_date: this.props.startDate,
             transaction_end_date: this.props.endDate
           }
@@ -118,6 +119,7 @@ class IncomeEditableTable extends React.Component {
           {
             query: USER_MONTEHLY_INCOME,
             variables: {
+              user_id: this.props.user.email,
               tranaction_start_date: this.props.endDate,
               transaction_end_date: this.props.startDate
             }
@@ -139,6 +141,7 @@ class IncomeEditableTable extends React.Component {
           {
               query: USER_MONTEHLY_INCOME,
               variables: {
+                user_id: this.props.user.email,
                   tranaction_start_date: this.props.endDate,
                   transaction_end_date: this.props.startDate
               }
@@ -163,6 +166,7 @@ class IncomeEditableTable extends React.Component {
           {
             query: USER_MONTEHLY_INCOME,
             variables: {
+              user_id: this.props.user.email,
               tranaction_start_date: this.props.endDate,
               transaction_end_date: this.props.startDate
             }
@@ -182,6 +186,7 @@ class IncomeEditableTable extends React.Component {
           {
             query: USER_MONTEHLY_INCOME,
             variables: {
+              user_id: this.props.user.email,
               tranaction_start_date: this.props.endDate,
               transaction_end_date: this.props.startDate
             }
@@ -206,6 +211,7 @@ class IncomeEditableTable extends React.Component {
           {
             query: USER_MONTEHLY_INCOME,
             variables: {
+              user_id: this.props.user.email,
               tranaction_start_date: this.props.endDate,
               transaction_end_date: this.props.startDate
             }
@@ -225,6 +231,7 @@ class IncomeEditableTable extends React.Component {
           {
             query: USER_MONTEHLY_INCOME,
             variables: {
+              user_id: this.props.user.email,
               tranaction_start_date: this.props.endDate,
               transaction_end_date: this.props.startDate
             }

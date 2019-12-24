@@ -66,12 +66,12 @@ class Savings extends React.Component {
                                                 variables: {
                                                     saving_type: values.title,
                                                     transactionDate:(this.props.currentDate),
-                                                    user_id: "Sachin"
+                                                    user_id:this.props.user.email
                                                 },
                                                 refetchQueries: [
                                                     {
                                                         query: USER_MONTEHLY_SAVING,
-                                                        variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                                                        variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                                                     }
                                                 ]
                                             });
@@ -84,7 +84,7 @@ class Savings extends React.Component {
                         </div>
                     </Col>
                 </Row>
-                <Query query={USER_MONTEHLY_SAVING }  variables={{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}} fetchPolicy={"network-only"}>
+                <Query query={USER_MONTEHLY_SAVING }  variables={{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}} fetchPolicy={"network-only"}>
                     {({ loading, error, data }) => {
                         if (loading)
                             return (
@@ -166,6 +166,7 @@ class Savings extends React.Component {
                                     primaryTotalSalary={primaryTotalSalary}
                                     spouseTotalSalary={spouseTotalSalary}
                                     onRef={ref => (this.child = ref)}
+                                    user={this.props.user}
                                 />
                             );
                         }

@@ -19,8 +19,8 @@ export const USER_SAVNGS = gql`
 `;
 
 export const USER_MONTEHLY_SAVING=gql`
-query getAllMonthelySavings($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
-    savings(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+query getAllMonthelySavings($user_id:String!,$tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+    savings(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
         id
         user_id
         duration
@@ -37,8 +37,8 @@ query getAllMonthelySavings($tranaction_start_date:DateTime!,$transaction_end_da
 `;
 
 export const USER_ALL_MONTHELY_SAVINGS=gql`
-query getAllMonthelySavings($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
-    savings(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+query getAllMonthelySavings($user_id:String!,$tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+    savings(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
         id
         user_id
         duration
@@ -52,7 +52,7 @@ query getAllMonthelySavings($tranaction_start_date:DateTime!,$transaction_end_da
         spouse_duration
          transactionDate
     },
-    extraRetirementSavingses(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+    extraRetirementSavingses(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
         id
         user_id
         duration

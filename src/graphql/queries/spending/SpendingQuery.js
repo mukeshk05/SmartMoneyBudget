@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const USER_MONTEHLY_SPENDING=gql`
-    query getAllSpending($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
-        billsAmounts(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+    query getAllSpending($user_id:String!,$tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+        billsAmounts(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
             duration
@@ -16,7 +16,7 @@ export const USER_MONTEHLY_SPENDING=gql`
             spouse_duration
             transactionDate
         },
-        variableExpenseses(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+        variableExpenseses(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
             duration
@@ -30,7 +30,7 @@ export const USER_MONTEHLY_SPENDING=gql`
             spouse_duration
             transactionDate
         },
-        fixedExpenseses(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+        fixedExpenseses(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
             duration

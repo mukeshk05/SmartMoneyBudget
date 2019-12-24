@@ -75,6 +75,7 @@ class Income extends React.Component {
             <Query
                 query={USER_MONTEHLY_INCOME}
                 variables={{
+                  user_id: this.props.user.email,
                   tranaction_start_date: this.state.endDate,
                   transaction_end_date: this.state.startDate
                 }}
@@ -309,6 +310,7 @@ class Income extends React.Component {
                           paiChartData={paiChartData}
                           durationView={durationView}
                           incomePaiChartLavels={incomePaiChartLavels}
+                          user={this.props.user}
                       />
                   );
                 }

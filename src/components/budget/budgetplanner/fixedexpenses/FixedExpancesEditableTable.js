@@ -70,7 +70,7 @@ class FixedExpancesEditableTable extends React.Component {
             refetchQueries: [
                 {
                     query: USER_MONTEHLY_FIXED_EXPENSESG,
-                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -104,7 +104,7 @@ class FixedExpancesEditableTable extends React.Component {
             refetchQueries: [
                 {
                     query: USER_MONTEHLY_FIXED_EXPENSESG,
-                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -123,7 +123,7 @@ class FixedExpancesEditableTable extends React.Component {
             refetchQueries: [
                 {
                     query: USER_MONTEHLY_FIXED_EXPENSESG,
-                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -141,7 +141,7 @@ class FixedExpancesEditableTable extends React.Component {
             refetchQueries: [
                 {
                     query: USER_MONTEHLY_FIXED_EXPENSESG,
-                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });

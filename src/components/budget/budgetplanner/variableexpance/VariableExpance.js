@@ -66,12 +66,12 @@ class VariableExpance extends React.Component {
                                             this.props.createVariableExpenseMutation({
                                                 variables: {
                                                     variable_expense_type: values.title,
-                                                    user_id: "Sachin"
+                                                    user_id: this.props.user.email
                                                 },
                                                 refetchQueries: [
                                                     {
                                                         query: USER_MONTEHLY_VARIABLE_EXPENSES,
-                                                        variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                                                        variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                                                     }
                                                 ]
                                             });
@@ -84,7 +84,7 @@ class VariableExpance extends React.Component {
                         </div>
                     </Col>
                 </Row>
-                <Query query={USER_MONTEHLY_VARIABLE_EXPENSES} variables={{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
+                <Query query={USER_MONTEHLY_VARIABLE_EXPENSES} variables={{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
                     {({ loading, error, data }) => {
                         if (loading)
                             return (
@@ -166,6 +166,7 @@ class VariableExpance extends React.Component {
                                     primaryTotalSalary={primaryTotalSalary}
                                     spouseTotalSalary={spouseTotalSalary}
                                     onRef={ref => (this.child = ref)}
+                                    user={this.props.user}
                                 />
                             );
                         }

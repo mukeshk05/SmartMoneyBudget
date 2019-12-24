@@ -119,8 +119,9 @@ const DashBoard = props =>{
                 </div>
             </div>
         </Content>
-        <BudgetFooter />
+          <BudgetFooter />
       </Layout>
+
     );
   }
 }

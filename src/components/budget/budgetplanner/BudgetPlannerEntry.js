@@ -39,6 +39,7 @@ class BudgetPlannerEntry extends React.Component {
 
 
     render() {
+
         return (
 
             <div className='step-progress'>
@@ -51,11 +52,11 @@ class BudgetPlannerEntry extends React.Component {
                 </Row>
 
                 <StepZilla  steps={[
-                    {name: 'Fixed Expenses', component: <FixedExpance currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>},
-                    {name: 'Bills', component: <Bills currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>},
-                    {name: 'Variable Expenses', component: <VariableExpance currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>},
-                    {name: 'Savings', component: <Savings currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>},
-                    {name: 'Extra Retirement Savings', component: <ExtraRetirementSavings currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>}
+                    {name: 'Fixed Expenses', component: <FixedExpance currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
+                    {name: 'Bills', component: <Bills currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
+                    {name: 'Variable Expenses', component: <VariableExpance currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
+                    {name: 'Savings', component: <Savings currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
+                    {name: 'Extra Retirement Savings', component: <ExtraRetirementSavings currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>}
                 ]}
                             nextButtonCls="multiStepButton"
                 backButtonCls="multiStepButton" />

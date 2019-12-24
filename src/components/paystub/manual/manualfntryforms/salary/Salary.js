@@ -2,10 +2,10 @@ import React from "react";
 import { Button, Col, Icon, Row, Select } from "antd";
 import AddAttributeForm from "../AddAttributeForm";
 import "../../../../../styles/index.css";
-import { compose, graphql, Mutation, Query, withApollo } from "react-apollo";
+import { compose, graphql, Query, withApollo } from "react-apollo";
 import SalaryEditableTable from "./SalaryEditableTable";
 import {CREATE_SALARY} from "../../../../../graphql/mutation/salary/SalaryMutation";
-import {USER_MONTEHLY_SALARY, USER_SALARY} from "../../../../../graphql/queries/salary/SalaryQuery";
+import {USER_MONTEHLY_SALARY} from "../../../../../graphql/queries/salary/SalaryQuery";
 import { durationType} from '../../../../common/Duration';
 const { Option } = Select;
 
@@ -14,7 +14,6 @@ class Salary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      intialData: [],
       salary_type: ""
     };
   }
@@ -65,12 +64,12 @@ class Salary extends React.Component {
                         variables: {
                           salary_type_name: values.title,
                           transactionDate:(this.props.currentDate),
-                          user_id: "Sachin"
+                          user_id: this.props.user.email
                         },
                         refetchQueries: [
                           {
                             query: USER_MONTEHLY_SALARY,
-                            variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                            variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                           }
                         ]
                       });
@@ -85,7 +84,7 @@ class Salary extends React.Component {
         </Row>
         <Query
           query={USER_MONTEHLY_SALARY}
-          variables={{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}}
+          variables={{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}}
           notifyOnNetworkStatusChange={true}
           fetchPolicy={"cache-and-network"}
         >
@@ -170,6 +169,7 @@ class Salary extends React.Component {
                   primaryTotalSalary={primaryTotalSalary}
                   spouseTotalSalary={spouseTotalSalary}
                   onRef={ref => (this.child = ref)}
+                  user={this.props.user}
                 />
               );
             }

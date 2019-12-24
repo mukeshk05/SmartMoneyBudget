@@ -19,8 +19,8 @@ export const USER_BILLS_QUERY = gql`
 
 
 export const USER_MONTEHLY_BILLS=gql`
-    query getAllBills($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
-        billsAmounts(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+    query getAllBills($user_id:String!,$tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+        billsAmounts(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
             duration

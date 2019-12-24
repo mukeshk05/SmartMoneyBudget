@@ -150,14 +150,33 @@ const BudgetSideBar = props => {
                   </Menu>
                 </div>
               </Sider>
+
               <Content className="content" style={{ margin: "0px 0px 0" ,height:"auto" }}>
-                <Redirect from="/" exact to="/budget/budgetEntry" />
-                <Route exact path="/budget/budgetEntry" component={BudgetPlannerEntry} />
-                <Route path="/budget/budgetspending" component={Spending}/>
-                <Route path="/budget/trackers" component={Tracket} />
-                <Route path="/budget/cashflow" component={CashFlow}/>
-                <Route path="/budget/saving" component={Saving}/>
-                <Route path="/budget/income" component={Income}/>
+                <Redirect from="/" exact to="/budget/budgetEntry"  user={props.user}/>
+                <Route
+                    path="/budget/budgetEntry"
+                    component={() => <BudgetPlannerEntry user={props.user} />}
+                />
+                <Route
+                    path="/budget/budgetspending"
+                    component={() => <Spending user={props.user} />}
+                />
+                <Route
+                    path="/budget/trackers"
+                    component={() => <Tracket user={props.user} />}
+                />
+                <Route
+                    path="/budget/cashflow"
+                    component={() => <CashFlow user={props.user} />}
+                />
+                <Route
+                    path="/budget/saving"
+                    component={() => <Saving user={props.user} />}
+                />
+                <Route
+                    path="/budget/income"
+                    component={() => <Income user={props.user} />}
+                />
               </Content>
             </Layout>
           </Router>

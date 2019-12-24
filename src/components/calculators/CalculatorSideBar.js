@@ -4,7 +4,7 @@ import HeaderRes from "../header/Header";
 import {useDispatch} from "react-redux";
 import CURRENT_COMPONENT from "../../reducers/types";
 import BudgetFooter from "../footer/Footer";
-const { Content, Sider, Footer } = Layout;
+const { Content, Sider} = Layout;
 
 const CalculatorSideBar = props => {
     const [collapsed, onCollapse] = useState(false);

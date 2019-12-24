@@ -46,6 +46,7 @@ class ManualPayEntry extends React.Component {
 
 
   render() {
+    console.log(this.props.user)
     return (
 
         <div className='step-progress'>
@@ -58,11 +59,11 @@ class ManualPayEntry extends React.Component {
           </Row>
 
           <StepZilla  steps={[
-            {name: 'Salary', component: <Salary currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>},
-            {name: 'Benefits', component: <Benefits currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>},
-            {name: 'Pre Tax Deduction', component: <PreTaxDeduction currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>},
+            {name: 'Salary', component: <Salary currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
+            {name: 'Benefits', component: <Benefits currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
+            {name: 'Pre Tax Deduction', component: <PreTaxDeduction currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
             {name: 'Taxes', component: <Taxes currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>},
-            {name: 'Post Tax Deductions', component: <PostTaxDeductions currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>}
+            {name: 'Post Tax Deductions', component: <PostTaxDeductions currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>}
           ]}
                       nextButtonCls="multiStepButton"
                       backButtonCls="multiStepButton" />

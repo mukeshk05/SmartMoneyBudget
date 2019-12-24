@@ -76,6 +76,7 @@ class Spending extends React.Component {
                     <Query
                         query={USER_MONTEHLY_SPENDING}
                         variables={{
+                            user_id: this.props.user.email,
                             tranaction_start_date: this.state.endDate,
                             transaction_end_date: this.state.startDate
                         }}
@@ -397,6 +398,7 @@ class Spending extends React.Component {
                                         spendingTypeChartLavel={labels}
                                         spendingTypeChartSeries={series}
                                         paiChartLabels={paiChartLabels}
+                                        user={this.props.user}
                                     />
                                 );
                             }

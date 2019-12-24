@@ -18,8 +18,8 @@ export const USER_TAXES = gql`
 `;
 
 export const USER_MONTEHLY_TAXES=gql`
-    query getAllTaxAmounts($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
-        taxesAmounts(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+    query getAllTaxAmounts($user_id:String!,$tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+        taxesAmounts(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
             duration

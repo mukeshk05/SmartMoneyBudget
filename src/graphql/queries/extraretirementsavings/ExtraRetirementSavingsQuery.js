@@ -18,8 +18,8 @@ export const USER_EXTRA_RETIREMENT_SAVING = gql`
 `;
 
 export const USER_MONTEHLY_EXTRA_RETIREMENT_SAVING=gql`
-    query getAllExtraRetirementSavings($tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
-        extraRetirementSavingses(where: {transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
+    query getAllExtraRetirementSavings($user_id:String!,$tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+        extraRetirementSavingses(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id
             user_id
             duration

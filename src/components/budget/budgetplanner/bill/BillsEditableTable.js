@@ -64,7 +64,7 @@ class BillsEditableTable extends React.Component {
             refetchQueries: [
                 {
                     query: USER_MONTEHLY_BILLS,
-                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -98,7 +98,7 @@ class BillsEditableTable extends React.Component {
             refetchQueries: [
                 {
                     query: USER_MONTEHLY_BILLS,
-                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -117,7 +117,7 @@ class BillsEditableTable extends React.Component {
             refetchQueries: [
                 {
                     query: USER_MONTEHLY_BILLS,
-                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
@@ -135,7 +135,7 @@ class BillsEditableTable extends React.Component {
             refetchQueries: [
                 {
                     query: USER_MONTEHLY_BILLS,
-                    variables:{tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });

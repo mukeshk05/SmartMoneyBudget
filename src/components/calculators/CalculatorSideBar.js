@@ -24,7 +24,7 @@ const CalculatorSideBar = props => {
     {
         return (
             <Layout className="app">
-                <HeaderRes />
+                <HeaderRes user={props.user}/>
                 <Content style={{ padding: "0px 0px" }}>
                     <Layout style={{ padding: "0px 0px"}}>
                         <Sider

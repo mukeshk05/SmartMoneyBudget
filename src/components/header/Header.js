@@ -61,7 +61,6 @@ const HeaderRes = props => {
       </div>
   );
 
-console.log(props.user);
 
   const menu = (
       <Menu

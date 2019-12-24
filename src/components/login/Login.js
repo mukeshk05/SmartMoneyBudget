@@ -13,13 +13,28 @@ import {CREATE_USER} from "../../graphql/mutation/user/UserMutation";
 
 
 class Login extends Component{
+    constructor(props) {
+        super(props);
+
+    }
+
+    savelogin(result){
+       this.props.createUserMutation({
+           variables: {
+               user_id: result.user.email,
+               screen_user_name:result.user.displayName
+           }
+       });
+    };
+
 
      handleSignUp = async event => {
         event.preventDefault();
         const provider = new firebase.auth.GoogleAuthProvider();
          const { history } = this.props;
         try {
-            app.auth().signInWithPopup(provider).then(function(result) {
+            app.auth().signInWithPopup(provider).then(result=>{
+                console.log(result);
                 this.props.createUserMutation({
                     variables: {
                         user_id: result.user.email,
@@ -27,16 +42,27 @@ class Login extends Component{
                     }
                 });
                 history.push('/');
-            }).catch(function(error) {
+            });
+            /*(function(result) {
+                console.log(result);
+                this.props.createUserMutation({
+                    variables: {
+                        user_id: result.user.email,
+                        screen_user_name:result.user.displayName
+                    }
+                });
+                history.push('/');
+            },this).catch(function(error) {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 const email = error.email;
                 const credential = error.credential;
-             });
+             });*/
         } catch (error) {
             alert(error);
         }
     };
+
 
 
     handleFbSignUp = async event => {

@@ -31,7 +31,7 @@ const AccountsSideBar = props => {
     {
         return (
             <Layout className="app">
-                <HeaderRes />
+                <HeaderRes user={props.user}/>
                 <Content style={{ padding: "0px 0px" }}>
                     <Router>
                     <Layout style={{ padding: "0px 0px"}}>

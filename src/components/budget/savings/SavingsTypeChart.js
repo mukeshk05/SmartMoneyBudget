@@ -10,7 +10,7 @@ class SavingTypeChart extends React.Component {
         this.state = {
             options: {
                 legend: {
-                    position: 'left'
+                    position: 'bottom',
                 },
                 labels: this.props.spendingTypeChartLavel,
                 responsive: [{
@@ -36,7 +36,7 @@ class SavingTypeChart extends React.Component {
     render() {
         return (
 
-            <Chart options={this.state.options} series={this.props.spendingTypeChartSeries} type="pie"  height="309"  width="450" />
+            <Chart options={this.state.options} series={this.props.spendingTypeChartSeries} type="pie"  height="240"  width="350" />
 
 
 

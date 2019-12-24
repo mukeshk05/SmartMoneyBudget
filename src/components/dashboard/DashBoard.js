@@ -42,7 +42,7 @@ const DashBoard = props =>{
         <HeaderRes user={props.user} />
         <Content className="content">
 
-            <div style={{ background: "#ECECEC", padding: "30px" }}>
+            <div className="ant-layout" >
                 <div className="flex-row">
                     <div className="flex-col">
                         {" "}

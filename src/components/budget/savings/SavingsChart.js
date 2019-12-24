@@ -32,9 +32,8 @@ class SavingsChart extends React.Component {
                     opacity: 1
                 },
                 legend: {
-                    position: 'left',
-                    offsetX: 0,
-                    offsetY: 50
+                    position: 'bottom',
+                    offsetX:1
 
                 },
                 tooltip: {
@@ -56,7 +55,7 @@ class SavingsChart extends React.Component {
 
     render() {
         return (
-            <Chart options={this.state.options} series={this.props.chartData} type="bar" height="270"  width="450" />
+            <Chart options={this.state.options} series={this.props.chartData} type="bar" height="270"  width="350" />
         );
     }
 }

@@ -15,6 +15,7 @@
     "gh-pages": "^2.1.1",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
+    "history": "latest",
     "lodash": "latest",
     "moment": "latest",
     "nodemon": "^1.19.2",
@@ -40,8 +41,7 @@
     "redux": "^4.0.4",
     "redux-mock-store": "^1.5.3",
     "styled-components": "latest",
-    "yarn": "^1.17.3",
-    "history": "latest"
+    "yarn": "^1.17.3"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -344,7 +344,8 @@ class Spending extends React.Component {
                                     for(let j in result1[i].name){
                                         let temp12=[...Array(result1.length)].map(x=>0);
                                         temp12.splice(i,1,result1[i].data[j]);
-                                       if(temp12>0){
+                                      if(parseFloat(temp12[i])>0)
+                                       {
                                            chartData12.push({
                                                name:result1[i].name[j],
                                                data:temp12
@@ -352,11 +353,11 @@ class Spending extends React.Component {
                                        }
                                     }
                                 }
+                                console.log(chartData12);
                                 const labels=[];
                                 const series=[];
                                 _(chartData12).groupBy('name').map(function(item,name){
-                                    if(item[0].data>0){
-                                        console.log("Hello"+name);
+                                    if(parseFloat(item[0].data)>0){
                                         labels.push(name);
                                         series.push(item[0].data.reduce((a, b) => a + b, 0));
                                     }

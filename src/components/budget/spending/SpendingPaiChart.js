@@ -12,7 +12,9 @@ class SpendingPaiChart extends React.Component {
             options: {
                 labels: this.props.paiChartLabels,
                 legend: {
-                    position: 'bottom'
+                    position: 'bottom',
+                    offsetX: 0,
+                    offsetY: 5
                 },
                 responsive: [{
                     breakpoint: 580,

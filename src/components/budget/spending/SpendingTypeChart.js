@@ -10,7 +10,9 @@ class SpendingTypeChart extends React.Component {
         this.state = {
             options: {
                 legend: {
-                    position: 'bottom'
+                    position: 'bottom',
+                    offsetX: 0,
+                    offsetY: 5
                 },
                 labels: this.props.spendingTypeChartLavel,
                 responsive: [{

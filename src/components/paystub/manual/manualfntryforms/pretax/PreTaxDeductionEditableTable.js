@@ -14,7 +14,7 @@ import { compose, Mutation, withApollo, graphql } from "react-apollo";
 import EditableFormRow from "../../../../common/EditableFormRow";
 import EditableCell from "../../../../common/EditableTableRow";
 import {DELETE_PRETAXDEUCTIO, UPDATE_PRETAXDEUCTIO} from "../../../../../graphql/mutation/pretax/PreTaxMutation";
-import {USER_PRETAXDEDUCTION} from "../../../../../graphql/queries/pretax/PreTaxQuery";
+import {USER_MONTEHLY_PRETAXDEDUCTION, USER_PRETAXDEDUCTION} from "../../../../../graphql/queries/pretax/PreTaxQuery";
 import {durationType} from "../../../../common/Duration";
 
 const { Option } = Select;
@@ -63,7 +63,7 @@ class PreTaxDeductionEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_PRETAXDEDUCTION,
+                    query: USER_MONTEHLY_PRETAXDEDUCTION,
                     variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
@@ -96,7 +96,7 @@ class PreTaxDeductionEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_PRETAXDEDUCTION,
+                    query: USER_MONTEHLY_PRETAXDEDUCTION,
                     variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
@@ -133,7 +133,7 @@ class PreTaxDeductionEditableTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_PRETAXDEDUCTION,
+                    query: USER_MONTEHLY_PRETAXDEDUCTION,
                     variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]

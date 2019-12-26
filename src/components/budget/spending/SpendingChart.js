@@ -32,9 +32,9 @@ class SpendingChart extends React.Component {
                     opacity: 1
                 },
                 legend: {
-                    position: 'left',
+                    position: 'bottom',
                     offsetX: 0,
-                    offsetY: 50
+                    offsetY: 5
 
                 },
                 tooltip: {
@@ -57,7 +57,7 @@ class SpendingChart extends React.Component {
 
     render() {
         return (
-            <Chart options={this.state.options} series={this.props.chartData} type="bar" height="270"  width="450" />
+            <Chart options={this.state.options} series={this.props.chartData} type="bar" height="270"  width="350" />
         );
     }
 }

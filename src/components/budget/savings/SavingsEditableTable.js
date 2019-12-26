@@ -14,18 +14,7 @@ import { compose, Mutation, withApollo, graphql } from "react-apollo";
 import { USER_MONTEHLY_SAVING } from "../../../graphql/queries/savings/SavingsQuery";
 import EditableFormRow from "../../common/EditableFormRow";
 import EditableCell from "../../common/EditableTableRow";
-import {USER_MONTEHLY_INCOME} from "../../../graphql/queries/income/IncomeQuery";
 import {durationType, mapView} from "../../common/Duration";
-import {
-    DELETE_FIXED_EXPENSES,
-    UPDATE_FIXED_EXPENSES
-} from "../../../graphql/mutation/fixedexpenses/FixedExpensesMutation";
-import {
-    DELETE_VARIABLE_EXPENSES,
-    UPDATE_VARIABLE_EXPENSES
-} from "../../../graphql/mutation/variableexpenses/VariableExpensesMutation";
-import {DELETE_BILL, UPDATE_BILL} from "../../../graphql/mutation/bills/BillsMutation";
-import {USER_MONTEHLY_SPENDING} from "../../../graphql/queries/spending/SpendingQuery";
 import SavingsChart from "./SavingsChart";
 import SavingTypeChart from "./SavingsTypeChart";
 import SavingPaiChart from "./SavingsPaiChart";

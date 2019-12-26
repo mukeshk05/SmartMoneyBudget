@@ -62,7 +62,7 @@ class ManualPayEntry extends React.Component {
             {name: 'Salary', component: <Salary currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
             {name: 'Benefits', component: <Benefits currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
             {name: 'Pre Tax Deduction', component: <PreTaxDeduction currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
-            {name: 'Taxes', component: <Taxes currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate}/>},
+            {name: 'Taxes', component: <Taxes currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
             {name: 'Post Tax Deductions', component: <PostTaxDeductions currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>}
           ]}
                       nextButtonCls="multiStepButton"

@@ -52,7 +52,7 @@ const HeaderRes = props => {
             <NavLink to=""><Icon type="question-circle"  /> Help</NavLink>
           </Menu.Item>
           <Menu.Item key="settings" >
-            <NavLink to=""><Icon type="setting" /> Help</NavLink>
+            <NavLink to=""><Icon type="setting" /> Setting</NavLink>
           </Menu.Item>
         <Menu.Item key="logOut"  onClick={handleSignOut}>
           <NavLink to=""><Icon type="logout"  /> Log Out</NavLink>
@@ -91,7 +91,8 @@ const HeaderRes = props => {
         <Menu.Item key="accounts" >
           <NavLink to="/accounts/cash">Accounts</NavLink>
         </Menu.Item>
-        <Menu.Item key="user" hidden={visible}>
+
+        <Menu.Item key="user" >
           <span>
            <Popover placement="bottom" content={content} trigger="click" >
                {props.user.photoURL?<img src={props.user.photoURL} alt="Logo"  style={{ width: 50,
@@ -105,6 +106,54 @@ const HeaderRes = props => {
       </Menu>
 
   );
+
+    const drawerMenu = (
+        <Menu
+            theme="dark"
+            mode={visible ? "vertical" : "horizontal"}
+            defaultSelectedKeys={"/"}
+            selectedKeys={[sideBarMenuKey]}
+            style={{ lineHeight: "64px" }}
+        >
+            <Menu.Item key="dashboard" >
+                <NavLink to="/"> Dash Board</NavLink>
+            </Menu.Item>
+            <Menu.Item key="paystub" >
+                <NavLink to="/paystub/manualentry"> Pay Stub</NavLink>
+            </Menu.Item>
+            <Menu.Item key="budget" >
+                <NavLink to="/budget/budgetEntry">Budget</NavLink>
+            </Menu.Item>
+            <Menu.Item key="advice" >
+                <NavLink to="/advice"> Advice</NavLink>
+            </Menu.Item>
+            <Menu.Item key="goals" >
+                <NavLink to="/goals"> Goals</NavLink>
+            </Menu.Item>
+            <Menu.Item key="calculator" >
+                <NavLink to="/calculator">Calculators</NavLink>
+            </Menu.Item>
+            <Menu.Item key="accounts" >
+                <NavLink to="/accounts/cash">Accounts</NavLink>
+            </Menu.Item>
+
+            <Menu.Item key="user" style={{height:"50px"}} >
+          <span>
+           <Popover placement="bottom" content={content} trigger="click" >
+               {props.user.photoURL?<img src={props.user.photoURL} alt="Logo"  style={{ width: 50,
+                   height: 50,
+                   borderRadius: 100 / 2}}/>:<Icon type="user"/>
+               }
+          </Popover>
+          </span>
+            </Menu.Item>
+            <Menu.Item key="logOut"  onClick={handleSignOut}>
+                <NavLink to=""><Icon type="logout"  /> Log Out</NavLink>
+            </Menu.Item>
+        </Menu>
+
+    );
+
 
   return (
       <Header className="app-header">
@@ -132,7 +181,8 @@ const HeaderRes = props => {
               <Icon type="dollar" />
               mart Money
             </div>
-            {menu}
+            {drawerMenu}
+
           </Drawer>
         </Mobile>
 

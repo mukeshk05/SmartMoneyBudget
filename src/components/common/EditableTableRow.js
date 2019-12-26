@@ -1,5 +1,5 @@
 import React from "react";
-import {Form, Input} from "antd";
+import {Form, Input, InputNumber} from "antd";
 import EditableContext from "./EditableContext";
 
 class EditableCell extends React.Component {
@@ -38,15 +38,17 @@ class EditableCell extends React.Component {
                     rules: [
                         {
                             required: true,
-                            message: `${title} is required.`
-                        }
+                            message: `${title} is required as number.`
+                        },
+
                     ],
                     initialValue: record[dataIndex]
                 })(
-                    <Input
+                    <InputNumber
                         ref={node => (this.input = node)}
                         onPressEnter={this.save}
                         onBlur={this.save}
+                        validateStatus="success"
                     />
                 )}
             </Form.Item>

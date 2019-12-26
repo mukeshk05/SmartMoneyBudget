@@ -49,7 +49,7 @@ class EditableCell extends React.Component {
                         {
                             required: true,
                             message: `${title} is required.`,
-                        },
+                        }
                     ],
                     initialValue: record[dataIndex],
                 })(<Input ref={node => (this.input = node)} onPressEnter={this.save} onBlur={this.save} />)}

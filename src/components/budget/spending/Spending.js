@@ -344,17 +344,23 @@ class Spending extends React.Component {
                                     for(let j in result1[i].name){
                                         let temp12=[...Array(result1.length)].map(x=>0);
                                         temp12.splice(i,1,result1[i].data[j]);
-                                        chartData12.push({
-                                            name:result1[i].name[j],
-                                            data:temp12
-                                        })
+                                       if(temp12>0){
+                                           chartData12.push({
+                                               name:result1[i].name[j],
+                                               data:temp12
+                                           })
+                                       }
                                     }
                                 }
                                 const labels=[];
                                 const series=[];
                                 _(chartData12).groupBy('name').map(function(item,name){
-                                    labels.push(name);
-                                    series.push(item[0].data.reduce((a, b) => a + b, 0));
+                                    if(item[0].data>0){
+                                        console.log("Hello"+name);
+                                        labels.push(name);
+                                        series.push(item[0].data.reduce((a, b) => a + b, 0));
+                                    }
+
                                 }).value();
 
                                 let primaryFixedExpenseses = 0;
@@ -365,7 +371,6 @@ class Spending extends React.Component {
                                 let spouseVriableExpenseses = 0;
 
                                 graphData1.filter(value => {
-                                    console.log(value. primaryFixedExpenseses);
                                     primaryFixedExpenseses = primaryFixedExpenseses + value.primaryFixedExpenseses;
                                     spouseFixedExpenseses = spouseFixedExpenseses + value.spouseFixedExpenseses;
                                     primaryBills = primaryBills + value.primaryBills;

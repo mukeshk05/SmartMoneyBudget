@@ -10,7 +10,7 @@ class SpendingTypeChart extends React.Component {
         this.state = {
             options: {
                 legend: {
-                    position: 'left'
+                    position: 'bottom'
                 },
                 labels: this.props.spendingTypeChartLavel,
                 responsive: [{
@@ -37,7 +37,7 @@ class SpendingTypeChart extends React.Component {
     render() {
         return (
 
-            <Chart options={this.state.options} series={this.props.spendingTypeChartSeries} type="pie"  height="270"  width="450" />
+            <Chart options={this.state.options} series={this.props.spendingTypeChartSeries} type="pie"  height="270"  width="350" />
 
 
 

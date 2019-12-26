@@ -12,7 +12,7 @@ class SpendingPaiChart extends React.Component {
             options: {
                 labels: this.props.paiChartLabels,
                 legend: {
-                    position: 'left'
+                    position: 'bottom'
                 },
                 responsive: [{
                     breakpoint: 580,
@@ -37,7 +37,7 @@ class SpendingPaiChart extends React.Component {
 
     render() {
         return (
-            <Chart options={this.state.options} series={this.props.paiChartData} type="pie"  height="270"  width="450" />
+            <Chart options={this.state.options} series={this.props.paiChartData} type="pie"  height="270"  width="350" />
         );
     }
 }

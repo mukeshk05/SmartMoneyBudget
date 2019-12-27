@@ -7,57 +7,70 @@ import "firebase/firestore"
 import app from "../base";
 import * as firebase from "firebase";
 import {compose, graphql, withApollo} from "react-apollo";
-import {CREATE_SAVING} from "../../graphql/mutation/savings/SavingsMutation";
 import {CREATE_USER} from "../../graphql/mutation/user/UserMutation";
+import {Button, Popover, Spin} from "antd";
+import SignUpForm from "./signup/SignUpForm";
 
 
 
 class Login extends Component{
     constructor(props) {
         super(props);
+        this.state = {
+            loading: false,
+            visible: false
+        };
 
     }
 
-    savelogin(result){
-       this.props.createUserMutation({
-           variables: {
-               user_id: result.user.email,
-               screen_user_name:result.user.displayName
-           }
-       });
+    showModal = () => {
+        this.toggleLoading(true);
+        this.setState({ visible: true });
+    };
+
+    handleCancel = () => {
+        this.toggleLoading(false);
+        this.setState({ visible: false });
+    };
+
+    handleCreate = () => {
+        const { form } = this.formRef.props;
+        form.validateFields((err, values) => {
+            if (err) {
+                return;
+            }
+            console.log('Received values of form: ', values);
+            form.resetFields();
+            this.setState({ visible: false });
+        });
+    };
+
+    saveFormRef = formRef => {
+        this.formRef = formRef;
+        this.setState({ formRef: formRef });
+    };
+    toggleLoading = value => {
+        this.setState({ loading: value });
     };
 
 
-     handleSignUp = async event => {
+    handleSignUp = async event => {
+        this.toggleLoading(true);
         event.preventDefault();
         const provider = new firebase.auth.GoogleAuthProvider();
          const { history } = this.props;
         try {
             app.auth().signInWithPopup(provider).then(result=>{
-                console.log(result);
                 this.props.createUserMutation({
                     variables: {
                         user_id: result.user.email,
                         screen_user_name:result.user.displayName
                     }
                 });
+                this.toggleLoading(false);
                 history.push('/');
             });
-            /*(function(result) {
-                console.log(result);
-                this.props.createUserMutation({
-                    variables: {
-                        user_id: result.user.email,
-                        screen_user_name:result.user.displayName
-                    }
-                });
-                history.push('/');
-            },this).catch(function(error) {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                const email = error.email;
-                const credential = error.credential;
-             });*/
+
         } catch (error) {
             alert(error);
         }
@@ -66,17 +79,20 @@ class Login extends Component{
 
 
     handleFbSignUp = async event => {
+        this.toggleLoading(true);
         event.preventDefault();
         const provider = new firebase.auth.FacebookAuthProvider();
         const { history } = this.props;
         try {
-            app.auth().signInWithPopup(provider).then(function(result) {
+            app.auth().signInWithPopup(provider).then(result=> {
+                this.props.createUserMutation({
+                    variables: {
+                        user_id: result.user.email,
+                        screen_user_name:result.user.displayName
+                    }
+                });
+                this.toggleLoading(false);
                 history.push('/');
-            }).catch(function(error) {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                const email = error.email;
-                const credential = error.credential;
             });
         } catch (error) {
             alert(error);
@@ -89,7 +105,11 @@ class Login extends Component{
         return (
 
             <div className="container-login100">
+
                 <div className="wrap-login100">
+                    <Spin size="large" spinning={this.state.loading}>
+
+
                     <form action="" method="post" className="login100-form validate-form">
 					<span className="login100-form-title p-b-43">
 						Login to continue
@@ -108,12 +128,23 @@ class Login extends Component{
                             <span className="label-input100">Password</span>
                         </div>
 
+
                         <div className="flex-sb-m w-full p-t-3 p-b-32">
                             <div>
                                 <a href="#" className="txt1">
                                     Forgot Password?
                                 </a>
                             </div>
+                            <Button type="primary" onClick={this.showModal}>
+                               Sign UP
+                            </Button>
+                            <SignUpForm
+                                wrappedComponentRef={this.saveFormRef}
+                                visible={this.state.visible}
+                                onCancel={this.handleCancel}
+                                onCreate={this.handleCreate}
+                            />
+
                         </div>
 
 
@@ -125,10 +156,9 @@ class Login extends Component{
 
                         <div className="text-center p-t-46 p-b-20">
 						<span className="txt2">
-							or sign up using
+							Login Using
 						</span>
                         </div>
-
 
                         <div className="login100-form-social flex-c-m">
                             <a href="#" className="login100-form-social-item flex-c-m bg1 m-r-5" onClick={this.handleFbSignUp}>
@@ -138,15 +168,20 @@ class Login extends Component{
                             <a href="#" className="login100-form-social-item flex-c-m bg2 m-r-5">
                                 <i className="fa fa-twitter" aria-hidden="true"/>
                             </a>
-                            <a href="#" className="login100-form-social-item flex-c-m bg3 m-r-5" onClick={this.handleSignUp}>
+                            <a href="#" className="login100-form-social-item flex-c-m bg3 m-r-5" onClick={
+                                this.handleSignUp
+                            }>
                                 <i className="fa fa-google" aria-hidden="true" />
                             </a>
                         </div>
                     </form>
 
+
+                    </Spin>
                     <div className="login100-more">
                     </div>
                 </div>
+
             </div>
 
 

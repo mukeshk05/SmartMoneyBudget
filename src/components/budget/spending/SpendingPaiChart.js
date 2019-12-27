@@ -39,7 +39,7 @@ class SpendingPaiChart extends React.Component {
 
     render() {
         return (
-            <Chart options={this.state.options} series={this.props.paiChartData} type="pie"  height="270"  width="350" />
+            <Chart options={this.state.options} series={this.props.paiChartData} type="pie"  height="300"  width="400" />
         );
     }
 }

@@ -10,7 +10,7 @@ import {
     Col,
     Divider,
     Layout,
-    Card, Icon
+    Card, Icon, Spin
 } from "antd";
 import BudgetFooter from "../footer/Footer";
 import SavingsChart from "../budget/savings/SavingsChart";
@@ -41,7 +41,6 @@ const DashBoard = props =>{
       <Layout className="app">
         <HeaderRes user={props.user} />
         <Content className="content">
-
             <div className="ant-layout" >
                 <div className="flex-row">
                     <div className="flex-col">
@@ -118,7 +117,7 @@ const DashBoard = props =>{
                     </div>
                 </div>
             </div>
-        </Content>
+         </Content>
           <BudgetFooter />
       </Layout>
 

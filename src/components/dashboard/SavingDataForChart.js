@@ -1,5 +1,5 @@
 import React from "react";
-import { Radio, Icon,  Select, Layout } from "antd";
+import {Radio, Icon, Select, Layout, Spin} from "antd";
 import "../../styles/index.css";
 import { compose, graphql, Query, withApollo } from "react-apollo";
 import DashBoard from "./DashBoard";
@@ -55,9 +55,8 @@ class SavingDataForChart extends React.Component {
                   {({ loading, error, data }) => {
                     if (loading)
                       return (
-                        <div style={{ align: "center" }}>
-                          <Icon type="loading" />
-                        </div>
+                          <Spin tip="Loading...">
+                          </Spin>
                       );
                     if (error) return <div>Error</div>;
 

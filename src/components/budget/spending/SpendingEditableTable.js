@@ -32,6 +32,7 @@ import SpendingTypeChart from "./SpendingTypeChart";
 import {USER_MONTEHLY_BILLS} from "../../../graphql/queries/bills/BillsQuery";
 import {USER_MONTEHLY_VARIABLE_EXPENSES} from "../../../graphql/queries/variableexpenses/VariableExpensesQuery";
 import {USER_MONTEHLY_FIXED_EXPENSESG} from "../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
+import MonthelySpendingChart from "./MonthelySpendingChart";
 const { Option } = Select;
 const TabPane = Tabs.TabPane;
 
@@ -326,7 +327,7 @@ class SpendingEditableTable extends React.Component {
                 onFilter: (value, record) => record.name.includes(value),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === "name" && sortedInfo.order,
-                width:50
+                width:100
             },
             {
                 title: "primary duration",
@@ -428,7 +429,7 @@ class SpendingEditableTable extends React.Component {
         <div className="App">
 
             <div className="flex-row">
-                <div className="flex-col" style={{width:"700px"}}>
+                <div className="flex-col" style={{width:"1200px"}}>
                     <Table
                         className="ant-income-table-content"
                         components={components}
@@ -497,11 +498,49 @@ class SpendingEditableTable extends React.Component {
                                 />
                             </div>
                         </TabPane>
+                        <TabPane
+                            tab={
+                                <span>
+                    <Icon type="android" />
+                    Quarter
+                  </span>
+                            }
+                            key="4"
+                        >
+                            <div className="flex-col">
+                                {" "}
+                                <MonthelySpendingChart
+                                    onRef={ref => (this.child = ref)}
+                                    chartData={this.props.chartData}
+                                    month={this.props.month}
+                                />
+                            </div>
+                        </TabPane>
                     </Tabs>
                 </div>
             </div>
+            <div className="flex-row" style={{height:"120px"}} >
 
-        <Divider style={{ height: 1 }} />
+            </div>
+            <div className="flex-row">
+                <Divider style={{height:1}}/>
+                <div className="flex-col" >
+                    <div className="incomeFont">Total  {durationType[this.props.durationView]}</div>
+                </div>
+                <div className="flex-col" >
+                    <Statistic className="incomeFont"
+                               title="Primary Savings"
+                               value={this.props.primaryTotalSalary}
+                    />
+                </div>
+                <div className="flex-col" >
+                    <Statistic className="incomeFont"
+                               title="Spouse  Savings"
+                               value={this.props.spouseTotalSalary}
+                    />
+                </div>
+            </div>
+
         </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import Chart from 'react-apexcharts';
-class SpendingChart extends React.Component {
+class MonthelySpendingChart extends React.Component {
 
     constructor(props) {
         super(props);
@@ -8,9 +8,21 @@ class SpendingChart extends React.Component {
         this.state = {
             chartData:[],
             options: {
-                chart: {
-                    stacked: true,
-                    stackType: '100%'
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'flat',
+                        barHeight: '100%',
+                    },
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
                 },
                 responsive: [{
                     breakpoint: 580,
@@ -55,4 +67,4 @@ class SpendingChart extends React.Component {
     }
 }
 
-export default SpendingChart;
+export default MonthelySpendingChart;

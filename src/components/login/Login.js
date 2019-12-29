@@ -8,9 +8,8 @@ import app from "../base";
 import * as firebase from "firebase";
 import {compose, graphql, withApollo} from "react-apollo";
 import {CREATE_USER} from "../../graphql/mutation/user/UserMutation";
-import {Button, Popover, Spin} from "antd";
-import SignUpForm1 from "./signup/SignUpForm1";
-import SignUpForm2 from "./signup/SignUpForm2";
+import {Button, Spin} from "antd";
+import SignUpForm from "./signup/SignUpForm";
 
 
 
@@ -139,7 +138,7 @@ class Login extends Component{
                             <Button type="primary" onClick={this.showModal}>
                                Sign UP
                             </Button>
-                            <SignUpForm2
+                            <SignUpForm
                                 wrappedComponentRef={this.saveFormRef}
                                 visible={this.state.visible}
                                 onCancel={this.handleCancel}

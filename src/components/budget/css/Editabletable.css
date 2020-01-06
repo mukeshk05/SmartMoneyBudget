@@ -5,6 +5,21 @@
     background-clip: padding-box;
 }
 
+
+.ant-table-content {
+    background-color: white;
+    color: rgb(127, 127, 127);
+    height: auto;
+    width: 500px;
+}
+
+.ant-income-table-content {
+    background-color: white;
+    color: rgb(127, 127, 127);
+    height: 370px;
+    width: 300px;
+}
+
 .react-resizable-handle {
     position: absolute;
     width: 10px;

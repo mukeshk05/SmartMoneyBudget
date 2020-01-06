@@ -257,6 +257,7 @@ class FixedExpancesEditableTable extends React.Component {
         return (
             <div>
                 <div className="App">
+
                     <Table
                         className="ant-table-content"
                         components={components}

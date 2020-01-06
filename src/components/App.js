@@ -11,6 +11,7 @@ import app from "./base";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import { createHashHistory } from 'history';
 import SavingDataForChart from "./dashboard/SavingDataForChart";
+import StartBudget from "./common/StartBudget";
 
 const history = createHashHistory();
 

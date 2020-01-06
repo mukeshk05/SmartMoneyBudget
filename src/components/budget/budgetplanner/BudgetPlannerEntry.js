@@ -10,6 +10,7 @@ import Bills from "./bill/Bills";
 import VariableExpance from "./variableexpance/VariableExpance";
 import Savings from "./savings/Savings";
 import ExtraRetirementSavings from "./extraretirementsavings/ExtraRetirementSavings";
+import {withRouter} from "react-router-dom";
 import {endDate, monthFormat, selectedDate, startDate} from "../../common/Duration";
 const { MonthPicker} = DatePicker;
 
@@ -52,7 +53,7 @@ class BudgetPlannerEntry extends React.Component {
                 </Row>
 
                 <StepZilla  steps={[
-                    {name: 'Fixed Expenses', component: <FixedExpance currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
+                    {name: 'Fixed Expenses', component: <FixedExpance currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user} history= {this.props.history}/>},
                     {name: 'Bills', component: <Bills currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
                     {name: 'Variable Expenses', component: <VariableExpance currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
                     {name: 'Savings', component: <Savings currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
@@ -65,4 +66,4 @@ class BudgetPlannerEntry extends React.Component {
     }
 }
 
-export default BudgetPlannerEntry;
+export default withRouter(BudgetPlannerEntry);

@@ -11,7 +11,8 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createUploadLink } from 'apollo-upload-client';
 
 
-const link = createUploadLink({ uri: "https://smart-money-server.herokuapp.com/graphql" });
+//const link = createUploadLink({ uri: "https://smart-money-server.herokuapp.com/graphql" });
+const link = createUploadLink({ uri: "http://localhost:5000/graphql" });
 const cache = new InMemoryCache();
 
 const client = new ApolloClient({ cache, link });

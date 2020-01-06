@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Icon, Row, Select } from "antd";
+import {Button, Col, Icon, Popconfirm, Result, Row, Select} from "antd";
 import "../../../../styles/index.css";
 import {compose, graphql, Mutation, Query, withApollo} from "react-apollo";
 import {
@@ -10,6 +10,13 @@ import {CREATE_FIXED_EXPENSES} from "../../../../graphql/mutation/fixedexpenses/
 import FixedExpancesEditableTable from "./FixedExpancesEditableTable";
 import AddAttributeForm from "../../../paystub/manual/manualfntryforms/AddAttributeForm";
 import {durationType} from "../../../common/Duration";
+import StartBudget from "../../../common/StartBudget";
+import {
+    HashRouter as Router,
+    NavLink, Redirect,
+    Route,
+    withRouter
+} from "react-router-dom";
 
 const { Option } = Select;
 
@@ -44,9 +51,10 @@ class FixedExpance extends React.Component {
     };
 
     render() {
-        return (
+         return (
             <div className="ant-layout">
-                <Row>
+                <Router>
+               <Row>
                     <Col span={5}>
                         <div>
                             {
@@ -85,9 +93,6 @@ class FixedExpance extends React.Component {
                         </div>
                     </Col>
                 </Row>
-                {
-                    console.log(this.props)
-                }
                 <Query query={USER_MONTEHLY_FIXED_EXPENSESG} variables={{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}} notifyOnNetworkStatusChange={true} fetchPolicy={"cache-and-network"}>
                     {({ loading, error, data }) => {
                         if (loading)
@@ -98,7 +103,7 @@ class FixedExpance extends React.Component {
                             );
                         if (error) return <div>Error</div>;
                         const array1 = [];
-                        if (data != null) {
+                       if (data != null && data.fixedExpenseses.length>0) {
                             const tempData = data.fixedExpenseses;
                             let primaryTotalSalary = 0;
                             let spouseTotalSalary = 0;
@@ -174,9 +179,44 @@ class FixedExpance extends React.Component {
                                 />
                             );
                         }
+                        else{
+                           return (
+
+                             <StartBudget
+                                 user={this.props.user}
+                                 startDate={this.props.startDate}
+                                 onRef={ref => (this.child = ref)}
+                             />
+                               /*<Redirect
+                                   to={{
+                                       pathname: "/budget/startbudget",
+
+                                   }}
+                                   startDate = {this.props.startDate}
+                               />*/
+                             /*  this.props.history.push({
+                                       pathname : '/budget/startbudget',
+                                       state :{
+                                           tranaction_start_date:this.props.startDate
+                                       }
+                                   }
+                               )*/
+                         /*      <Redirect
+                                   to={{
+                                       pathname: "/budget/startbudget",
+                                       search: "?startDate="+this.props.startDate,
+                                       state: { referrer: this.props.currentLocation }
+                                   }}
+                               />*/
+                               );
+
+
+                        }
                     }}
                 </Query>
+                </Router>
             </div>
+
         );
     }
 }

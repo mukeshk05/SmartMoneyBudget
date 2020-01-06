@@ -43,13 +43,14 @@
     background-color: white;
     color: rgb(127, 127, 127);
     height: auto;
-
+    width: 700px;
 }
 
 .ant-income-table-content {
     background-color: white;
     color: rgb(127, 127, 127);
     height: 370px;
+    width: 300px;
 
 }
 

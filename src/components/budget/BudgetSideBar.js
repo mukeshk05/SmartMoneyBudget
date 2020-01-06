@@ -186,4 +186,4 @@ const BudgetSideBar = props => {
     );
   }
 };
-export  default BudgetSideBar;
+export  default (BudgetSideBar);

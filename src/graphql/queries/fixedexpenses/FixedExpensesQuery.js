@@ -34,3 +34,21 @@ export const USER_MONTEHLY_FIXED_EXPENSESG=gql`
         }
     }
 `;
+
+export const USER_MONTEHLY_FIXED_EXPENSESG_FOR_BUDGET_CREATION=gql`
+    query getAllNewfixedExpenseses($user_id:String!,$tranaction_start_date:DateTime!,$transaction_end_date:DateTime!,$intailDate:DateTime!){
+        fixedExpensesForNewBudget(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date,transactionDate:$intailDate}){
+            id
+            user_id
+            duration
+            fixed_expense_amount
+            fixed_expense_type {
+                id
+                fixed_expense_type
+                status
+            }
+            spouse_amount
+            spouse_duration
+        }
+    }
+`;

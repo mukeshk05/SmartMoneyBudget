@@ -187,27 +187,7 @@ class FixedExpance extends React.Component {
                                  startDate={this.props.startDate}
                                  onRef={ref => (this.child = ref)}
                              />
-                               /*<Redirect
-                                   to={{
-                                       pathname: "/budget/startbudget",
 
-                                   }}
-                                   startDate = {this.props.startDate}
-                               />*/
-                             /*  this.props.history.push({
-                                       pathname : '/budget/startbudget',
-                                       state :{
-                                           tranaction_start_date:this.props.startDate
-                                       }
-                                   }
-                               )*/
-                         /*      <Redirect
-                                   to={{
-                                       pathname: "/budget/startbudget",
-                                       search: "?startDate="+this.props.startDate,
-                                       state: { referrer: this.props.currentLocation }
-                                   }}
-                               />*/
                                );
 
 

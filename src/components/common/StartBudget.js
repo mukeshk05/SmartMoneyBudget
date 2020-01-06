@@ -34,10 +34,17 @@ class StartBudget extends React.Component {
             .add(daysInMonth - 1, "days")
             .format("YYYY-MM-DD");
 
-        this.props.client.query({
+        await this.props.client.query({
             query:USER_MONTEHLY_FIXED_EXPENSESG_FOR_BUDGET_CREATION,
-            variables:{user_id: email,tranaction_start_date:startDate,transaction_end_date:endDate,intailDate:this.props.startDate}
+            variables:{user_id: email,tranaction_start_date:startDate,transaction_end_date:endDate,intailDate:this.props.startDate},
+            refetchQueries: [
+                {
+                    query: USER_MONTEHLY_FIXED_EXPENSESG,
+                    variables:{user_id: email,tranaction_start_date:startDate,transaction_end_date:endDate}
+                }
+            ]
         })
+        console.log(this.props);
 
     }
 
@@ -63,7 +70,8 @@ class StartBudget extends React.Component {
                         description:content,
                         placement:"topRight",
                         duration: 0,
-                        onClick:this.handleClick
+                        onClick:this.handleClick,
+
                     })
                 }
                 </Spin>

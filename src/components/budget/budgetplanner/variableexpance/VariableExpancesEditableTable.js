@@ -7,7 +7,7 @@ import {
     Statistic,
     Select,
     Row,
-    Col
+    Col, Icon
 } from "antd";
 import "../../css/Editabletable.css";
 import { compose, Mutation, withApollo, graphql } from "react-apollo";
@@ -172,19 +172,20 @@ class VariableExpancesEditableTable extends React.Component {
                 onFilter: (value, record) => record.name.includes(value),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === "name" && sortedInfo.order,
-                width: 400
+                width: 250
             },
             {
-                title: "primary duration",
+                title: "duration",
                 dataIndex: "primaryduration",
                 key: "primaryduration",
                 editable: false,
                 sorter: (a, b) => a.primaryduration - b.primaryduration,
                 sortOrder:
-                    sortedInfo.columnKey === "primaryduration" && sortedInfo.order
+                    sortedInfo.columnKey === "primaryduration" && sortedInfo.order,
+                width: 200
             },
             {
-                title: "primary amount",
+                title: "amount",
                 dataIndex: "primaryamount",
                 key: "primaryamount",
                 editable: true,
@@ -192,29 +193,10 @@ class VariableExpancesEditableTable extends React.Component {
                 onFilter: (value, record) => record.primaryamount.includes(value),
                 sorter: (a, b) => a.primaryamount - b.primaryamount,
                 sortOrder: sortedInfo.columnKey === "primaryamount" && sortedInfo.order,
-                width: 250
+                width: 150
             },
             {
-                title: "spouse duration",
-                dataIndex: "spouseduration",
-                key: "spouseduration",
-                editable: false,
-                sorter: (a, b) => a.spouseduration - b.spouseduration,
-                sortOrder: sortedInfo.columnKey === "spouseduration" && sortedInfo.order
-            },
-            {
-                title: "spouse amount",
-                dataIndex: "spouseamount",
-                key: "spouseamount",
-                editable: true,
-                filteredValue: filteredInfo.address || null,
-                onFilter: (value, record) => record.spouseamount.includes(value),
-                sorter: (a, b) => a.spouseamount - b.spouseamount,
-                sortOrder: sortedInfo.columnKey === "spouseamount" && sortedInfo.order,
-                width: 250
-            },
-            {
-                title: "operation",
+                title: "",
                 dataIndex: "operation",
                 render: (text, record) =>
                     this.state.salaryData.length >= 1 ? (
@@ -222,10 +204,10 @@ class VariableExpancesEditableTable extends React.Component {
                             title="Sure to delete?"
                             onConfirm={() => this.handleDelete(record.key)}
                         >
-                            <a>Delete</a>
+                            <Icon type="minus-circle" theme="twoTone" twoToneColor="red"/>
                         </Popconfirm>
                     ) : null,
-                width: 150
+                width: 10
             }
         ];
         const components = {
@@ -263,7 +245,7 @@ class VariableExpancesEditableTable extends React.Component {
             <div>
                 <div className="App">
                     <Table
-                        className="ant-table-content"
+                        className="ant-table-content-budget"
                         components={components}
                         rowClassName={() => "editable-row"}
                         dataSource={salaryData}

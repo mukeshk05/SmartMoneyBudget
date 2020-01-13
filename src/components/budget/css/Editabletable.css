@@ -10,7 +10,20 @@
     background-color: white;
     color: rgb(127, 127, 127);
     height: auto;
-    width: 500px;
+}
+
+.ant-table-content-budget {
+    background-color: white;
+    color: rgb(127, 127, 127);
+    height: auto;
+    width:780px;
+}
+
+.ant-table-content-tracker {
+    background-color: white;
+    color: rgb(127, 127, 127);
+    height: auto;
+    width:800px;
 }
 
 .ant-income-table-content {

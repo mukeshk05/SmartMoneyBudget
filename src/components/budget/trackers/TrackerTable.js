@@ -9,32 +9,23 @@ import {
     Row,
     Col, Icon
 } from "antd";
-import "../../css/Editabletable.css";
+import "../css/Editabletable.css";
 import { compose, Mutation, withApollo, graphql } from "react-apollo";
-import EditableFormRow from "../../../common/EditableFormRow";
-import EditableCell from "../../../common/EditableTableRow";
-import {
-    DELETE_FIXED_EXPENSES,
-    UPDATE_FIXED_EXPENSES
-} from "../../../../graphql/mutation/fixedexpenses/FixedExpensesMutation";
-import {
-    USER_FIXED_EXPENSES_QUERY,
-    USER_MONTEHLY_FIXED_EXPENSESG
-} from "../../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
-import {durationType} from "../../../common/Duration";
+import EditableFormRow from "../../common/EditableFormRow";
+import EditableCell from "../../common/EditableTableRow";
+import {DELETE_SAVING, UPDATE_SAVING, UPDATE_SAVINGL} from "../../../graphql/mutation/savings/SavingsMutation";
+import {USER_MONTEHLY_SAVING} from "../../../graphql/queries/savings/SavingsQuery";
+import {durationType} from "../../common/Duration";
 
 const { Option } = Select;
 
-class FixedExpancesEditableTable extends React.Component {
+class TrackerTable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             filteredInfo: null,
             sortedInfo: null,
-            salaryData: [],
-            primaryTotalSalary: 0,
-            spouseTotalSalary: 0,
-            count: 2
+            salaryData: []
         };
     }
 
@@ -43,6 +34,11 @@ class FixedExpancesEditableTable extends React.Component {
         this.setState({ salaryData: this.props.salaryData });
     }
 
+    componentWillReceiveProps(newProps) {
+        if(this.state.salaryData.length!==newProps.salaryData.length){
+            this.setState({salaryData:newProps.salaryData});
+        }
+    }
 
     handleResize = index => (e, { size }) => {
         this.setState(({ columns }) => {
@@ -63,21 +59,23 @@ class FixedExpancesEditableTable extends React.Component {
     };
 
     handleDelete = key => {
-        this.props.deleteFixedExpansesMutation({
+        this.props.deleteSavingMutation({
             variables: {
                 id: key
             },
             refetchQueries: [
                 {
-                    query: USER_MONTEHLY_FIXED_EXPENSESG,
+                    query: USER_MONTEHLY_SAVING,
                     variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
-
+        //const salaryData = [...this.state.salaryData];
+        //this.setState({ salaryData: salaryData.filter(item => item.key !== key) });
     };
 
     handleSave = row => {
+
         const newData = [...this.state.salaryData];
         const index = newData.findIndex(item => row.key === item.key);
         const item = newData[index];
@@ -85,44 +83,50 @@ class FixedExpancesEditableTable extends React.Component {
             ...item,
             ...row
         });
+
         let primaryDuration = durationType.findIndex(
             item => row.primaryduration.props.defaultValue === item
         );
         let spouseDuration = durationType.findIndex(
             item => row.spouseduration.props.defaultValue === item
         );
-        this.props.updateFixedExpansesMutation({
+
+        this.props.updateSavingMutation({
             variables: {
                 user_id: row.user_id,
                 duration: primaryDuration,
-                fixed_expense_amount: parseFloat(row.primaryamount),
-                fixed_expense_type: row.fixed_expense_type_id,
+                saving_amount: parseFloat(row.primaryamount),
+                saving_type: row.saving_type_id,
                 id: row.key,
                 spouse_amount: parseFloat(row.spouseamount),
                 spouse_duration: spouseDuration
             },
+
             refetchQueries: [
                 {
-                    query: USER_MONTEHLY_FIXED_EXPENSESG,
-                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
+                    query: USER_MONTEHLY_SAVING,
+                    variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate},
+                    fetchPolicy: 'network-only'
+
                 }
             ]
         });
         this.setState({ salaryData: newData });
+
     };
 
     handlePrimaryDurationChange = (value, slId) => {
         let primaryDuration = durationType.findIndex(item => value === item);
-        this.props.updateFixedExpansesMutation({
+        this.props.updateSavingMutation({
             variables: {
                 user_id: slId.user_id,
                 duration: primaryDuration,
-                fixed_expense_type: slId.fixed_expense_type.id,
+                saving_type: slId.saving_type.id,
                 id: slId.id
             },
             refetchQueries: [
                 {
-                    query: USER_MONTEHLY_FIXED_EXPENSESG,
+                    query: USER_MONTEHLY_SAVING,
                     variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
@@ -131,25 +135,23 @@ class FixedExpancesEditableTable extends React.Component {
 
     handleSpouseDurationChange = (value, slId) => {
         let spouseDuration = durationType.findIndex(item => value === item);
-        this.props.updateFixedExpansesMutation({
+        this.props.updateSavingMutation({
             variables: {
                 user_id: slId.user_id,
                 spouse_duration: spouseDuration,
-                fixed_expense_type: slId.fixed_expense_type.id,
+                saving_type: slId.saving_type.id,
                 id: slId.id
             },
             refetchQueries: [
                 {
-                    query: USER_MONTEHLY_FIXED_EXPENSESG,
+                    query: USER_MONTEHLY_SAVING,
                     variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
     };
 
-    componentWillReceiveProps(newProps) {
-        this.setState({salaryData:newProps.salaryData});
-    }
+
 
     render() {
         let { sortedInfo, filteredInfo } = this.state;
@@ -158,38 +160,50 @@ class FixedExpancesEditableTable extends React.Component {
         filteredInfo = filteredInfo || {};
         const columns = [
             {
-                title: <div style={{}}>{"Title"}</div>,
-                dataIndex: "topic",
-                key: "topic",
+                title: <div style={{}}>{"Date"}</div>,
+                dataIndex: "trackerDate",
+                key: "trackerDate",
                 editable: false,
                 render: text => <a>{text}</a>,
                 filteredValue: filteredInfo.name || null,
                 onFilter: (value, record) => record.name.includes(value),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === "name" && sortedInfo.order,
-                width: 250
+                width: 150
             },
             {
-                title: "duration",
-                dataIndex: "primaryduration",
-                key: "primaryduration",
+                title: "Category Name",
+                dataIndex: "categoryName",
+                key: "categoryName",
                 editable: false,
                 sorter: (a, b) => a.primaryduration - b.primaryduration,
                 sortOrder:
                     sortedInfo.columnKey === "primaryduration" && sortedInfo.order,
-                width: 200
+                width: 300
             },
             {
-                title: "amount",
-                dataIndex: "primaryamount",
-                key: "primaryamount",
+                title: "description",
+                dataIndex: "description",
+                key: "description",
                 editable: true,
                 filteredValue: filteredInfo.address || null,
                 onFilter: (value, record) => record.primaryamount.includes(value),
                 sorter: (a, b) => a.primaryamount - b.primaryamount,
                 sortOrder: sortedInfo.columnKey === "primaryamount" && sortedInfo.order,
-                width: 150
+                width: 300
             },
+            {
+                title: "amount",
+                dataIndex: "trackerAmount",
+                key: "trackerAmount",
+                editable: true,
+                filteredValue: filteredInfo.address || null,
+                onFilter: (value, record) => record.primaryamount.includes(value),
+                sorter: (a, b) => a.primaryamount - b.primaryamount,
+                sortOrder: sortedInfo.columnKey === "primaryamount" && sortedInfo.order,
+                width: 100
+            },
+
             {
                 title: "",
                 dataIndex: "operation",
@@ -202,7 +216,7 @@ class FixedExpancesEditableTable extends React.Component {
                             <Icon type="minus-circle" theme="twoTone" twoToneColor="red"/>
                         </Popconfirm>
                     ) : null,
-                width: 10
+                width: 5
             }
         ];
         const components = {
@@ -239,9 +253,8 @@ class FixedExpancesEditableTable extends React.Component {
         return (
             <div>
                 <div className="App">
-
                     <Table
-                        className="ant-table-content-budget"
+                        className="ant-table-content-tracker"
                         components={components}
                         rowClassName={() => "editable-row"}
                         dataSource={salaryData}
@@ -278,6 +291,6 @@ class FixedExpancesEditableTable extends React.Component {
 }
 
 export default compose(
-    graphql(UPDATE_FIXED_EXPENSES, { name: "updateFixedExpansesMutation" }),
-    graphql(DELETE_FIXED_EXPENSES, { name: "deleteFixedExpansesMutation" })
-)(withApollo(FixedExpancesEditableTable));
+    graphql(UPDATE_SAVING, { name: "updateSavingMutation" }),
+    graphql(DELETE_SAVING, { name: "deleteSavingMutation" })
+)(withApollo(TrackerTable));

@@ -59,15 +59,7 @@ class Tracker extends React.Component {
 
         return (
             <div className="ant-layout">
-                <Row>
-                    <Col span={5}>
-                        <div className="App">
-                            <MonthPicker defaultValue={moment(selectedDate, monthFormat)} format={monthFormat}  placeholder="Select Month"  onChange={(date, dateString) => this.onChange(date)}/>
-                        </div>
-                    </Col>
-
-                </Row>
-
+               
                 <Row>
 
                     <Col span={5}>

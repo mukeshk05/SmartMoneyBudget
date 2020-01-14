@@ -44,13 +44,7 @@ class BudgetPlannerEntry extends React.Component {
         return (
 
             <div className='step-progress'>
-                <Row>
-                    <Col span={5}>
-                        <div className="App">
-                            <MonthPicker defaultValue={moment(selectedDate, monthFormat)} format={monthFormat}  placeholder="Select Month"  onChange={(date, dateString) => this.onChange(date)}/>
-                        </div>
-                    </Col>
-                </Row>
+
 
                 <StepZilla  steps={[
                     {name: 'Fixed Expenses', component: <FixedExpance currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user} history= {this.props.history}/>},

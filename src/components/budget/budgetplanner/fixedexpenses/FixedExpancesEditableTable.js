@@ -265,12 +265,7 @@ class FixedExpancesEditableTable extends React.Component {
                         />
                     </Col>
                     <Col span={6} />
-                    <Col span={2}>
-                        <Statistic
-                            title="Spouse Total Income"
-                            value={this.props.spouseTotalSalary}
-                        />
-                    </Col>
+
                 </Row>
             </div>
         );

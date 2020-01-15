@@ -11,7 +11,7 @@ import VariableExpance from "./variableexpance/VariableExpance";
 import Savings from "./savings/Savings";
 import ExtraRetirementSavings from "./extraretirementsavings/ExtraRetirementSavings";
 import {withRouter} from "react-router-dom";
-import {endDate, monthFormat, selectedDate, startDate} from "../../common/Duration";
+import {endDate, monthFormat, selectedDate, startDate, yearEndDate, yearStartDate} from "../../common/Duration";
 const { MonthPicker} = DatePicker;
 
 class BudgetPlannerEntry extends React.Component {
@@ -23,7 +23,7 @@ class BudgetPlannerEntry extends React.Component {
             current: 0,
             startDate:startDate,
             endDate:endDate,
-            currentDate:selectedDate
+            currentDate:selectedDate.format("YYYY-MM-DD")
         };
     }
 
@@ -40,18 +40,20 @@ class BudgetPlannerEntry extends React.Component {
 
 
     render() {
-
+        const yearEndDate = moment(this.state.currentDate)
+            .subtract( 1, "year")
+            .format("YYYY-MM-DD");
         return (
 
             <div className='step-progress'>
 
 
                 <StepZilla  steps={[
-                    {name: 'Fixed Expenses', component: <FixedExpance currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user} history= {this.props.history}/>},
-                    {name: 'Bills', component: <Bills currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
-                    {name: 'Variable Expenses', component: <VariableExpance currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
-                    {name: 'Savings', component: <Savings currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>},
-                    {name: 'Extra Retirement Savings', component: <ExtraRetirementSavings currentDate={this.state.currentDate} startDate={this.state.startDate} endDate={this.state.endDate} user={this.props.user}/>}
+                    {name: 'Fixed Expenses', component: <FixedExpance currentDate={this.state.currentDate} startDate={yearEndDate} endDate={this.state.currentDate} user={this.props.user} history= {this.props.history}/>},
+                    {name: 'Bills', component: <Bills currentDate={this.state.currentDate} startDate={yearEndDate} endDate={this.state.currentDate}  user={this.props.user}/>},
+                    {name: 'Variable Expenses', component: <VariableExpance currentDate={this.state.currentDate} startDate={yearEndDate} endDate={this.state.currentDate}  user={this.props.user}/>},
+                    {name: 'Savings', component: <Savings currentDate={this.state.currentDate} startDate={yearEndDate} endDate={this.state.currentDate}  user={this.props.user}/>},
+                    {name: 'Extra Retirement Savings', component: <ExtraRetirementSavings currentDate={this.state.currentDate} startDate={yearEndDate} endDate={this.state.currentDate}  user={this.props.user}/>}
                 ]}
                             nextButtonCls="multiStepButton"
                 backButtonCls="multiStepButton" />

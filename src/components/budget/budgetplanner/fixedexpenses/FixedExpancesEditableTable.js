@@ -22,6 +22,8 @@ import {
     USER_MONTEHLY_FIXED_EXPENSESG
 } from "../../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
 import {durationType} from "../../../common/Duration";
+import FixedExpanceChart from "./FixedExpanceChart";
+
 
 const { Option } = Select;
 
@@ -252,6 +254,9 @@ class FixedExpancesEditableTable extends React.Component {
                         size={"small"}
                         bordered
                     />
+                </div>
+                <div>
+                    <FixedExpanceChart></FixedExpanceChart>
                 </div>
                 <Row>
                     <Col span={1} />

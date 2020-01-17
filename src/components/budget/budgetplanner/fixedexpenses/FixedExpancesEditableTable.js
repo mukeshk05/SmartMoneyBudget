@@ -90,9 +90,7 @@ class FixedExpancesEditableTable extends React.Component {
         let primaryDuration = durationType.findIndex(
             item => row.primaryduration.props.defaultValue === item
         );
-        let spouseDuration = durationType.findIndex(
-            item => row.spouseduration.props.defaultValue === item
-        );
+        let spouseDuration = 0;
         this.props.updateFixedExpansesMutation({
             variables: {
                 user_id: row.user_id,
@@ -100,7 +98,7 @@ class FixedExpancesEditableTable extends React.Component {
                 fixed_expense_amount: parseFloat(row.primaryamount),
                 fixed_expense_type: row.fixed_expense_type_id,
                 id: row.key,
-                spouse_amount: parseFloat(row.spouseamount),
+                spouse_amount: 0,
                 spouse_duration: spouseDuration
             },
             refetchQueries: [
@@ -255,8 +253,10 @@ class FixedExpancesEditableTable extends React.Component {
                         bordered
                     />
                     </div>
-                    <div className="flex-col" >
-<FixedExpanceChart/>
+                    <div className="flex-col" style={{height:"500px"}}>
+                        <FixedExpanceChart
+                            eChartData={this.props.eChartData}
+                        />
                     </div>
                 </div>
 

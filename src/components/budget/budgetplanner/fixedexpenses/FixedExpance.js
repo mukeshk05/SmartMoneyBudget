@@ -17,6 +17,7 @@ import {
     Route,
     withRouter
 } from "react-router-dom";
+import {getEChartData} from "../../../common/PrepareData";
 
 const { Option } = Select;
 
@@ -137,37 +138,12 @@ class FixedExpance extends React.Component {
                                         </Select>
                                     ),
                                     primaryamount: tempData[i].fixed_expense_amount,
-
-                                    spouseduration: (
-                                        <Select
-                                            defaultValue={durationType[tempData[i].spouse_duration]}
-                                            onChange={e =>
-                                                this.handleSpouseDurationChange(e, tempData[i])
-                                            }
-                                            showSearch
-                                            style={{ width: 100 }}
-                                            placeholder="Select a type"
-                                            optionFilterProp="children"
-                                            filterOption={(input, option) =>
-                                                option.props.children
-                                                    .toLowerCase()
-                                                    .indexOf(input.toLowerCase()) >= 0
-                                            }
-                                        >
-                                            {durationType.map(duration => (
-                                                <Option key={duration} value={duration}>
-                                                    {duration}
-                                                </Option>
-                                            ))}
-                                        </Select>
-                                    ),
-                                    spouseamount: tempData[i].spouse_amount
                                 });
                                 primaryTotalSalary =
                                     primaryTotalSalary + tempData[i].fixed_expense_amount;
-                                spouseTotalSalary =
-                                    spouseTotalSalary + tempData[i].spouse_amount;
                             }
+
+                            const eChartData=getEChartData(tempData,"Fixed Expenses","Fixed Expenses by Category");
                             return (
                                 <FixedExpancesEditableTable
                                     startDate={this.props.startDate} endDate={this.props.endDate}
@@ -176,6 +152,7 @@ class FixedExpance extends React.Component {
                                     spouseTotalSalary={spouseTotalSalary}
                                     onRef={ref => (this.child = ref)}
                                     user={this.props.user}
+                                    eChartData={eChartData}
                                 />
                             );
                         }

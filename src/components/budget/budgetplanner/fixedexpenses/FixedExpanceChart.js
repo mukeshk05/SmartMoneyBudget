@@ -1,51 +1,73 @@
 import React from "react";
-import ReactEcharts from 'echarts-for-react';
-
-
+import ReactEcharts from "echarts-for-react";
 
 class FixedExpanceChart extends React.Component {
-  render() {
+
+  render()
+
+  {
+    const eChartData=this.props.eChartData[0];
     const option = {
       title: {
-          text: 'New',
-          subtext: 'New1',
-          left: 'center'
+        text: eChartData.title,
+        subtext: eChartData.subTitle,
+        left: "center"
       },
       tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)'
+        trigger: "item",
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
       },
       legend: {
-          orient: 'vertical',
-          left: 'left',
-          data: ['A', 'B', 'C', 'D', 'E']
+          orient : 'horizontal',
+          left: 'center',
+          bottom:'2%',
+          top:'bottom',
+          data: eChartData.data
       },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: {show: true},
+                dataView: {show: true, readOnly: false},
+                magicType: {
+                    show: true,
+                    type: ['pie', 'funnel']
+                },
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
       series: [
-          {
-              name: 'F',
-              type: 'pie',
-              radius: ['50%', '70%'],
-              center: ['50%', '60%'],
-              data: [
-                  {value: 335, name: 'A'},
-                  {value: 310, name: 'B'},
-                  {value: 234, name: 'C'},
-                  {value: 135, name: 'D'},
-                  {value: 1548, name: 'E'}
-              ],
-              emphasis: {
-                  itemStyle: {
-                      shadowBlur: 10,
-                      shadowOffsetX: 0,
-                      shadowColor: 'rgba(0, 0, 0, 0.5)'
-                  }
-              }
+        {
+          name: eChartData.seriesName,
+          type: "pie",
+          radius: ["30%", "70%"],
+          center: ["50%", "60%"],
+          data: eChartData.seriesData,
+            animation: true,
+            label: {
+                position: 'outer',
+                alignTo: 'labelLine',
+                bleedMargin: 5
+            },
+            left: 0,
+            right:110,
+            top: '0%',
+            bottom: 0,
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 50,
+              shadowOffsetX: 0,
+              shadowColor: "rgba(0, 0, 0, 0.5)",
+                label: {
+                    show: true
+                }
+            }
           }
+        }
       ]
-  };
-    return (
-      <ReactEcharts option={option} />   
-    );
+    };
+    return <ReactEcharts option={option} theme={"light"}  />;
   }
 }
 

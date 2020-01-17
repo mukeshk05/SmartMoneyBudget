@@ -4,7 +4,6 @@
   "private": true,
   "homepage": "https://mukeshk05.github.io/SmartMoneyBudget",
   "dependencies": {
-    "@nivo/pie": "^0.61.1",
     "antd": "^3.13.5",
     "antd-form-builder": "^1.0.7",
     "antd-theme-webpack-plugin": "^1.2.0",
@@ -13,6 +12,8 @@
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
     "apollo-upload-client": "^11.0.0",
+    "echarts": "^4.6.0",
+    "echarts-for-react": "^2.0.15-beta.1",
     "firebase": "^7.6.1",
     "fusioncharts": "^3.15.0-sr.1",
     "gh-pages": "^2.1.1",

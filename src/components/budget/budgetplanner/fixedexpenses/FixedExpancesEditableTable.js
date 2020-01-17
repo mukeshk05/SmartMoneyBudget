@@ -256,7 +256,7 @@ class FixedExpancesEditableTable extends React.Component {
                     />
                     </div>
                     <div className="flex-col" >
-
+<FixedExpanceChart/>
                     </div>
                 </div>
 

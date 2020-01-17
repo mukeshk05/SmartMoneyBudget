@@ -239,9 +239,9 @@ class FixedExpancesEditableTable extends React.Component {
         }));
 
         return (
-            <div>
-                <div className="App">
-
+            <div className="App">
+                <div  className="flex-row">
+                    <div className="flex-col">
                     <Table
                         className="ant-table-content-budget"
                         components={components}
@@ -254,10 +254,12 @@ class FixedExpancesEditableTable extends React.Component {
                         size={"small"}
                         bordered
                     />
+                    </div>
+                    <div className="flex-col" >
+
+                    </div>
                 </div>
-                <div>
-                    <FixedExpanceChart></FixedExpanceChart>
-                </div>
+
                 <Row>
                     <Col span={1} />
                     <Col span={10}>

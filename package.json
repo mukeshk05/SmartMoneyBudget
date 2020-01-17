@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://mukeshk05.github.io/SmartMoneyBudget",
   "dependencies": {
+    "@nivo/pie": "^0.61.1",
     "antd": "^3.13.5",
     "antd-form-builder": "^1.0.7",
     "antd-theme-webpack-plugin": "^1.2.0",
@@ -13,6 +14,7 @@
     "apollo-client": "^2.6.4",
     "apollo-upload-client": "^11.0.0",
     "firebase": "^7.6.1",
+    "fusioncharts": "^3.15.0-sr.1",
     "gh-pages": "^2.1.1",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
@@ -29,7 +31,6 @@
     "react-color": "^2.17.0",
     "react-dom": "latest",
     "react-emotion": "^10.0.0",
-    "react-fusioncharts": "^3.0.1",
     "react-multistep": "^3.6.13",
     "react-redux": "^7.1.1",
     "react-resizable": "^1.8.0",

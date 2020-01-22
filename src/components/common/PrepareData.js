@@ -188,20 +188,19 @@ export const savingChartData = (data, durationView) => {
   };
 };
 
-export const getEChartData = (data, title, subTitle) => {
+export const getEChartData = (data, title, subTitle,categoryType,categoryType1,categoryAmount) => {
   const seriesCategory = [];
   const seriesName = title;
   const seriesData = [];
   for (let i in data) {
-    if (data.hasOwnProperty(i)) {
-      seriesCategory.push(data[i].fixed_expense_type.fixed_expense_type);
+    if (data.hasOwnProperty(i) && data[i][categoryAmount]>0) {
+      seriesCategory.push(data[i][categoryType][categoryType1]);
       seriesData.push({
-        value: data[i].fixed_expense_amount,
-        name: data[i].fixed_expense_type.fixed_expense_type
+        value: data[i][categoryAmount],
+        name: data[i][categoryType][categoryType1]
       });
     }
   }
-
   return [{title, subTitle, seriesCategory, seriesData, seriesName}];
 };
 

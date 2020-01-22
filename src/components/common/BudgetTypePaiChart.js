@@ -1,7 +1,7 @@
 import React from "react";
 import ReactEcharts from "echarts-for-react";
 
-class FixedExpanceChart extends React.Component {
+class BudgetTypePaiChart extends React.Component {
 
   render()
 
@@ -20,24 +20,22 @@ class FixedExpanceChart extends React.Component {
       legend: {
           orient : 'vertical',
           left: 'right',
-          bottom:"35%",
+          bottom:"20%",
           data: eChartData.data
       },
+      
         toolbox: {
             show: true,
             feature: {
-                mark: {show: true},
-                dataView: {show: true, readOnly: false},
-                magicType: {
-                    show: true,
-                    type: ['pie', 'funnel']
-                },
-                restore: {show: true},
-                saveAsImage: {show: true}
-            }
+                mark: {show: true},saveAsImage: {show: true,
+                  title: 'Save As picture',},
+               
+                
+            },
+            left:'left'
         },
       series: [
-        {
+        { 
           name: eChartData.seriesName,
           type: "pie",
           radius: ["30%", "70%"],
@@ -70,4 +68,4 @@ class FixedExpanceChart extends React.Component {
   }
 }
 
-export default FixedExpanceChart;
+export default BudgetTypePaiChart;

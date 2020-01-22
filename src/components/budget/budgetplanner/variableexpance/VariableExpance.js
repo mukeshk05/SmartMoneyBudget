@@ -9,6 +9,7 @@ import {
 import {CREATE_VARIABLE_EXPENSES} from "../../../../graphql/mutation/variableexpenses/VariableExpensesMutation";
 import VariableExpancesEditableTable from "./VariableExpancesEditableTable";
 import {durationType} from'../../../common/Duration';
+import {getEChartData} from'../../../common/PrepareData';
 
 const { Option } = Select;
 
@@ -159,6 +160,7 @@ class VariableExpance extends React.Component {
                                 spouseTotalSalary =
                                     spouseTotalSalary + tempData[i].spouse_amount;
                             }
+                            const eChartData=getEChartData(tempData,"Variable Expenses","Variable Expenses by Category","variable_expense_type","variable_expense_type","variable_expense_amount");
                             return (
                                 <VariableExpancesEditableTable
                                     startDate={this.props.startDate} endDate={this.props.endDate}
@@ -167,6 +169,7 @@ class VariableExpance extends React.Component {
                                     spouseTotalSalary={spouseTotalSalary}
                                     onRef={ref => (this.child = ref)}
                                     user={this.props.user}
+                                    eChartData={eChartData}
                                 />
                             );
                         }

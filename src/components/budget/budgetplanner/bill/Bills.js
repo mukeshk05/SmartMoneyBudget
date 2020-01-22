@@ -7,7 +7,7 @@ import {CREATE_BILLS} from "../../../../graphql/mutation/bills/BillsMutation";
 import {USER_BILLS_QUERY, USER_MONTEHLY_BILLS} from "../../../../graphql/queries/bills/BillsQuery";
 import BillsEditableTable from "./BillsEditableTable";
 import {durationType} from "../../../common/Duration";
-
+import {getEChartData} from "../../../common/PrepareData";
 const { Option } = Select;
 
 class Bills extends React.Component {
@@ -158,6 +158,8 @@ class Bills extends React.Component {
                                 spouseTotalSalary =
                                     spouseTotalSalary + tempData[i].spouse_amount;
                             }
+                            const eChartData=getEChartData(tempData,"Bills","Bills by Category","bill_type","bills_type","bill_amount");
+                            
                             return (
                                 <BillsEditableTable
                                     startDate={this.props.startDate} endDate={this.props.endDate}
@@ -166,6 +168,7 @@ class Bills extends React.Component {
                                     spouseTotalSalary={spouseTotalSalary}
                                     onRef={ref => (this.child = ref)}
                                     user={this.props.user}
+                                    eChartData={eChartData}
                                 />
                             );
                         }

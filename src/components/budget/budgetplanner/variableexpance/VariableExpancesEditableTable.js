@@ -27,6 +27,7 @@ import {
     USER_VARIABLE_EXPENSES
 } from "../../../../graphql/queries/variableexpenses/VariableExpensesQuery";
 import {durationType} from "../../../common/Duration";
+import BudgetTypePaiChart from "../../../common/BudgetTypePaiChart";
 
 const { Option } = Select;
 
@@ -242,8 +243,9 @@ class VariableExpancesEditableTable extends React.Component {
         }));
 
         return (
-            <div>
-                <div className="App">
+            <div className="App">
+            <div  className="flex-row">
+                <div className="flex-col">
                     <Table
                         className="ant-table-content-budget"
                         components={components}
@@ -255,11 +257,18 @@ class VariableExpancesEditableTable extends React.Component {
                         scroll={{ y: 500 }}
                         size={"small"}
                         bordered
+                        pagination={{pageSize: 5}  }
                     />
+                  </div>
+                    <div className="flex-col">
+                        <BudgetTypePaiChart
+                            eChartData={this.props.eChartData}
+                        />
+                    </div>
                 </div>
                 <Row>
                     <Col span={1} />
-                    <Col span={10}>
+                    <Col span={6}>
                         <div className="ant-layout">Total</div>
                     </Col>
                     <Col span={2}>
@@ -268,13 +277,7 @@ class VariableExpancesEditableTable extends React.Component {
                             value={this.props.primaryTotalSalary}
                         />
                     </Col>
-                    <Col span={6} />
-                    <Col span={2}>
-                        <Statistic
-                            title="Spouse Total Income"
-                            value={this.props.spouseTotalSalary}
-                        />
-                    </Col>
+
                 </Row>
             </div>
         );

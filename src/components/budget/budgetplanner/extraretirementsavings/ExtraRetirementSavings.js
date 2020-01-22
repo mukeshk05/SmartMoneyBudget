@@ -8,6 +8,7 @@ import {CREATE_EXTRA_RET_SAVING} from "../../../../graphql/mutation/extraretirem
 import {USER_MONTEHLY_EXTRA_RETIREMENT_SAVING
 } from "../../../../graphql/queries/extraretirementsavings/ExtraRetirementSavingsQuery";
 import { durationType} from '../../../common/Duration';
+import { getEChartData } from '../../../common/PrepareData';
 
 const { Option } = Select;
 
@@ -160,6 +161,8 @@ class ExtraRetirementSavings extends React.Component {
                                 spouseTotalSalary =
                                     spouseTotalSalary + tempData[i].spouse_amount;
                             }
+                            const eChartData=getEChartData(tempData,"Extra Retirement Savings","Extra Retirement Savings by Category","extra_retirement_saving_type","extra_retirement_saving_type","extra_retirement_saving_amount");
+                           
                             return (
                                 <ExtraRetirementSavingEditableTable
                                     startDate={this.props.startDate} endDate={this.props.endDate}
@@ -168,6 +171,7 @@ class ExtraRetirementSavings extends React.Component {
                                     spouseTotalSalary={spouseTotalSalary}
                                     onRef={ref => (this.child = ref)}
                                     user={this.props.user}
+                                    eChartData={eChartData}
                                 />
                             );
                         }

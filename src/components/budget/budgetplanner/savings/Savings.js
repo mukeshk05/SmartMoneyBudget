@@ -7,6 +7,7 @@ import SavingsEditableTable from "./SavingsEditableTable";
 import {CREATE_SAVING} from "../../../../graphql/mutation/savings/SavingsMutation";
 import {USER_MONTEHLY_SAVING, USER_SAVNGS} from "../../../../graphql/queries/savings/SavingsQuery";
 import {durationType} from "../../../common/Duration";
+import {getEChartData} from "../../../common/PrepareData";
 
 const { Option } = Select;
 
@@ -159,6 +160,8 @@ class Savings extends React.Component {
                                 spouseTotalSalary =
                                     spouseTotalSalary + tempData[i].spouse_amount;
                             }
+                            const eChartData=getEChartData(tempData,"Savings","Savings by Category","saving_type","saving_type","saving_amount");
+                           
                             return (
                                 <SavingsEditableTable
                                     startDate={this.props.startDate} endDate={this.props.endDate}
@@ -167,6 +170,7 @@ class Savings extends React.Component {
                                     spouseTotalSalary={spouseTotalSalary}
                                     onRef={ref => (this.child = ref)}
                                     user={this.props.user}
+                                    eChartData={eChartData}
                                 />
                             );
                         }

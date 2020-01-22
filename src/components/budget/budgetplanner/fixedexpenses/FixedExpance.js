@@ -143,7 +143,7 @@ class FixedExpance extends React.Component {
                                     primaryTotalSalary + tempData[i].fixed_expense_amount;
                             }
 
-                            const eChartData=getEChartData(tempData,"Fixed Expenses","Fixed Expenses by Category");
+                            const eChartData=getEChartData(tempData,"Fixed Expenses","Fixed Expenses by Category","fixed_expense_type","fixed_expense_type","fixed_expense_amount");
                             return (
                                 <FixedExpancesEditableTable
                                     startDate={this.props.startDate} endDate={this.props.endDate}

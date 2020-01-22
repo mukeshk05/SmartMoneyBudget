@@ -22,8 +22,7 @@ import {
     USER_MONTEHLY_FIXED_EXPENSESG
 } from "../../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
 import {durationType} from "../../../common/Duration";
-import FixedExpanceChart from "./FixedExpanceChart";
-
+import BudgetTypePaiChart from "../../../common/BudgetTypePaiChart";
 
 const { Option } = Select;
 
@@ -251,10 +250,11 @@ class FixedExpancesEditableTable extends React.Component {
                         scroll={{ y: 500 }}
                         size={"small"}
                         bordered
+                        pagination={{pageSize: 5}  }
                     />
                     </div>
-                    <div className="flex-col" style={{height:"500px"}}>
-                        <FixedExpanceChart
+                    <div className="flex-col">
+                        <BudgetTypePaiChart
                             eChartData={this.props.eChartData}
                         />
                     </div>
@@ -262,7 +262,7 @@ class FixedExpancesEditableTable extends React.Component {
 
                 <Row>
                     <Col span={1} />
-                    <Col span={10}>
+                    <Col span={6}>
                         <div className="ant-layout">Total</div>
                     </Col>
                     <Col span={2}>
@@ -271,7 +271,6 @@ class FixedExpancesEditableTable extends React.Component {
                             value={this.props.primaryTotalSalary}
                         />
                     </Col>
-                    <Col span={6} />
 
                 </Row>
             </div>

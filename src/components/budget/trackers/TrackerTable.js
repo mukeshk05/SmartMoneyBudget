@@ -266,22 +266,7 @@ class TrackerTable extends React.Component {
                         bordered
                     />
                 </div>
-                <Row>
-                    <Col span={1} />
-                    <Col span={10}>
-                        <div className="ant-layout">Total</div>
-                    </Col>
-                    <Col span={2}>
-                        <Statistic
-                            title="Primary Total Income"
-                            value={this.props.primaryTotalSalary}
-                        />
-                    </Col>
-                    <Col span={6} />
-                    <Col span={2}>
-
-                    </Col>
-                </Row>
+                
             </div>
         );
     }

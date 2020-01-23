@@ -78,9 +78,9 @@ class Tracker extends React.Component {
                                         e.preventDefault();
                                         const { form } = this.formRef.props;
                                         form.validateFields((err, values) => {
-                                            console.log(moment(values.date).format("YYYY-MM-DD"))
-                                            console.log(new moment().format("YYYY-MM-DD"));
-                                           this.props.createTrackerMutation({
+                                            console.log(values);
+
+                                        this.props.createTrackerMutation({
                                                 variables: {
                                                     tracker_type: values.Category,
                                                     transactionDate:(new moment()),

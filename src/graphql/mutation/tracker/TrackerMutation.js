@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 export const CREATE_TRACKER = gql`
-    mutation createTracker($user_id: String!,$Amount:Float,$description:String!, $tracker_type: String!,$transactionDate:DateTime!,$tracker_date:DateTime!) {
+    mutation createTracker($user_id: String!,$Amount:Float,$description:String!, $tracker_type: String!,$transactionDate:DateTime!,$tracker_date:DateTime!,$duration:Int! ) {
         createTracker(
             data: {
                 user_id: $user_id
@@ -10,7 +10,7 @@ export const CREATE_TRACKER = gql`
                             }
                 },
                 tracker_date:$tracker_date
-                duration: 0
+                duration:$duration
                 description: $description
                 Amount: $Amount
                 transactionDate:$transactionDate

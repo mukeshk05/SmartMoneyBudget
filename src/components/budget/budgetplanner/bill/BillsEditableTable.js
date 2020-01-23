@@ -242,7 +242,6 @@ class BillsEditableTable extends React.Component {
                         dataSource={salaryData}
                         columns={columns2}
                         onChange={this.handleChange}
-                        pagination={false}
                         scroll={{ y: 500 }}
                         size={"small"}
                         bordered

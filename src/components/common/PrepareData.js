@@ -204,3 +204,35 @@ export const getEChartData = (data, title, subTitle,categoryType,categoryType1,c
   return [{title, subTitle, seriesCategory, seriesData, seriesName}];
 };
 
+
+export const getTrackerEChartData = (data, title, subTitle,categoryType,categoryType1,categoryAmount) => {
+  const seriesCategory = [];
+  const seriesName = title;
+  const seriesData = [];
+  for (let i in data) {
+    if (data.hasOwnProperty(i) && data[i][categoryAmount]>0) {
+      seriesCategory.push(data[i][categoryType][categoryType1].split("|")[1]);
+      seriesData.push({
+        value: data[i][categoryAmount],
+        name: data[i][categoryType][categoryType1].split("|")[1]
+      });
+    }
+  }
+  return [{title, subTitle, seriesCategory, seriesData, seriesName}];
+};
+
+export const getTrackerEChartDataByCategory = (data, title, subTitle,categoryType,categoryAmount) => {
+  const seriesCategory = [];
+  const seriesName = title;
+  const seriesData = [];
+  for (let i in data) {
+    if (data.hasOwnProperty(i) && data[i][categoryAmount]>0) {
+      seriesCategory.push(data[i][categoryType]);
+      seriesData.push({
+        value: data[i][categoryAmount],
+        name: data[i][categoryType]
+      });
+    }
+  }
+  return [{title, subTitle, seriesCategory, seriesData, seriesName}];
+};

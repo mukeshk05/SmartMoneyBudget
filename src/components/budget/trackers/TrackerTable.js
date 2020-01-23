@@ -7,7 +7,7 @@ import {
     Statistic,
     Select,
     Row,
-    Col, Icon
+    Col, Icon, Divider, Tabs, Tooltip
 } from "antd";
 import "../css/Editabletable.css";
 import { compose, Mutation, withApollo, graphql } from "react-apollo";
@@ -16,6 +16,9 @@ import EditableCell from "../../common/EditableTableRow";
 import {DELETE_SAVING, UPDATE_SAVING, UPDATE_SAVINGL} from "../../../graphql/mutation/savings/SavingsMutation";
 import {USER_MONTEHLY_SAVING} from "../../../graphql/queries/savings/SavingsQuery";
 import {durationType} from "../../common/Duration";
+import BudgetTypePaiChart from "../../common/BudgetTypePaiChart";
+import BudgetBarChartWithPerception from "../../common/BudgetBarChartWithPerception";
+const TabPane = Tabs.TabPane;
 
 const { Option } = Select;
 
@@ -168,8 +171,8 @@ class TrackerTable extends React.Component {
                 filteredValue: filteredInfo.name || null,
                 onFilter: (value, record) => record.name.includes(value),
                 sorter: (a, b) => a.name.length - b.name.length,
-                sortOrder: sortedInfo.columnKey === "name" && sortedInfo.order,
-                width: 150
+                sortOrder: sortedInfo.columnKey === "trackerDate" && sortedInfo.order,
+                width: 100
             },
             {
                 title: "Category Name",
@@ -178,19 +181,31 @@ class TrackerTable extends React.Component {
                 editable: false,
                 sorter: (a, b) => a.primaryduration - b.primaryduration,
                 sortOrder:
-                    sortedInfo.columnKey === "primaryduration" && sortedInfo.order,
-                width: 300
+                    sortedInfo.columnKey === "categoryName" && sortedInfo.order,
+                width: 200
+            },
+            {
+                title: "Sub Category Name",
+                dataIndex: "subCategoryName",
+                key: "subCategoryName",
+                editable: false,
+                sorter: (a, b) => a.primaryduration - b.primaryduration,
+                sortOrder:
+                    sortedInfo.columnKey === "subCategoryName" && sortedInfo.order,
+                width: 200
             },
             {
                 title: "description",
                 dataIndex: "description",
                 key: "description",
                 editable: true,
+                ellipsis: true,
                 filteredValue: filteredInfo.address || null,
                 onFilter: (value, record) => record.primaryamount.includes(value),
                 sorter: (a, b) => a.primaryamount - b.primaryamount,
-                sortOrder: sortedInfo.columnKey === "primaryamount" && sortedInfo.order,
-                width: 300
+                sortOrder: sortedInfo.columnKey === "description" && sortedInfo.order,
+                width: 200
+
             },
             {
                 title: "amount",
@@ -200,8 +215,8 @@ class TrackerTable extends React.Component {
                 filteredValue: filteredInfo.address || null,
                 onFilter: (value, record) => record.primaryamount.includes(value),
                 sorter: (a, b) => a.primaryamount - b.primaryamount,
-                sortOrder: sortedInfo.columnKey === "primaryamount" && sortedInfo.order,
-                width: 100
+                sortOrder: sortedInfo.columnKey === "trackerAmount" && sortedInfo.order,
+                width: 150
             },
 
             {
@@ -251,10 +266,11 @@ class TrackerTable extends React.Component {
         }));
 
         return (
-            <div>
-                <div className="App">
+            <div className="App">
+                <div  className="flex-row">
+                    <div className="flex-col">
                     <Table
-                        className="ant-table-content-tracker"
+                        className="ant-table-content-budget" style={{width:"750px"}}
                         components={components}
                         rowClassName={() => "editable-row"}
                         dataSource={salaryData}
@@ -264,8 +280,37 @@ class TrackerTable extends React.Component {
                         scroll={{ y: 500 }}
                         size={"small"}
                         bordered
+
                     />
                 </div>
+                    <div className="flex-col" style={{width:"400px"}} >
+                        <Tabs defaultActiveKey="2" tabPosition={"top"}>
+                            <TabPane tab={ <span> Sub Category</span>} key="1" >
+
+                                    <BudgetTypePaiChart
+                                        eChartData={this.props.eChartData}
+                                    />
+
+                            </TabPane>
+                            <TabPane tab={ <span> Category</span>} key="2">
+
+                                    <BudgetTypePaiChart
+                                        eChartData={this.props.eChartCategoryData}
+                                    />
+
+                            </TabPane>
+                            <TabPane tab={ <span> Category and Sub Category</span>} key="3">
+
+                                    <BudgetBarChartWithPerception
+                                    />
+
+                            </TabPane>
+                        </Tabs>
+
+                    </div>
+
+                </div>
+
                 
             </div>
         );

@@ -7,11 +7,16 @@ import NewTrackerForm from "./NewTrackerForm";
 import 'antd/dist/antd.css';
 import {USER_MONTEHLY_TRACKING} from "../../../graphql/queries/tracker/TrackerQuery";
 import {CREATE_TRACKER} from "../../../graphql/mutation/tracker/TrackerMutation";
-import {USER_MONTEHLY_SAVING} from "../../../graphql/queries/savings/SavingsQuery";
 import moment from "moment";
-import {monthFormat, selectedDate} from "../../common/Duration";
-const { Option } = Select;
-const { MonthPicker} = DatePicker;
+import {
+    getEChartData,
+    getTrackeEChartData,
+    getTrackerEChartData,
+    getTrackerEChartDataByCategory
+} from "../../common/PrepareData";
+import BillsEditableTable from "../budgetplanner/bill/BillsEditableTable";
+import {TrackerCategory} from "../../common/Duration";
+import _ from "lodash";
 
 class Tracker extends React.Component {
     constructor(props) {
@@ -75,17 +80,17 @@ class Tracker extends React.Component {
                                     visible={this.state.visible}
                                     onCancel={this.handleCancel}
                                     onCreate={e => {
-                                        console.log(e.target.value );
                                         const { form } = this.formRef.props;
                                         form.validateFields((err, values) => {
-                                       
+                                        console.log(values);
                                         this.props.createTrackerMutation({
                                                 variables: {
-                                                    tracker_type: values.Category,
+                                                    tracker_type: values.subCategory,
                                                     transactionDate:(new moment()),
                                                     tracker_date:moment(values.date).format("YYYY-MM-DD"),
                                                     user_id:this.props.user.email,
                                                     Amount:parseFloat(values.amount),
+                                                    duration:parseInt(values.Category),
                                                     description:values.name
                                                 },
                                                 refetchQueries: [
@@ -115,15 +120,14 @@ class Tracker extends React.Component {
                         const array1 = [];
                         if (data != null) {
                             const trackers = data.trackers;
-                            let primaryTotalSalary = 0;
-                            let spouseTotalSalary = 0;
                             for (let i in trackers) {
                                 array1.push(
                                     {
                                         key: trackers[i].id,
-                                        categoryName: trackers[i].Category.tracker_type,
+                                        categoryName:TrackerCategory[trackers[i].duration],
                                         description: trackers[i].description,
                                         trackerAmount:trackers[i].Amount,
+                                        subCategoryName:trackers[i].Category.tracker_type.split("|")[1],
                                         trackerDate:<DatePicker defaultValue={moment(trackers[i].tracker_date, "YYYY-MM-DD")} format={"YYYY-MM-DD"}
                                                                 size={"small"}/>,
                                     }
@@ -131,15 +135,29 @@ class Tracker extends React.Component {
                                 );
 
                             }
-                            console.log(array1);
+
+
+                            const result1 = _(array1)
+                                .groupBy('categoryName')
+                                .map(function(items, categoryName) {
+                                    return {
+                                        categoryType: categoryName,
+                                        trackerAmount:_.sumBy(items, 'trackerAmount')
+                                    };
+                                }).value();
+
+                            console.log(result1);
+                            const eChartData=getTrackerEChartData(trackers,"Sub Category Tracker","Tracker by Sub Category","Category","tracker_type","Amount");
+                            const eChartCategoryData=getTrackerEChartDataByCategory(result1,"Category Tracker","Tracker by Category","categoryType","trackerAmount");
+
                             return (
                                 <TrackerTable
                                     startDate={this.props.startDate} endDate={this.props.endDate}
                                     salaryData={array1}
-                                    primaryTotalSalary={primaryTotalSalary}
-                                    spouseTotalSalary={spouseTotalSalary}
                                     onRef={ref => (this.child = ref)}
                                     user={this.props.user}
+                                    eChartData={eChartData}
+                                    eChartCategoryData={eChartCategoryData}
                                 />
                             );
                         }

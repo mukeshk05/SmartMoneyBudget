@@ -29,17 +29,15 @@ class BudgetTypePaiChart extends React.Component {
             feature: {
                 mark: {show: true},saveAsImage: {show: true,
                   title: 'Save As picture',},
-               
-                
             },
-            left:'left'
+            left:'30%'
         },
       series: [
         { 
           name: eChartData.seriesName,
           type: "pie",
           radius: ["30%", "70%"],
-          center: ["35%", "65%"],
+          center: ["45%", "65%"],
           data: eChartData.seriesData,
             animation: true,
             label: {

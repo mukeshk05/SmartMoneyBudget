@@ -18,12 +18,7 @@ class NewTrackerForm extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            title:'',
-            primaryAmount: '',
-            spouseAmount: '',
-            primary:durationType[0],
-            spouse:durationType[0],
-            selectedCategory:0,
+            selectedCategory:0
         };
         //this.onChange = this.onChange.bind(this)
     };
@@ -36,7 +31,7 @@ class NewTrackerForm extends React.Component {
 
     handleSpouseDurationChange = value => {
         this.setState({
-            spouse:durationType[value]
+            subCategorySelectValue:value
         });
     };
 
@@ -44,10 +39,9 @@ class NewTrackerForm extends React.Component {
     render() {
 
         const dateFormat = 'YYYY/MM/DD';
-        const {title, primaryAmount,spouseAmount,primary,spouse,selectedCategory } = this.state;
+        const {selectedCategory} = this.state;
         const {visible, onCancel, onCreate, form} = this.props;
         const {getFieldDecorator} = form;
-
         return (
             <Query query={ALL_CATEGORIES}>
                 {({ loading, error, data }) => {
@@ -151,9 +145,6 @@ class NewTrackerForm extends React.Component {
                                                  option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                              }
                                     >
-                                        {/*categoryData.map((categoryData,index) => (
-                                            <Option key={categoryData.categoryId} >{categoryData.categoryName}</Option>
-                                        ))*/}
                                          {TrackerCategory.map((duration,index) => (
                                                     <Option key={index} value={index}>
                                                         {duration}
@@ -174,28 +165,21 @@ class NewTrackerForm extends React.Component {
                                                  option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                                              }
                                     >
-                                        {/*categoryData.map((categoryData,index) => (
-                                            <Option key={categoryData.categoryId} >{categoryData.categoryName}</Option>
-                                        ))*/}
                                        {result1[selectedCategory].categoryName.map((categoryData,index) => (
-                                            <Option key={result1[selectedCategory].categoryId[index]} value={categoryData} >{categoryData}</Option>
+                                            <Option key={result1[selectedCategory].categoryId[index]+"|"+categoryData} >{categoryData}</Option>
                                            
                                         ))}
                                     </Select>)}
                                 </Form.Item>
-
-                               
                                 <Form.Item label="Name">
                                     {getFieldDecorator('name', {
                                         rules: [{required: true, message: 'Please input the Name!'}],
-                                    })(<Input value={this.state.type}
-                                              onChange={e => this.setState({title: e.target.value})}/>)}
+                                    })(<Input value={this.state.type}/>)}
                                 </Form.Item>
                                 <Form.Item label="Amount">
                                     {getFieldDecorator('amount', {
                                         rules: [{required: true, message: 'Please input the Amount!'}],
-                                    })(<Input value={this.state.type}
-                                              onChange={e => this.setState({title: e.target.value})}/>)}
+                                    })(<Input value={this.state.type}/>)}
                                 </Form.Item>
                             </Form>
                         </Modal>

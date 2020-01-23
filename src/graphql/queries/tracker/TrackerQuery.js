@@ -31,6 +31,7 @@ export const USER_MONTEHLY_TRACKING=gql`
             tracker_date,
             description,
             Amount,
+            duration,
             Category{
                 user_id,
                 tracker_type

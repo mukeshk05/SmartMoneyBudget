@@ -75,11 +75,10 @@ class Tracker extends React.Component {
                                     visible={this.state.visible}
                                     onCancel={this.handleCancel}
                                     onCreate={e => {
-                                        e.preventDefault();
+                                        console.log(e.target.value );
                                         const { form } = this.formRef.props;
                                         form.validateFields((err, values) => {
-                                            console.log(values);
-
+                                       
                                         this.props.createTrackerMutation({
                                                 variables: {
                                                     tracker_type: values.Category,

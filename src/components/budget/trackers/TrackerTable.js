@@ -267,7 +267,7 @@ class TrackerTable extends React.Component {
 
         return (
             <div className="App">
-                <div  className="flex-row">
+                <div  className="flex-row" >
                     <div className="flex-col">
                     <Table
                         className="ant-table-content-budget" style={{width:"750px"}}

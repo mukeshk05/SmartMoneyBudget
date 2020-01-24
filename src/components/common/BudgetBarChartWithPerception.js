@@ -7,19 +7,25 @@ class BudgetBarChartWithPerception extends React.Component {
 
     {
         const option = {
+            title: {
+                text: "eChartData.title",
+                subtext: "eChartData.subTitle",
+                left: "center"
+              },
             tooltip: {
                 trigger: 'axis',
-                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                axisPointer: {            
+                    type: 'shadow'      
                 }
             },
             legend: {
+                bottom:"bottom",
                 data: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
             },
             grid: {
                 left: '3%',
                 right: '4%',
-                bottom: '3%',
+                bottom: '13%',
                 containLabel: true
             },
             xAxis: [
@@ -34,6 +40,7 @@ class BudgetBarChartWithPerception extends React.Component {
                 }
             ],
             series: [
+               
                 {
                     name: 'A',
                     type: 'bar',
@@ -93,7 +100,7 @@ class BudgetBarChartWithPerception extends React.Component {
             ]
         };
 
-        return <ReactEcharts option={option} theme={"light"}  />;
+        return <ReactEcharts option={option} theme={"light"} style={{ height: "50vh",  width: "40vw"}} />;
     }
 }
 

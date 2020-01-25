@@ -222,6 +222,7 @@ export const getTrackerEChartData = (data, title, subTitle,categoryType,category
 };
 
 export const getTrackerEChartDataByCategory = (data, title, subTitle,categoryType,categoryAmount) => {
+
   const seriesCategory = [];
   const seriesName = title;
   const seriesData = [];
@@ -235,4 +236,37 @@ export const getTrackerEChartDataByCategory = (data, title, subTitle,categoryTyp
     }
   }
   return [{title, subTitle, seriesCategory, seriesData, seriesName}];
+};
+
+const totalHours = function(total, project){
+  return total + project.trackerAmount;
+};
+
+const sumProjects = function(projects){
+  return {
+    categoryName: projects[0].categoryName,
+    trackerAmount: _.reduce(projects, totalHours, 0)
+  }
+};
+
+const groupProjects = function(projects){
+  return _.chain(projects)
+      .groupBy('categoryName')
+      .map(sumProjects)
+      .value();
+};
+
+export const getTrackerBarChartDataByMonth=(data, title, subTitle,categoryType,categoryAmount)=>{
+  const groups = _.groupBy(data, 'trackerMonth');
+  const result = _.map(groups, function(group){
+    return {
+      trackerMonth: group[0].trackerMonth,
+      categoryName: groupProjects(group)
+    }
+  });
+
+  console.log(result);
+
+  return [{title, subTitle}];
+
 };

@@ -353,7 +353,6 @@ class Spending extends React.Component {
                                        }
                                     }
                                 }
-                                console.log(chartData12);
                                 const labels=[];
                                 const series=[];
                                 _(chartData12).groupBy('name').map(function(item,name){

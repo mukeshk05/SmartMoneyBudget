@@ -100,7 +100,7 @@ class BudgetBarChartWithPerception extends React.Component {
             ]
         };
 
-        return <ReactEcharts option={option} theme={"light"} style={{ height: "50vh",  width: "40vw"}} />;
+        return <ReactEcharts option={option} theme={"light"} style={{ height: "50vh",  width: "45vw"}} />;
     }
 }
 

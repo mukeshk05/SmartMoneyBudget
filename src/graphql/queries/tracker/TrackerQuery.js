@@ -35,7 +35,8 @@ export const USER_MONTEHLY_TRACKING=gql`
             Category{
                 user_id,
                 tracker_type
-            }
+            },
+            transactionDate
         }
     }
 `;

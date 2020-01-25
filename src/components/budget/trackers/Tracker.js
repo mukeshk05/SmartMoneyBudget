@@ -10,7 +10,7 @@ import {CREATE_TRACKER} from "../../../graphql/mutation/tracker/TrackerMutation"
 import moment from "moment";
 import {
     getEChartData,
-    getTrackeEChartData,
+    getTrackeEChartData, getTrackerBarChartDataByMonth,
     getTrackerEChartData,
     getTrackerEChartDataByCategory
 } from "../../common/PrepareData";
@@ -130,13 +130,12 @@ class Tracker extends React.Component {
                                         subCategoryName:trackers[i].Category.tracker_type.split("|")[1],
                                         trackerDate:<DatePicker defaultValue={moment(trackers[i].tracker_date, "YYYY-MM-DD")} format={"YYYY-MM-DD"}
                                                                 size={"small"}/>,
+                                        trackerMonth: moment(trackers[i].tracker_date).format("MMMM")
                                     }
 
                                 );
 
                             }
-
-
                             const result1 = _(array1)
                                 .groupBy('categoryName')
                                 .map(function(items, categoryName) {
@@ -145,11 +144,10 @@ class Tracker extends React.Component {
                                         trackerAmount:_.sumBy(items, 'trackerAmount')
                                     };
                                 }).value();
-
-                            console.log(result1);
                             const eChartData=getTrackerEChartData(trackers,"Sub Category Tracker","Tracker by Sub Category","Category","tracker_type","Amount");
                             const eChartCategoryData=getTrackerEChartDataByCategory(result1,"Category Tracker","Tracker by Category","categoryType","trackerAmount");
-
+                            const eChartDataByMonth=getTrackerBarChartDataByMonth(array1,"Category Tracker","Tracker by Category","categoryType","trackerAmount");
+                            console.log(eChartDataByMonth);
                             return (
                                 <TrackerTable
                                     startDate={this.props.startDate} endDate={this.props.endDate}

@@ -62,7 +62,7 @@ class BudgetTypePaiChart extends React.Component {
         }
       ]
     };
-    return <ReactEcharts option={option} theme={"light"} style={{ height: "40vh" }} />;
+    return <ReactEcharts option={option} theme={"light"} style={{ height: "45vh" }} />;
   }
 }
 

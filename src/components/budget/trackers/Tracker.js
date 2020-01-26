@@ -146,8 +146,7 @@ class Tracker extends React.Component {
                                 }).value();
                             const eChartData=getTrackerEChartData(trackers,"Sub Category Tracker","Tracker by Sub Category","Category","tracker_type","Amount");
                             const eChartCategoryData=getTrackerEChartDataByCategory(result1,"Category Tracker","Tracker by Category","categoryType","trackerAmount");
-                            const eChartDataByMonth=getTrackerBarChartDataByMonth(array1,"Category Tracker","Tracker by Category","categoryType","trackerAmount");
-                            console.log(eChartDataByMonth);
+                            const eChartDataByMonth=getTrackerBarChartDataByMonth(array1,"Monthely Category Tracker","Monthely Tracker by Category","categoryType","trackerAmount");
                             return (
                                 <TrackerTable
                                     startDate={this.props.startDate} endDate={this.props.endDate}
@@ -156,6 +155,7 @@ class Tracker extends React.Component {
                                     user={this.props.user}
                                     eChartData={eChartData}
                                     eChartCategoryData={eChartCategoryData}
+                                    eChartDataByMonth={eChartDataByMonth}
                                 />
                             );
                         }

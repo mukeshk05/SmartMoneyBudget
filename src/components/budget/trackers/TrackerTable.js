@@ -302,6 +302,7 @@ class TrackerTable extends React.Component {
                             <TabPane tab={ <span> Category and Sub Category</span>} key="3">
 
                                     <BudgetBarChartWithPerception
+                                    eChartDataByMonth={this.props.eChartDataByMonth}
                                     />
 
                             </TabPane>

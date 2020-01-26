@@ -258,15 +258,39 @@ const groupProjects = function(projects){
 
 export const getTrackerBarChartDataByMonth=(data, title, subTitle,categoryType,categoryAmount)=>{
   const groups = _.groupBy(data, 'trackerMonth');
-  const result = _.map(groups, function(group){
+  const result1 = _.map(groups, function(group){
     return {
       trackerMonth: group[0].trackerMonth,
       categoryName: groupProjects(group)
     }
   });
+  const xAxis=[];
+  const legendData=[];
+  const seriesData=[];
+ 
+  for(let i in result1){
+    xAxis.push(result1[i].trackerMonth);
+    for(let j in result1[i].categoryName){
+      let temp12=[...Array(result1.length)].map(x=>0);
+      temp12.splice(i,1,result1[i].categoryName[j].trackerAmount);
+      //legendData.push(result1[i].categoryName[j].categoryName);
+      seriesData.push({
+        name:result1[i].categoryName[j].categoryName,
+        type: 'bar',
+        data:temp12
+      });
+    }
+}
 
-  console.log(result);
-
-  return [{title, subTitle}];
+  const t1= _(data)
+  .groupBy('categoryName').map(function(items, categoryName) {
+    return {
+      categoryName: categoryName,
+    };
+}).value();
+for(let i in t1){
+  legendData.push(t1[i].categoryName)
+}
+  return [{title, subTitle,xAxis,legendData,seriesData}];
 
 };

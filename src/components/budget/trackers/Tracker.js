@@ -124,6 +124,7 @@ class Tracker extends React.Component {
                                 array1.push(
                                     {
                                         key: trackers[i].id,
+                                        user_id: trackers[i].user_id,
                                         categoryName:TrackerCategory[trackers[i].duration],
                                         description: trackers[i].description,
                                         trackerAmount:trackers[i].Amount,

@@ -13,11 +13,12 @@ import "../css/Editabletable.css";
 import { compose, Mutation, withApollo, graphql } from "react-apollo";
 import EditableFormRow from "../../common/EditableFormRow";
 import EditableCell from "../../common/EditableTableRow";
-import {DELETE_SAVING, UPDATE_SAVING, UPDATE_SAVINGL} from "../../../graphql/mutation/savings/SavingsMutation";
-import {USER_MONTEHLY_SAVING} from "../../../graphql/queries/savings/SavingsQuery";
 import {durationType} from "../../common/Duration";
 import BudgetTypePaiChart from "../../common/BudgetTypePaiChart";
 import BudgetBarChartWithPerception from "../../common/BudgetBarChartWithPerception";
+import { UPDATE_TRACKER, DELETE_TRACKER } from "../../../graphql/mutation/tracker/TrackerMutation";
+import { USER_MONTEHLY_TRACKING } from "../../../graphql/queries/tracker/TrackerQuery";
+import moment from "moment";
 const TabPane = Tabs.TabPane;
 
 const { Option } = Select;
@@ -62,19 +63,17 @@ class TrackerTable extends React.Component {
     };
 
     handleDelete = key => {
-        this.props.deleteSavingMutation({
+        this.props.deleteTrackerMutation({
             variables: {
                 id: key
             },
             refetchQueries: [
                 {
-                    query: USER_MONTEHLY_SAVING,
+                    query: USER_MONTEHLY_TRACKING,
                     variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
         });
-        //const salaryData = [...this.state.salaryData];
-        //this.setState({ salaryData: salaryData.filter(item => item.key !== key) });
     };
 
     handleSave = row => {
@@ -86,28 +85,19 @@ class TrackerTable extends React.Component {
             ...item,
             ...row
         });
-
-        let primaryDuration = durationType.findIndex(
-            item => row.primaryduration.props.defaultValue === item
-        );
-        let spouseDuration = durationType.findIndex(
-            item => row.spouseduration.props.defaultValue === item
-        );
-
-        this.props.updateSavingMutation({
+        this.props.updateTrackerMutation({
             variables: {
                 user_id: row.user_id,
-                duration: primaryDuration,
-                saving_amount: parseFloat(row.primaryamount),
-                saving_type: row.saving_type_id,
-                id: row.key,
-                spouse_amount: parseFloat(row.spouseamount),
-                spouse_duration: spouseDuration
+                description:row.description,
+                Amount:row.trackerAmount,
+                tracker_date:moment(row.trackerDate).format("YYYY-MM-DD"),
+                id:row.key
+               
             },
 
             refetchQueries: [
                 {
-                    query: USER_MONTEHLY_SAVING,
+                    query: USER_MONTEHLY_TRACKING,
                     variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate},
                     fetchPolicy: 'network-only'
 
@@ -129,7 +119,7 @@ class TrackerTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_MONTEHLY_SAVING,
+                    query: USER_MONTEHLY_TRACKING,
                     variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
@@ -147,7 +137,7 @@ class TrackerTable extends React.Component {
             },
             refetchQueries: [
                 {
-                    query: USER_MONTEHLY_SAVING,
+                    query: USER_MONTEHLY_TRACKING,
                     variables:{user_id: this.props.user.email,tranaction_start_date:this.props.startDate,transaction_end_date:this.props.endDate}
                 }
             ]
@@ -163,7 +153,7 @@ class TrackerTable extends React.Component {
         filteredInfo = filteredInfo || {};
         const columns = [
             {
-                title: <div style={{}}>{"Date"}</div>,
+                title: <div style={{width:"78px"}}>{"Date"}</div>,
                 dataIndex: "trackerDate",
                 key: "trackerDate",
                 editable: false,
@@ -172,7 +162,7 @@ class TrackerTable extends React.Component {
                 onFilter: (value, record) => record.name.includes(value),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === "trackerDate" && sortedInfo.order,
-                width: 100
+                width: 220
             },
             {
                 title: "Category Name",
@@ -182,7 +172,7 @@ class TrackerTable extends React.Component {
                 sorter: (a, b) => a.primaryduration - b.primaryduration,
                 sortOrder:
                     sortedInfo.columnKey === "categoryName" && sortedInfo.order,
-                width: 200
+                width: 270
             },
             {
                 title: "Sub Category Name",
@@ -192,7 +182,7 @@ class TrackerTable extends React.Component {
                 sorter: (a, b) => a.primaryduration - b.primaryduration,
                 sortOrder:
                     sortedInfo.columnKey === "subCategoryName" && sortedInfo.order,
-                width: 200
+                width: 260
             },
             {
                 title: "description",
@@ -204,7 +194,7 @@ class TrackerTable extends React.Component {
                 onFilter: (value, record) => record.primaryamount.includes(value),
                 sorter: (a, b) => a.primaryamount - b.primaryamount,
                 sortOrder: sortedInfo.columnKey === "description" && sortedInfo.order,
-                width: 200
+                width: 290
 
             },
             {
@@ -270,7 +260,7 @@ class TrackerTable extends React.Component {
                 <div  className="flex-row" >
                     <div className="flex-col">
                     <Table
-                        className="ant-table-content-budget" style={{width:"750px"}}
+                        className="ant-table-content-budget" style={{width:"780px"}}
                         components={components}
                         rowClassName={() => "editable-row"}
                         dataSource={salaryData}
@@ -319,6 +309,6 @@ class TrackerTable extends React.Component {
 }
 
 export default compose(
-    graphql(UPDATE_SAVING, { name: "updateSavingMutation" }),
-    graphql(DELETE_SAVING, { name: "deleteSavingMutation" })
+    graphql(UPDATE_TRACKER, { name: "updateTrackerMutation" }),
+    graphql(DELETE_TRACKER, { name: "deleteTrackerMutation" })
 )(withApollo(TrackerTable));

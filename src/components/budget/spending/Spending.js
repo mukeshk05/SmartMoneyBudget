@@ -2,7 +2,7 @@ import React from "react";
 import { Radio, Button, Col, Icon, Row, Select } from "antd";
 import "../../../styles/index.css";
 import { compose, graphql, Mutation, Query, withApollo } from "react-apollo";
-import { yearEndDate, yearStartDate, durationType,mapView} from "../../common/Duration";
+import { yearEndDate, yearStartDate, durationType,mapView,selectedDate} from "../../common/Duration";
 import moment from "moment";
 import _ from "lodash";
 import {USER_MONTEHLY_SPENDING} from "../../../graphql/queries/spending/SpendingQuery";
@@ -52,6 +52,12 @@ class Spending extends React.Component {
 
 
     render() {
+        const currentDate=selectedDate.format("YYYY-MM-DD");
+        console.log(currentDate);
+        const yearEndDate = moment(this.state.currentDate)
+        .subtract( 1, "year")
+        .format("YYYY-MM-DD");
+        console.log(yearEndDate)
         const durationView=this.state.durationView;
         return (
             <div className="ant-layout">
@@ -77,8 +83,8 @@ class Spending extends React.Component {
                         query={USER_MONTEHLY_SPENDING}
                         variables={{
                             user_id: this.props.user.email,
-                            tranaction_start_date: this.state.endDate,
-                            transaction_end_date: this.state.startDate
+                            tranaction_start_date:yearEndDate ,
+                            transaction_end_date:currentDate
                         }}
                         fetchPolicy={"network-only"}
                     >

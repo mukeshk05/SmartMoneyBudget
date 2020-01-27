@@ -21,3 +21,35 @@ export const CREATE_TRACKER = gql`
         }
     }
 `;
+
+
+export const UPDATE_TRACKER = gql`
+    mutation updateTracker(
+        $id: ID!
+        $user_id: String!
+        $tracker_date:DateTime!
+        $description:String!
+        $Amount:Float
+       
+    ) {
+        updateTracker(
+            where: { id: $id }
+            data: {
+                user_id: $user_id
+                description:$description
+                Amount:$Amount
+                tracker_date:$tracker_date
+            }
+        ) {
+            id
+        }
+    }
+`;
+
+export const DELETE_TRACKER = gql`
+    mutation deleteTracker($id: ID!) {
+        deleteTracker(where: { id: $id }) {
+            id
+        }
+    }
+`;

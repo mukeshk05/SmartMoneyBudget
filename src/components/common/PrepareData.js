@@ -1,8 +1,8 @@
-import {Select} from "antd";
+import { Select } from "antd";
 import React from "react";
 import moment from "moment";
 import _ from "lodash";
-import {mapView} from "../common/Duration";
+import { mapView } from "../common/Duration";
 
 const { Option } = Select;
 
@@ -188,12 +188,19 @@ export const savingChartData = (data, durationView) => {
   };
 };
 
-export const getEChartData = (data, title, subTitle,categoryType,categoryType1,categoryAmount) => {
+export const getEChartData = (
+  data,
+  title,
+  subTitle,
+  categoryType,
+  categoryType1,
+  categoryAmount
+) => {
   const seriesCategory = [];
   const seriesName = title;
   const seriesData = [];
   for (let i in data) {
-    if (data.hasOwnProperty(i) && data[i][categoryAmount]>0) {
+    if (data.hasOwnProperty(i) && data[i][categoryAmount] > 0) {
       seriesCategory.push(data[i][categoryType][categoryType1]);
       seriesData.push({
         value: data[i][categoryAmount],
@@ -201,16 +208,22 @@ export const getEChartData = (data, title, subTitle,categoryType,categoryType1,c
       });
     }
   }
-  return [{title, subTitle, seriesCategory, seriesData, seriesName}];
+  return [{ title, subTitle, seriesCategory, seriesData, seriesName }];
 };
 
-
-export const getTrackerEChartData = (data, title, subTitle,categoryType,categoryType1,categoryAmount) => {
+export const getTrackerEChartData = (
+  data,
+  title,
+  subTitle,
+  categoryType,
+  categoryType1,
+  categoryAmount
+) => {
   const seriesCategory = [];
   const seriesName = title;
   const seriesData = [];
   for (let i in data) {
-    if (data.hasOwnProperty(i) && data[i][categoryAmount]>0) {
+    if (data.hasOwnProperty(i) && data[i][categoryAmount] > 0) {
       seriesCategory.push(data[i][categoryType][categoryType1].split("|")[1]);
       seriesData.push({
         value: data[i][categoryAmount],
@@ -218,16 +231,21 @@ export const getTrackerEChartData = (data, title, subTitle,categoryType,category
       });
     }
   }
-  return [{title, subTitle, seriesCategory, seriesData, seriesName}];
+  return [{ title, subTitle, seriesCategory, seriesData, seriesName }];
 };
 
-export const getTrackerEChartDataByCategory = (data, title, subTitle,categoryType,categoryAmount) => {
-
+export const getTrackerEChartDataByCategory = (
+  data,
+  title,
+  subTitle,
+  categoryType,
+  categoryAmount
+) => {
   const seriesCategory = [];
   const seriesName = title;
   const seriesData = [];
   for (let i in data) {
-    if (data.hasOwnProperty(i) && data[i][categoryAmount]>0) {
+    if (data.hasOwnProperty(i) && data[i][categoryAmount] > 0) {
       seriesCategory.push(data[i][categoryType]);
       seriesData.push({
         value: data[i][categoryAmount],
@@ -235,62 +253,69 @@ export const getTrackerEChartDataByCategory = (data, title, subTitle,categoryTyp
       });
     }
   }
-  return [{title, subTitle, seriesCategory, seriesData, seriesName}];
+  return [{ title, subTitle, seriesCategory, seriesData, seriesName }];
 };
 
-const totalHours = function(total, project){
+const totalHours = function(total, project) {
   return total + project.trackerAmount;
 };
 
-const sumProjects = function(projects){
+const sumProjects = function(projects) {
   return {
     categoryName: projects[0].categoryName,
     trackerAmount: _.reduce(projects, totalHours, 0)
-  }
+  };
 };
 
-const groupProjects = function(projects){
+const groupProjects = function(projects) {
   return _.chain(projects)
-      .groupBy('categoryName')
-      .map(sumProjects)
-      .value();
+    .groupBy("categoryName")
+    .map(sumProjects)
+    .value();
 };
 
-export const getTrackerBarChartDataByMonth=(data, title, subTitle,categoryType,categoryAmount)=>{
-  const groups = _.groupBy(data, 'trackerMonth');
-  const result1 = _.map(groups, function(group){
+export const getTrackerBarChartDataByMonth = (
+  data,
+  title,
+  subTitle,
+  categoryType,
+  categoryAmount
+) => {
+  const groups = _.groupBy(data, "trackerMonth");
+  const result1 = _.map(groups, function(group) {
     return {
       trackerMonth: group[0].trackerMonth,
       categoryName: groupProjects(group)
-    }
+    };
   });
-  const xAxis=[];
-  const legendData=[];
-  const seriesData=[];
- 
-  for(let i in result1){
+  const xAxis = [];
+  const legendData = [];
+  const seriesData = [];
+
+  for (let i in result1) {
     xAxis.push(result1[i].trackerMonth);
-    for(let j in result1[i].categoryName){
-      let temp12=[...Array(result1.length)].map(x=>0);
-      temp12.splice(i,1,result1[i].categoryName[j].trackerAmount);
+    for (let j in result1[i].categoryName) {
+      let temp12 = [...Array(result1.length)].map(x => 0);
+      temp12.splice(i, 1, result1[i].categoryName[j].trackerAmount);
       //legendData.push(result1[i].categoryName[j].categoryName);
       seriesData.push({
-        name:result1[i].categoryName[j].categoryName,
-        type: 'bar',
-        data:temp12
+        name: result1[i].categoryName[j].categoryName,
+        type: "bar",
+        data: temp12
       });
     }
-}
+  }
 
-  const t1= _(data)
-  .groupBy('categoryName').map(function(items, categoryName) {
-    return {
-      categoryName: categoryName,
-    };
-}).value();
-for(let i in t1){
-  legendData.push(t1[i].categoryName)
-}
-  return [{title, subTitle,xAxis,legendData,seriesData}];
-
+  const t1 = _(data)
+    .groupBy("categoryName")
+    .map(function(items, categoryName) {
+      return {
+        categoryName: categoryName
+      };
+    })
+    .value();
+  for (let i in t1) {
+    legendData.push(t1[i].categoryName);
+  }
+  return [{ title, subTitle, xAxis, legendData, seriesData }];
 };

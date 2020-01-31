@@ -24,8 +24,8 @@ export const ALL_CATEGORIES = gql`
 `;
 
 export const USER_MONTEHLY_TRACKING=gql`
-    query getAllMonthelyTrackings($user_id:String!){
-        trackers(where: {user_id:$user_id}){
+    query getAllMonthelyTrackings($user_id:String!,$tranaction_start_date:DateTime!,$transaction_end_date:DateTime!){
+        trackers(where: {user_id:$user_id,transactionDate_gte: $tranaction_start_date, transactionDate_lte:$transaction_end_date}){
             id,
             user_id,
             tracker_date,

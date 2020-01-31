@@ -15,7 +15,7 @@ import {
     getTrackerEChartDataByCategory
 } from "../../common/PrepareData";
 import BillsEditableTable from "../budgetplanner/bill/BillsEditableTable";
-import {TrackerCategory} from "../../common/Duration";
+import {selectedDate, TrackerCategory} from "../../common/Duration";
 import _ from "lodash";
 
 class Tracker extends React.Component {
@@ -61,7 +61,10 @@ class Tracker extends React.Component {
 
     render() {
         const {intialData}=this.state;
-
+        const currentDate=selectedDate.format("YYYY-MM-DD");
+        const yearEndDate = moment(this.state.currentDate)
+            .subtract( 1, "year")
+            .format("YYYY-MM-DD");
         return (
             <div className="ant-layout">
                
@@ -109,7 +112,11 @@ class Tracker extends React.Component {
                         </div>
                     </Col>
                 </Row>
-                <Query query={USER_MONTEHLY_TRACKING }  variables={{user_id: this.props.user.email}} fetchPolicy={"network-only"}>
+                <Query query={USER_MONTEHLY_TRACKING }  variables={{
+                    user_id: this.props.user.email,
+                    tranaction_start_date:yearEndDate ,
+                    transaction_end_date:currentDate
+                }} fetchPolicy={"network-only"}>
                     {({ loading, error, data }) => {
                         if (loading)
                             return (
@@ -147,7 +154,8 @@ class Tracker extends React.Component {
                                 }).value();
                             const eChartData=getTrackerEChartData(trackers,"Sub Category Tracker","Tracker by Sub Category","Category","tracker_type","Amount");
                             const eChartCategoryData=getTrackerEChartDataByCategory(result1,"Category Tracker","Tracker by Category","categoryType","trackerAmount");
-                            const eChartDataByMonth=getTrackerBarChartDataByMonth(array1,"Monthely Category Tracker","Monthely Tracker by Category","categoryType","trackerAmount");
+                            const eChartDataByMonth=getTrackerBarChartDataByMonth(array1,"Monthly Category Tracker","Monthly Tracker by Category","categoryType","trackerAmount");
+                            console.log(eChartDataByMonth);
                             return (
                                 <TrackerTable
                                     startDate={this.props.startDate} endDate={this.props.endDate}

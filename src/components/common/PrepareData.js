@@ -211,6 +211,16 @@ export const getEChartData = (
   return [{ title, subTitle, seriesCategory, seriesData, seriesName }];
 };
 
+export const getActualBudgetData=(data)=>{
+  const resultData=groupProjects(data);
+  const barChartDat=[];
+  for (let i in resultData){
+    barChartDat.push(resultData[i].trackerAmount)
+  }
+  return barChartDat;
+
+};
+
 export const getTrackerEChartData = (
   data,
   title,
@@ -262,6 +272,13 @@ const totalHours = function(total, project) {
 
 const sumProjects = function(projects) {
   return {
+    subCategoryName: projects[0].subCategoryName,
+    trackerAmount: _.reduce(projects, totalHours, 0)
+  };
+};
+
+const sumCategoryProjects = function(projects) {
+  return {
     categoryName: projects[0].categoryName,
     trackerAmount: _.reduce(projects, totalHours, 0)
   };
@@ -270,9 +287,63 @@ const sumProjects = function(projects) {
 const groupProjects = function(projects) {
   return _.chain(projects)
     .groupBy("categoryName")
-    .map(sumProjects)
+    .map(sumCategoryProjects)
     .value();
 };
+
+const groupSubCategoryProjects = function(projects) {
+  return _.chain(projects)
+      .groupBy("subCategoryName")
+      .map(sumProjects)
+      .value();
+};
+
+
+export const getActualBudgetBarChartDataByMonth = (
+    data,
+    title,
+    subTitle,
+    categoryType,
+    categoryAmount
+) => {
+  const groups = _.groupBy(data, "trackerMonth");
+  const result1 = _.map(groups, function(group) {
+    return {
+      trackerMonth: group[0].trackerMonth,
+      subCategoryName: groupSubCategoryProjects(group)
+    };
+  });
+ const xAxis = [];
+  const legendData = [];
+  const seriesData = [];
+
+  for (let i in result1) {
+    xAxis.push(result1[i].trackerMonth);
+    for (let j in result1[i].subCategoryName) {
+      let temp12 = [...Array(result1.length)].map(x => 0);
+      temp12.splice(i, 1, result1[i].subCategoryName[j].trackerAmount);
+      seriesData.push({
+        name: result1[i].subCategoryName[j].subCategoryName,
+        type: "bar",
+        data: temp12
+      });
+    }
+  }
+
+  const t1 = _(data)
+      .groupBy("subCategoryName")
+      .map(function(items, subCategoryName) {
+        return {
+          subCategoryName: subCategoryName
+        };
+      })
+      .value();
+  for (let i in t1) {
+    legendData.push(t1[i].subCategoryName);
+  }
+  return [{ title, subTitle, xAxis, legendData, seriesData }];
+};
+
 
 export const getTrackerBarChartDataByMonth = (
   data,
@@ -282,12 +353,15 @@ export const getTrackerBarChartDataByMonth = (
   categoryAmount
 ) => {
   const groups = _.groupBy(data, "trackerMonth");
+
   const result1 = _.map(groups, function(group) {
     return {
       trackerMonth: group[0].trackerMonth,
       categoryName: groupProjects(group)
     };
   });
+
+  console.log(result1);
   const xAxis = [];
   const legendData = [];
   const seriesData = [];
@@ -297,7 +371,6 @@ export const getTrackerBarChartDataByMonth = (
     for (let j in result1[i].categoryName) {
       let temp12 = [...Array(result1.length)].map(x => 0);
       temp12.splice(i, 1, result1[i].categoryName[j].trackerAmount);
-      //legendData.push(result1[i].categoryName[j].categoryName);
       seriesData.push({
         name: result1[i].categoryName[j].categoryName,
         type: "bar",

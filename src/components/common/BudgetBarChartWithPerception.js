@@ -6,9 +6,7 @@ class BudgetBarChartWithPerception extends React.Component {
     render()
 
     {
-        console.log(this.props.eChartDataByMonth)
-        
-        const eChartData=this.props.eChartDataByMonth[0]
+        const eChartData=this.props.eChartDataByMonth[0];
         const option = {
             title: {
                 text: eChartData.title,

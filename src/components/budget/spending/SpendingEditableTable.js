@@ -33,6 +33,8 @@ import {USER_MONTEHLY_BILLS} from "../../../graphql/queries/bills/BillsQuery";
 import {USER_MONTEHLY_VARIABLE_EXPENSES} from "../../../graphql/queries/variableexpenses/VariableExpensesQuery";
 import {USER_MONTEHLY_FIXED_EXPENSESG} from "../../../graphql/queries/fixedexpenses/FixedExpensesQuery";
 import MonthelySpendingChart from "./MonthelySpendingChart";
+import SpendingTrackerVsActualChart from "./SpendingTrackerVsActualChart";
+import BudgetBarChartWithPerception from "../../common/BudgetBarChartWithPerception";
 const { Option } = Select;
 const TabPane = Tabs.TabPane;
 
@@ -327,7 +329,7 @@ class SpendingEditableTable extends React.Component {
                 onFilter: (value, record) => record.name.includes(value),
                 sorter: (a, b) => a.name.length - b.name.length,
                 sortOrder: sortedInfo.columnKey === "name" && sortedInfo.order,
-                width:100
+                width:300
             },
             {
                 title: "primary duration",
@@ -341,23 +343,16 @@ class SpendingEditableTable extends React.Component {
 
             {
                 title: "primary amount",
-                dataIndex: "primaryamount",
-                key: "primaryamount",
+                dataIndex: "trackerAmount",
+                key: "trackerAmount",
                 editable: true,
                 filteredValue: filteredInfo.address || null,
                 onFilter: (value, record) => record.primaryamount.includes(value),
                 sorter: (a, b) => a.primaryamount - b.primaryamount,
-                sortOrder: sortedInfo.columnKey === "primaryamount" && sortedInfo.order,
+                sortOrder: sortedInfo.columnKey === "trackerAmount" && sortedInfo.order,
              },
             {
-                title: durationType[this.props.durationView],
-                dataIndex: "primaryDurationAmount",
-                key: "primaryDurationAmount",
-                editable: false,
-            },
-            
-            {
-                title: "operation",
+                title: "",
                 dataIndex: "operation",
                 render: (text, record) =>
                     this.state.salaryData.length >= 1 ? (
@@ -365,9 +360,10 @@ class SpendingEditableTable extends React.Component {
                             title="Sure to delete?"
                             onConfirm={() => this.handleDelete(record.key)}
                         >
-                            <a>Delete</a>
+                            <Icon type="minus-circle" theme="twoTone" twoToneColor="red"/>
                         </Popconfirm>
                     ) : null,
+                width: 10
             }
         ];
         const components = {
@@ -407,7 +403,7 @@ class SpendingEditableTable extends React.Component {
             <div className="flex-row">
                 <div className="flex-col" style={{width:"1200px"}}>
                     <Table
-                        className="ant-income-table-content" style={{width:"780px"}}
+                        className="ant-income-table-content" style={{width:"700px"}}
                         components={components}
                         rowClassName={() => "editable-row"}
                         dataSource={salaryData}
@@ -420,100 +416,24 @@ class SpendingEditableTable extends React.Component {
                     />
                 </div>
                 <div className="flex-col" >
-                    <Tabs defaultActiveKey="2" tabPosition={"bottom"}>
-                        <TabPane
-                            tab={
-                                <span>
-                    <Icon type="apple" />
-                    Month
-                  </span>
-                            }
-                            key="1"
-                        >
-                            <div className="flex-col">
-                                <SpendingChart
-                                    onRef={ref => (this.child = ref)}
-                                    chartData={this.props.chartData}
-                                    month={this.props.month}
-                                />
-                            </div>
-                        </TabPane>
-                        <TabPane
-                            tab={
-                                <span>
-                    <Icon type="android" />
-                    Year
-                  </span>
-                            }
-                            key="2"
-                        >
-                            <div className="flex-col">
-                                {" "}
-                                <SpendingTypeChart
-                                    onRef={ref => (this.child = ref)}
-                                    spendingTypeChartLavel={this.props.spendingTypeChartLavel}
-                                    spendingTypeChartSeries={this.props.spendingTypeChartSeries}
-                                />
-                            </div>
-                        </TabPane>
-                        <TabPane
-                            tab={
-                                <span>
-                    <Icon type="android" />
-                    Quarter
-                  </span>
-                            }
-                            key="3"
-                        >
-                            <div className="flex-col">
-                                {" "}
-                                <SpendingPaiChart
-                                    onRef={ref => (this.child = ref)}
-                                    paiChartData={this.props.paiChartData}
-                                    paiChartLabels={this.props.paiChartLabels}
-                                />
-                            </div>
-                        </TabPane>
-                        <TabPane
-                            tab={
-                                <span>
-                    <Icon type="android" />
-                    Quarter
-                  </span>
-                            }
-                            key="4"
-                        >
-                            <div className="flex-col">
-                                {" "}
-                                <MonthelySpendingChart
-                                    onRef={ref => (this.child = ref)}
-                                    chartData={this.props.chartData}
-                                    month={this.props.month}
-                                />
-                            </div>
-                        </TabPane>
-                    </Tabs>
+                    <SpendingTrackerVsActualChart
+                        actualBudgetData={this.props.actualBudgetData}
+                        actualTrackerData={this.props.actualTrackerData}
+                    />
                 </div>
-            </div>
-            <div className="flex-row" style={{height:"120px"}} >
-
             </div>
             <div className="flex-row">
-                <Divider style={{height:1}}/>
                 <div className="flex-col" >
-                    <div className="incomeFont">Total  {durationType[this.props.durationView]}</div>
+                <BudgetBarChartWithPerception
+                    eChartDataByMonth={this.props.eChartDataByMonth}
+                />
                 </div>
+            </div>
+            <div className="flex-row">
                 <div className="flex-col" >
-                    <Statistic className="incomeFont"
-                               title="Primary Savings"
-                               value={this.props.primaryTotalSalary}
-                    />
-                </div>
-                <div className="flex-col" >
-                    <Statistic className="incomeFont"
-                               title="Spouse  Savings"
-                               value={this.props.spouseTotalSalary}
-                    />
+            <BudgetBarChartWithPerception
+                eChartDataByMonth={this.props.eChartTrackerDataByMonth}
+            />
                 </div>
             </div>
 

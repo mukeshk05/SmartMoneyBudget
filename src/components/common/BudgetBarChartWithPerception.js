@@ -20,7 +20,8 @@ class BudgetBarChartWithPerception extends React.Component {
                 }
             },
             legend: {
-                bottom:"bottom",
+                type: 'scroll',
+                bottom:'bottom',
                 data: eChartData.legendData
             },
             grid: {
@@ -28,6 +29,21 @@ class BudgetBarChartWithPerception extends React.Component {
                 right: '4%',
                 bottom: '13%',
                 containLabel: true
+            },
+            toolbox: {
+                show: true,
+                orient: 'vertical',
+                left: 'right',
+                top: 'top',
+                feature: {
+                    magicType: {show: true, type: ['line','bar','stack'],title: 'Convert'},
+                    saveAsImage: {show: true,title: 'Save As picture'},
+                    restore:{show:false},
+                    dataZoom:{show:false},
+                    dataView:{show:false},
+                    brush:{show:false}
+
+                }
             },
             xAxis: [
                 {

@@ -273,7 +273,7 @@ class VariableExpancesEditableTable extends React.Component {
                     </Col>
                     <Col span={2}>
                         <Statistic
-                            title="Primary Total Income"
+                            title="Total Variable Expances"
                             value={this.props.primaryTotalSalary}
                         />
                     </Col>

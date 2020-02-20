@@ -263,11 +263,11 @@ class FixedExpancesEditableTable extends React.Component {
                 <Row>
                     <Col span={1} />
                     <Col span={6}>
-                        <div className="ant-layout">Total</div>
+                        <div className="ant-layout"></div>
                     </Col>
                     <Col span={2}>
                         <Statistic
-                            title="Primary Total Income"
+                            title="Total Fixed Expenses"
                             value={this.props.primaryTotalSalary}
                         />
                     </Col>
